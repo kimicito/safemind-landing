@@ -117,6 +117,53 @@ RESULTS = {
     },
 }
 
+# --- "I'm definitely being replaced" survival guide ---
+SURVIVAL_INSTRUCTIONS = {
+    "en": (
+        "🔴 *You feel AI is coming for your job? Let's build a survival plan.*\n\n"
+        "Here are 5 immediate actions you can take *this week*:\n\n"
+        "1️⃣ *Document what only YOU can do* — the judgment calls, relationships, creative leaps that AI can't replicate.\n\n"
+        "2️⃣ *Become the AI operator* — don't compete with AI, master it. Learn ONE tool that amplifies your work (ChatGPT, Claude, Midjourney, etc.).\n\n"
+        "3️⃣ *Shift from execution to strategy* — AI does tasks. Humans set direction, negotiate, empathize, decide. Move upstream.\n\n"
+        "4️⃣ *Build a visible human brand* — be the person clients/colleagues trust, not just a function. Write, speak, mentor.\n\n"
+        "5️⃣ *Talk to your manager NOW* — ask: 'What parts of my role are hardest to automate?' Then double down on those.\n\n"
+        "🎯 *Next step:* Book a free strategy session with our Human AI Concierge to build your personal 90-day plan.\n\n"
+        "You are not replaceable. You just need to prove it. 💪"
+    ),
+    "ru": (
+        "🔴 *Вы уверены, что ИИ заменит вас? Давайте составим план выживания.*\n\n"
+        "Вот 5 действий, которые вы можете сделать *уже на этой неделе*:\n\n"
+        "1️⃣ *Зафиксируйте, что умеете ТОЛЬКО вы* — решения на основе опыта, отношения, творческие прыжки, которые ИИ не реплицирует.\n\n"
+        "2️⃣ *Станьте оператором ИИ* — не конкурируйте с ИИ, освойте его. Выучите ОДИН инструмент, который усиливает вашу работу (ChatGPT, Claude, Midjourney и т.д.).\n\n"
+        "3️⃣ *Переходите от исполнения к стратегии* — ИИ выполняет задачи. Люди задают направление, ведут переговоры, эмпатизируют, принимают решения. Двигайтесь выше по течению.\n\n"
+        "4️⃣ *Создайте видимый человеческий бренд* — будьте человеком, которому доверяют клиенты и коллеги, а не просто функцией. Пишите, выступайте, менторьте.\n\n"
+        "5️⃣ *Поговорите с руководителем ПРЯМО СЕЙЧАС* — спросите: 'Какие части моей роли сложнее всего автоматизировать?' Удвойте усилия там.\n\n"
+        "🎯 *Следующий шаг:* Запишитесь на бесплатную стратегическую сессию с Human AI Concierge, чтобы составить персональный 90-дневный план.\n\n"
+        "Вы незаменимы. Нужно только это доказать. 💪"
+    ),
+    "es": (
+        "🔴 *¿Sientes que la IA te reemplazará? Construyamos un plan de supervivencia.*\n\n"
+        "Aquí hay 5 acciones inmediatas para *esta semana*:\n\n"
+        "1️⃣ *Documenta lo que SOLO TÚ puedes hacer* — las decisiones basadas en experiencia, relaciones, saltos creativos que la IA no puede replicar.\n\n"
+        "2️⃣ *Conviértete en operador de IA* — no compitas con IA, domínala. Aprende UNA herramienta que amplifique tu trabajo (ChatGPT, Claude, Midjourney, etc.).\n\n"
+        "3️⃣ *Pasa de ejecución a estrategia* — la IA hace tareas. Los humanos establecen dirección, negocian, empatizan, deciden. Muévete hacia arriba.\n\n"
+        "4️⃣ *Construye una marca humana visible* — sé la persona en quien clientes y colegas confían, no solo una función. Escribe, habla, mentoriza.\n\n"
+        "5️⃣ *Habla con tu jefe AHORA* — pregúntale: '¿Qué partes de mi rol son más difíciles de automatizar?' Duplica esfuerzos ahí.\n\n"
+        "🎯 *Siguiente paso:* Agenda una sesión estratégica gratuita con nuestro Concierge Humano IA para construir tu plan personal de 90 días.\n\n"
+        "No eres reemplazable. Solo necesitas demostrarlo. 💪"
+    ),
+}
+
+async def survival_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    query = update.callback_query
+    await query.answer()
+    lang = context.user_data.get("lang", "en")
+    text = SURVIVAL_INSTRUCTIONS.get(lang, SURVIVAL_INSTRUCTIONS["en"])
+    keyboard = [
+        [InlineKeyboardButton("🚀 Join SafeMind", url="https://kimicito.github.io/safemind-landing/")]
+    ]
+    await query.edit_message_text(text, parse_mode="Markdown", reply_markup=InlineKeyboardMarkup(keyboard))
+
 # --- Command handlers ---
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user = update.effective_user
@@ -176,11 +223,29 @@ async def lang_selected(update: Update, context: ContextTypes.DEFAULT_TYPE):
     context.user_data["lang"] = lang
 
     greetings = {
-        "en": "✅ *English selected*\n\nWelcome to SafeMind. I'm here to help you understand your AI anxiety and build a plan.\n\nType /diagnose to start your free 10-minute assessment, or /help for commands.",
-        "ru": "✅ *Выбран русский язык*\n\nДобро пожаловать в SafeMind. Я помогу понять вашу тревогу от ИИ и составить план.\n\nНапишите /diagnose, чтобы начать бесплатную 10-минутную оценку, или /help для списка команд.",
-        "es": "✅ *Español seleccionado*\n\nBienvenido a SafeMind. Estoy aquí para ayudarte a entender tu ansiedad por IA y construir un plan.\n\nEscribe /diagnose para comenzar tu evaluación gratuita de 10 minutos, o /help para comandos.",
+        "en": "✅ *English selected*\n\nWelcome to SafeMind. I'm here to help you understand your AI anxiety and build a plan.\n\nWhat would you like to do?",
+        "ru": "✅ *Выбран русский язык*\n\nДобро пожаловать в SafeMind. Я помогу понять вашу тревогу от ИИ и составить план.\n\nЧто хотите сделать?",
+        "es": "✅ *Español seleccionado*\n\nBienvenido a SafeMind. Estoy aquí para ayudarte a entender tu ansiedad por IA y construir un plan.\n\n¿Qué te gustaría hacer?",
     }
-    await query.edit_message_text(greetings[lang], parse_mode="Markdown")
+    buttons = {
+        "en": [
+            [InlineKeyboardButton("🧠 Start Free Diagnosis", callback_data="start_diagnose")],
+            [InlineKeyboardButton("🔴 AI is replacing me — help", callback_data="survival")],
+        ],
+        "ru": [
+            [InlineKeyboardButton("🧠 Пройти бесплатную диагностику", callback_data="start_diagnose")],
+            [InlineKeyboardButton("🔴 Меня точно заменят ИИ — что делать", callback_data="survival")],
+        ],
+        "es": [
+            [InlineKeyboardButton("🧠 Comenzar diagnóstico gratis", callback_data="start_diagnose")],
+            [InlineKeyboardButton("🔴 La IA me reemplazará — ayuda", callback_data="survival")],
+        ],
+    }
+    await query.edit_message_text(
+        greetings[lang],
+        parse_mode="Markdown",
+        reply_markup=InlineKeyboardMarkup(buttons[lang]),
+    )
     return ConversationHandler.END
 
 
@@ -251,15 +316,32 @@ async def cancel(update: Update, context: ContextTypes.DEFAULT_TYPE):
     return ConversationHandler.END
 
 
+async def start_diagnose_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    query = update.callback_query
+    await query.answer()
+    lang = context.user_data.get("lang", "en")
+    context.user_data["answers"] = []
+    await query.edit_message_text(QUESTIONS[lang][0])
+    # Return Q1 so ConversationHandler catches next messages
+    # But since this is outside ConversationHandler, we need to manually track
+    # We'll store state in user_data and use a message handler to continue
+    context.user_data["question_idx"] = 0
+    await query.message.reply_text(QUESTIONS[lang][0])
+
+
 # --- Main ---
 def main():
     application = Application.builder().token(TOKEN).build()
+
+    # Standalone callback handlers (outside conversation)
+    application.add_handler(CallbackQueryHandler(survival_callback, pattern="^survival$"))
 
     # Conversation for diagnosis
     conv_handler = ConversationHandler(
         entry_points=[
             CommandHandler("start", start),
             CommandHandler("diagnose", diagnose_cmd),
+            CallbackQueryHandler(lang_selected, pattern="^lang_"),
         ],
         states={
             LANGUAGE: [CallbackQueryHandler(lang_selected, pattern="^lang_")],
