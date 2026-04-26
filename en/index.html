@@ -907,6 +907,39 @@ font-size: 1.1rem;
 padding: 18px 40px;
 }
 
+.leadmagnet-form input[type="email"],
+.leadmagnet-form select {
+width: 100%;
+padding: 14px 18px;
+border: 2px solid var(--light);
+border-radius: 12px;
+font-size: 1rem;
+font-family: inherit;
+outline: none;
+transition: border-color 0.3s;
+background: var(--card);
+}
+.leadmagnet-form input[type="email"]:focus,
+.leadmagnet-form select:focus {
+border-color: var(--accent);
+}
+.leadmagnet-form select {
+appearance: none;
+background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23666' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+background-repeat: no-repeat;
+background-position: right 16px center;
+padding-right: 40px;
+}
+.leadmagnet-form .form-row {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 12px;
+margin-bottom: 16px;
+}
+@media (max-width: 640px) {
+.leadmagnet-form .form-row { grid-template-columns: 1fr; }
+}
+
 /* Footer */
 footer {
 padding: 48px 20px;
@@ -921,6 +954,53 @@ color: var(--muted);
 footer a {
 color: var(--accent);
 text-decoration: none;
+}
+
+/* Lead Magnet */
+.leadmagnet {
+padding: 100px 20px;
+background: linear-gradient(135deg, #faf8f5 0%, #f5f1ec 100%);
+position: relative;
+overflow: hidden;
+}
+.leadmagnet::before {
+content: '';
+position: absolute;
+top: -30%;
+right: -20%;
+width: 500px;
+height: 500px;
+background: radial-gradient(circle, rgba(200,75,49,0.06) 0%, transparent 70%);
+pointer-events: none;
+}
+.leadmagnet-content {
+max-width: 700px;
+margin: 0 auto;
+text-align: center;
+position: relative;
+z-index: 2;
+}
+.leadmagnet-content h2 {
+font-size: clamp(2rem, 4vw, 3rem);
+font-weight: 800;
+margin-bottom: 16px;
+}
+.leadmagnet-content .subtitle {
+color: var(--muted);
+font-size: 1.1rem;
+margin-bottom: 40px;
+}
+.leadmagnet-form-wrapper {
+background: var(--card);
+border-radius: 20px;
+padding: 32px;
+box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+border: 1px solid rgba(0,0,0,0.05);
+}
+.leadmagnet-form {
+display: flex;
+flex-direction: column;
+gap: 0;
 }
 
 /* Modal */
@@ -1024,6 +1104,7 @@ animation: fadeInUp 0.8s ease forwards;
 SafeMind
 </a>
 <div class="nav-links">
+<a href="#leadmagnet">Free Guide</a>
 <a href="#workplace">Work Help</a>
 <a href="#fear">The Problem</a>
 <a href="#manifesto">Our Stand</a>
@@ -1351,6 +1432,49 @@ Sometimes the fear becomes too heavy to carry alone. If AI stress is affecting y
 </div>
 </section>
 
+<!-- Lead Magnet -->
+<section class="leadmagnet" id="leadmagnet">
+<div class="leadmagnet-content">
+<span class="section-label" style="color: var(--accent);">Free Resource</span>
+<h2>Get Your Free AI Survival Guide</h2>
+<p class="subtitle">7 days to make yourself irreplaceable. Tailored to your exact role. No fluff, no tech jargon — just actionable steps.</p>
+
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-bottom: 32px; text-align: left;">
+<div style="background: var(--card); border-radius: 12px; padding: 16px; border: 1px solid var(--light);"><div style="font-size: 1.5rem; margin-bottom: 8px;">📋</div><div style="font-size: 0.8rem; font-weight: 600;">7-Day Checklist</div></div>
+<div style="background: var(--card); border-radius: 12px; padding: 16px; border: 1px solid var(--light);"><div style="font-size: 1.5rem; margin-bottom: 8px;">🛠️</div><div style="font-size: 0.8rem; font-weight: 600;">Role-Specific Tools</div></div>
+<div style="background: var(--card); border-radius: 12px; padding: 16px; border: 1px solid var(--light);"><div style="font-size: 1.5rem; margin-bottom: 8px;">⚡</div><div style="font-size: 0.8rem; font-weight: 600;">Quick Wins</div></div>
+<div style="background: var(--card); border-radius: 12px; padding: 16px; border: 1px solid var(--light);"><div style="font-size: 1.5rem; margin-bottom: 8px;">🔒</div><div style="font-size: 0.8rem; font-weight: 600;">AI-Proof Strategy</div></div>
+</div>
+
+<div class="leadmagnet-form-wrapper">
+<form class="leadmagnet-form" onsubmit="handleLeadMagnet(event)">
+<div class="form-row">
+<input type="email" placeholder="your@email.com" id="lmEmail" required>
+<select id="lmRole" required>
+<option value="">Select your role...</option>
+<option value="manager">Manager / Executive</option>
+<option value="marketing">Marketing / PR</option>
+<option value="developer">Developer / IT</option>
+<option value="finance">Finance / Accounting</option>
+<option value="hr">HR / Recruiting</option>
+<option value="design">Designer / Creative</option>
+<option value="legal">Legal</option>
+<option value="other">Other</option>
+</select>
+</div>
+<button type="submit" class="btn-primary" style="width: 100%; justify-content: center;">
+📥 Download My Free Guide →
+</button>
+</form>
+<div class="leadmagnet-pdf-preview" style="display: none;" id="lmSuccess">
+<!-- populated by JS -->
+</div>
+</div>
+
+<p style="font-size: 0.8rem; color: var(--muted); margin-top: 16px; text-align: center;">No spam. Unsubscribe anytime. We never share your email.</p>
+</div>
+</section>
+
 <!-- Pricing -->
 <section class="pricing" id="pricing">
 <div class="pricing-content">
@@ -1458,6 +1582,57 @@ No AI chatbots. No algorithms. Just humans helping humans keep their jobs.
 </div>
 
 <script>
+function handleLeadMagnet(e) {
+e.preventDefault();
+const email = document.getElementById('lmEmail').value;
+const role = document.getElementById('lmRole').value;
+if(!email || !email.includes('@') || !role) {
+alert('Please enter a valid email and select your role');
+return;
+}
+// Save lead
+const leads = JSON.parse(localStorage.getItem('safemind_leads') || '[]');
+leads.push({email, role, date: new Date().toISOString()});
+localStorage.setItem('safemind_leads', JSON.stringify(leads));
+
+// Map role to PDF
+const roleToPdf = {
+'manager': 'safemind_survival_guide_en_manager.pdf',
+'marketing': 'safemind_survival_guide_en_marketing.pdf',
+'developer': 'safemind_survival_guide_en_developer.pdf',
+'finance': 'safemind_survival_guide_en_generic.pdf',
+'hr': 'safemind_survival_guide_en_generic.pdf',
+'design': 'safemind_survival_guide_en_generic.pdf',
+'legal': 'safemind_survival_guide_en_generic.pdf',
+'other': 'safemind_survival_guide_en_generic.pdf'
+};
+const pdfFile = roleToPdf[role] || roleToPdf['other'];
+
+// Show success with download
+const successDiv = document.getElementById('lmSuccess');
+successDiv.innerHTML = `
+<div style="text-align: center; padding: 24px;">
+<div style="font-size: 3rem; margin-bottom: 12px;">✅</div>
+<h3 style="margin-bottom: 8px;">Check your email!</h3>
+<p style="color: var(--muted); margin-bottom: 20px;">Your personalized AI Survival Guide is on its way. If you don't see it in 2 minutes, check your spam folder.</p>
+<a href="pdfs/${pdfFile}" download class="btn-primary" style="display: inline-flex; margin-bottom: 16px;">
+📥 Download PDF Now
+</a>
+<div style="background: linear-gradient(135deg, var(--gradient3), var(--gradient4)); border-radius: 12px; padding: 16px; margin-top: 8px;">
+<p style="font-size: 0.85rem; color: #fff; margin: 0;">
+<strong>Want the full 30-day plan?</strong><br>
+Detailed roadmaps, templates, scripts, and weekly check-ins — available in SafeMind Pro.
+</p>
+<a href="#pricing" class="btn-primary" style="margin-top: 12px; background: #fff; color: var(--accent);" onclick="closeComingSoon()">
+See Plans →
+</a>
+</div>
+</div>
+`;
+successDiv.style.display = 'block';
+document.querySelector('.leadmagnet-form').style.display = 'none';
+}
+
 function showComingSoon(e) {
 if(e) e.preventDefault();
 document.getElementById('comingSoonModal').classList.add('active');
