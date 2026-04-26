@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SafeMind — Stay Calm in the AI Era</title>
+<meta name="description" content="AI Anxiety Diagnosis, Human Support, and Personal AI Bot. Stay irreplaceable.">
+<link rel="stylesheet" href="../assets/style.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<nav class="nav container">
+  <a href="index.html" class="logo">SafeMind</a>
+  <div class="lang-switch">
+    <a href="../en/index.html" class="active">EN</a>
+    <a href="../ru/index.html">RU</a>
+    <a href="../es/index.html">ES</a>
+  </div>
+</nav>
+
+<section class="hero container">
+  <h1>Is AI coming for your job?<br>Let's find out together.</h1>
+  <p class="sub">Get a free 10-minute diagnosis of your AI replacement risk, a personal action plan, and a human partner who keeps you ahead of the curve.</p>
+  <button class="cta-main" onclick="showStub()">Check My Risk — Free</button>
+  <div class="trust-bar">Trusted by 100+ professionals from Google, McKinsey, and freelance creatives.</div>
+</section>
+
+<section class="section container">
+  <h2 class="section-title">How it works</h2>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <h3>Diagnose</h3>
+      <p>10-minute assessment of your AI exposure, skills gap, and career resilience.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <h3>Plan</h3>
+      <p>Receive a personalized roadmap to make yourself irreplaceable in 90 days.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <h3>Thrive</h3>
+      <p>Weekly check-ins, AI news digest, and a personal bot if you need one.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section container">
+  <h2 class="section-title">Choose your level</h2>
+  <div class="pricing-grid">
+    <div class="card">
+      <h3>AI Anxiety Diagnosis</h3>
+      <div class="price">$0</div>
+      <ul>
+        <li>10-min risk assessment</li>
+        <li>Personal action plan</li>
+        <li>Email with key insights</li>
+        <li>Access to SafeMind community</li>
+      </ul>
+      <button class="cta" onclick="showStub()">Start Free</button>
+    </div>
+    <div class="card featured" data-badge="Most Popular">
+      <h3>Human AI Concierge</h3>
+      <div class="price">$99<span>/month</span></div>
+      <ul>
+        <li>Everything in Free, plus:</li>
+        <li>Weekly AI news digest</li>
+        <li>Direct answers to your questions</li>
+        <li>1× weekly strategy session</li>
+        <li>Priority community access</li>
+      </ul>
+      <button class="cta" onclick="showStub()">Join Waitlist</button>
+    </div>
+    <div class="card">
+      <h3>Personal AI Bot</h3>
+      <div class="price">$299<span>one-time</span></div>
+      <ul>
+        <li>Custom AI assistant trained on your data</li>
+        <li>Works in your Telegram / Slack</li>
+        <li>Tailored to your industry</li>
+        <li>+$19/month hosting</li>
+      </ul>
+      <button class="cta" onclick="showStub()">Request a Bot</button>
+    </div>
+  </div>
+</section>
+
+<section class="section container">
+  <h2 class="section-title">Questions? We've got answers.</h2>
+  <div class="faq">
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        Is the diagnosis really free? <span class="faq-icon">▼</span>
+      </div>
+      <div class="faq-a">Yes. No credit card, no strings. We believe trust starts with giving value first.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        Who will be my human partner? <span class="faq-icon">▼</span>
+      </div>
+      <div class="faq-a">A real person who tracks AI trends daily and knows how to translate them into your career context.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        Can I cancel anytime? <span class="faq-icon">▼</span>
+      </div>
+      <div class="faq-a">Absolutely. Monthly plan — cancel anytime. No questions, no guilt.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        What languages do you support? <span class="faq-icon">▼</span>
+      </div>
+      <div class="faq-a">English, Russian, and Spanish. More coming based on demand.</div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer container">
+  © 2026 SafeMind. Built for humans, powered by care.<br>
+  <a href="mailto:hello@safemind.co">hello@safemind.co</a>
+</footer>
+
+<!-- Modal Stub -->
+<div class="modal-overlay" id="stubModal">
+  <div class="modal">
+    <h3>🚀 Coming Soon</h3>
+    <p>We're launching in May 2026.<br>Leave your email to get early access.</p>
+    <input type="email" placeholder="your@email.com" style="width:100%;padding:12px;margin-bottom:16px;border:1px solid var(--border);border-radius:var(--radius);font-size:1rem;">
+    <br>
+    <button class="close-btn" onclick="hideStub()">Notify Me</button>
+  </div>
+</div>
+
+<script>
+function showStub() { document.getElementById('stubModal').classList.add('show'); }
+function hideStub() { document.getElementById('stubModal').classList.remove('show'); }
+function toggleFaq(el) { el.parentElement.classList.toggle('open'); }
+document.getElementById('stubModal').addEventListener('click', function(e){
+  if(e.target === this) hideStub();
+});
+</script>
+
+</body>
+</html>

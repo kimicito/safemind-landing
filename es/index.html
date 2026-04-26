@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SafeMind — Mantén la calma en la era de la IA</title>
+<meta name="description" content="Diagnóstico de ansiedad por IA, apoyo humano y bot de IA personal. Mantente insustituible.">
+<link rel="stylesheet" href="../assets/style.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<nav class="nav container">
+  <a href="index.html" class="logo">SafeMind</a>
+  <div class="lang-switch">
+    <a href="../en/index.html">EN</a>
+    <a href="../ru/index.html">RU</a>
+    <a href="../es/index.html" class="active">ES</a>
+  </div>
+</nav>
+
+<section class="hero container">
+  <h1>¿La IA va a quitarte tu trabajo?<br>Descubrámoslo juntos.</h1>
+  <p class="sub">Obtén un diagnóstico gratuito de 10 minutos sobre tu riesgo de reemplazo por IA, un plan de acción personalizado y un compañero humano que te mantiene a la vanguardia.</p>
+  <button class="cta-main" onclick="showStub()">Evaluar mi riesgo — Gratis</button>
+  <div class="trust-bar">Confiado por 100+ profesionales de Google, McKinsey y creativos freelance.</div>
+</section>
+
+<section class="section container">
+  <h2 class="section-title">Cómo funciona</h2>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <h3>Diagnosticar</h3>
+      <p>Evaluación de 10 minutos sobre tu exposición a la IA, brechas de habilidades y resiliencia profesional.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <h3>Planificar</h3>
+      <p>Recibe una hoja de ruta personalizada para volverte insustituible en 90 días.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <h3>Prosperar</h3>
+      <p>Revisiones semanales, resumen de noticias sobre IA y un bot personal si lo necesitas.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section container">
+  <h2 class="section-title">Elige tu nivel</h2>
+  <div class="pricing-grid">
+    <div class="card">
+      <h3>Diagnóstico de Ansiedad IA</h3>
+      <div class="price">$0</div>
+      <ul>
+        <li>Evaluación de riesgo de 10 min</li>
+        <li>Plan de acción personalizado</li>
+        <li>Email con insights clave</li>
+        <li>Acceso a la comunidad SafeMind</li>
+      </ul>
+      <button class="cta" onclick="showStub()">Empezar gratis</button>
+    </div>
+    <div class="card featured" data-badge="Más Popular">
+      <h3>Concierge Humano IA</h3>
+      <div class="price">$99<span>/mes</span></div>
+      <ul>
+        <li>Todo lo de Free, más:</li>
+        <li>Resumen semanal de noticias IA</li>
+        <li>Respuestas directas a tus preguntas</li>
+        <li>1× sesión estratégica semanal</li>
+        <li>Acceso prioritario a la comunidad</li>
+      </ul>
+      <button class="cta" onclick="showStub()">Unirse a lista</button>
+    </div>
+    <div class="card">
+      <h3>Bot de IA Personal</h3>
+      <div class="price">$299<span>único</span></div>
+      <ul>
+        <li>Asistente IA entrenado con tus datos</li>
+        <li>Funciona en tu Telegram / Slack</li>
+        <li>Adaptado a tu industria</li>
+        <li>+$19/mes hosting</li>
+      </ul>
+      <button class="cta" onclick="showStub()">Solicitar bot</button>
+    </div>
+  </div>
+</section>
+
+<section class="section container">
+  <h2 class="section-title">¿Preguntas? Tenemos respuestas.</h2>
+  <div class="faq">
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        ¿El diagnóstico es realmente gratis? <span class="faq-icon">▼</span>
+      </div>
+      <div class="faq-a">Sí. Sin tarjeta de crédito, sin compromisos. Creemos que la confianza empieza con dar valor primero.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        ¿Quién será mi compañero humano? <span class="faq-icon">▼</span>
+      </div>
+      <div class="faq-a">Una persona real que sigue las tendencias de IA a diario y sabe traducirlas al contexto de tu carrera.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        ¿Puedo cancelar en cualquier momento? <span class="faq-icon">▼</span>
+      </div>
+      <div class="faq-a">Absolutamente. Plan mensual — cancela cuando quieras. Sin preguntas, sin culpa.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        ¿Qué idiomas soportan? <span class="faq-icon">▼</span>
+      </div>
+      <div class="faq-a">Inglés, ruso y español. Más idiomas según la demanda.</div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer container">
+  © 2026 SafeMind. Construido para humanos, impulsado por el cuidado.<br>
+  <a href="mailto:hello@safemind.co">hello@safemind.co</a>
+</footer>
+
+<!-- Modal Stub -->
+<div class="modal-overlay" id="stubModal">
+  <div class="modal">
+    <h3>🚀 Próximamente</h3>
+    <p>Lanzamiento en mayo de 2026.<br>Deja tu email para acceso anticipado.</p>
+    <input type="email" placeholder="tu@email.com" style="width:100%;padding:12px;margin-bottom:16px;border:1px solid var(--border);border-radius:var(--radius);font-size:1rem;">
+    <br>
+    <button class="close-btn" onclick="hideStub()">Notificarme</button>
+  </div>
+</div>
+
+<script>
+function showStub() { document.getElementById('stubModal').classList.add('show'); }
+function hideStub() { document.getElementById('stubModal').classList.remove('show'); }
+function toggleFaq(el) { el.parentElement.classList.toggle('open'); }
+document.getElementById('stubModal').addEventListener('click', function(e){
+  if(e.target === this) hideStub();
+});
+</script>
+
+</body>
+</html>

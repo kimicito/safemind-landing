@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SafeMind — Choose your language</title>
+<link rel="stylesheet" href="assets/style.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+.language-page {
+  min-height: 100vh; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; text-align: center;
+  background: var(--bg);
+}
+.language-page h1 { font-size: 2.5rem; margin-bottom: 12px; }
+.language-page p { color: var(--text-light); margin-bottom: 40px; }
+.lang-options { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; }
+.lang-btn {
+  display: block; background: var(--bg-card); border: 2px solid var(--border);
+  padding: 30px 40px; border-radius: var(--radius); text-decoration: none;
+  color: var(--text); transition: all 0.2s; min-width: 160px;
+}
+.lang-btn:hover { border-color: var(--primary); transform: translateY(-2px); box-shadow: var(--shadow); }
+.lang-btn strong { display: block; font-size: 1.3rem; margin-bottom: 6px; }
+.lang-btn span { font-size: 0.9rem; color: var(--text-light); }
+</style>
+</head>
+<body>
+
+<div class="language-page">
+  <div class="logo" style="font-size:2rem;font-weight:800;color:var(--primary);margin-bottom:20px;">SafeMind</div>
+  <h1>Choose your language</h1>
+  <p>Stay calm in the AI era. Select your preferred language below.</p>
+  <div class="lang-options">
+    <a href="en/index.html" class="lang-btn">
+      <strong>English</strong>
+      <span>Global</span>
+    </a>
+    <a href="ru/index.html" class="lang-btn">
+      <strong>Русский</strong>
+      <span>СНГ и мир</span>
+    </a>
+    <a href="es/index.html" class="lang-btn">
+      <strong>Español</strong>
+      <span>Latinoamérica y España</span>
+    </a>
+  </div>
+  <p style="margin-top:60px;font-size:0.85rem;color:var(--text-light);">
+    © 2026 SafeMind
+  </p>
+</div>
+
+</body>
+</html>

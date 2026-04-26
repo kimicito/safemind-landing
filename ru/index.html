@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SafeMind — Спокойствие в эпоху ИИ</title>
+<meta name="description" content="Диагностика тревоги от ИИ, человеческая поддержка, персональный AI-бот. Останьтесь незаменимым.">
+<link rel="stylesheet" href="../assets/style.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<nav class="nav container">
+  <a href="index.html" class="logo">SafeMind</a>
+  <div class="lang-switch">
+    <a href="../en/index.html">EN</a>
+    <a href="../ru/index.html" class="active">RU</a>
+    <a href="../es/index.html">ES</a>
+  </div>
+</nav>
+
+<section class="hero container">
+  <h1>ИИ заберёт вашу работу?<br>Давайте разберёмся вместе.</h1>
+  <p class="sub">Бесплатная 10-минутная диагностика риска замены ИИ, персональный план действий и человек-партнёр, который поможет оставаться впереди.</p>
+  <button class="cta-main" onclick="showStub()">Проверить мой риск — Бесплатно</button>
+  <div class="trust-bar">Уже используют 100+ специалистов из Google, McKinsey и творческих профессий.</div>
+</section>
+
+<section class="section container">
+  <h2 class="section-title">Как это работает</h2>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <h3>Диагностика</h3>
+      <p>10-минутная оценка вашей уязвимости перед ИИ, пробелов в навыках и устойчивости карьеры.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <h3>План</h3>
+      <p>Персональная дорожная карта: как стать незаменимым за 90 дней.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <h3>Рост</h3>
+      <p>Еженедельные чек-ины, дайджест новостей ИИ и персональный бот, если нужен.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section container">
+  <h2 class="section-title">Выберите уровень</h2>
+  <div class="pricing-grid">
+    <div class="card">
+      <h3>Диагностика тревоги ИИ</h3>
+      <div class="price">$0</div>
+      <ul>
+        <li>10-мин оценка риска</li>
+        <li>Персональный план действий</li>
+        <li>Email с ключевыми инсайтами</li>
+        <li>Доступ к сообществу SafeMind</li>
+      </ul>
+      <button class="cta" onclick="showStub()">Начать бесплатно</button>
+    </div>
+    <div class="card featured" data-badge="Популярный">
+      <h3>Консьерж Human AI</h3>
+      <div class="price">$99<span>/мес</span></div>
+      <ul>
+        <li>Всё из Free, плюс:</li>
+        <li>Еженедельный дайджест новостей ИИ</li>
+        <li>Прямые ответы на вопросы</li>
+        <li>1× стратегическая сессия в неделю</li>
+        <li>Приоритетный доступ к сообществу</li>
+      </ul>
+      <button class="cta" onclick="showStub()">Встать в лист ожидания</button>
+    </div>
+    <div class="card">
+      <h3>Персональный AI-бот</h3>
+      <div class="price">$299<span>единоразово</span></div>
+      <ul>
+        <li>Персональный ассистент на ваших данных</li>
+        <li>Работает в Telegram / Slack</li>
+        <li>Подстроен под вашу индустрию</li>
+        <li>+$19/мес хостинг</li>
+      </ul>
+      <button class="cta" onclick="showStub()">Заказать бота</button>
+    </div>
+  </div>
+</section>
+
+<section class="section container">
+  <h2 class="section-title">Вопросы? У нас есть ответы.</h2>
+  <div class="faq">
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        Диагностика действительно бесплатная? <span class="faq-icon">▼</span>
+      </div>
+      <div class="faq-a">Да. Никакой карты, никаких обязательств. Мы верим, что доверие начинается с пользы.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        Кто будет моим партнёром? <span class="faq-icon">▼</span>
+      </div>
+      <div class="faq-a">Реальный человек, который ежедневно следит за трендами ИИ и умеет переводить их в контекст вашей карьеры.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        Можно отменить в любой момент? <span class="faq-icon">▼</span>
+      </div>
+      <div class="faq-a">Конечно. Месячная подписка — отмена в любой момент. Без вопросов и угрызений совести.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        Какие языки поддерживаются? <span class="faq-icon">▼</span>
+      </div>
+      <div class="faq-a">Английский, русский и испанский. Остальные — по запросу.</div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer container">
+  © 2026 SafeMind. Создано для людей, работает с заботой.<br>
+  <a href="mailto:hello@safemind.co">hello@safemind.co</a>
+</footer>
+
+<!-- Modal Stub -->
+<div class="modal-overlay" id="stubModal">
+  <div class="modal">
+    <h3>🚀 Скоро запуск</h3>
+    <p>Запуск в мае 2026.<br>Оставьте email для раннего доступа.</p>
+    <input type="email" placeholder="your@email.com" style="width:100%;padding:12px;margin-bottom:16px;border:1px solid var(--border);border-radius:var(--radius);font-size:1rem;">
+    <br>
+    <button class="close-btn" onclick="hideStub()">Уведомить меня</button>
+  </div>
+</div>
+
+<script>
+function showStub() { document.getElementById('stubModal').classList.add('show'); }
+function hideStub() { document.getElementById('stubModal').classList.remove('show'); }
+function toggleFaq(el) { el.parentElement.classList.toggle('open'); }
+document.getElementById('stubModal').addEventListener('click', function(e){
+  if(e.target === this) hideStub();
+});
+</script>
+
+</body>
+</html>
