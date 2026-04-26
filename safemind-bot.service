@@ -1,0 +1,15 @@
+[Unit]
+Description=SafeMind Telegram Bot
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/root/.openclaw/workspace/safemind
+Environment=PYTHONPATH=/root/.openclaw/workspace/venv/lib/python3.12/site-packages
+ExecStart=/root/.openclaw/workspace/venv/bin/python /root/.openclaw/workspace/safemind/bot.py
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
