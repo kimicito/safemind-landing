@@ -907,6 +907,35 @@ font-size: 1.1rem;
 padding: 18px 40px;
 }
 
+/* FAQ */
+.faq { padding: 100px 20px; background: var(--bg); }
+.faq-content { max-width: 800px; margin: 0 auto; }
+.faq-content h2 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; margin-bottom: 16px; text-align: center; }
+.faq-content .subtitle { color: var(--muted); font-size: 1.1rem; margin-bottom: 48px; text-align: center; }
+.faq-item { background: var(--card); border-radius: 16px; margin-bottom: 12px; border: 1px solid rgba(0,0,0,0.05); overflow: hidden; }
+.faq-question { padding: 20px 24px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-weight: 600; font-size: 1rem; }
+.faq-question:hover { color: var(--accent); }
+.faq-answer { padding: 0 24px; max-height: 0; overflow: hidden; transition: all 0.3s ease; color: var(--muted); font-size: 0.95rem; line-height: 1.6; }
+.faq-item.open .faq-answer { padding: 0 24px 20px; max-height: 300px; }
+.faq-toggle { font-size: 1.2rem; transition: transform 0.3s; }
+.faq-item.open .faq-toggle { transform: rotate(45deg); }
+
+/* Cases */
+.cases { padding: 100px 20px; background: linear-gradient(135deg, #faf8f5 0%, #f5f1ec 100%); }
+.cases-content { max-width: 1000px; margin: 0 auto; }
+.cases-content h2 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; margin-bottom: 16px; text-align: center; }
+.cases-content .subtitle { color: var(--muted); font-size: 1.1rem; margin-bottom: 48px; text-align: center; }
+.cases-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+.case-card { background: var(--card); border-radius: 20px; padding: 32px; box-shadow: 0 4px 24px rgba(0,0,0,0.06); border: 1px solid rgba(0,0,0,0.05); }
+.case-card .role-tag { display: inline-block; background: rgba(200,75,49,0.1); color: var(--accent); padding: 4px 12px; border-radius: 50px; font-size: 0.75rem; font-weight: 700; margin-bottom: 16px; }
+.case-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 16px; }
+.case-before, .case-after { margin-bottom: 12px; }
+.case-before strong, .case-after strong { display: block; margin-bottom: 4px; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; }
+.case-before strong { color: var(--accent); }
+.case-after strong { color: #27ae60; }
+.case-before p, .case-after p { font-size: 0.9rem; color: var(--muted); line-height: 1.5; margin: 0; }
+.case-result { margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--light); font-size: 0.85rem; color: var(--accent); font-weight: 600; }
+
 /* Footer */
 footer {
 padding: 48px 20px;
@@ -1471,6 +1500,146 @@ SafeMind - не чат-бот. Не алгоритм. Не "приложение
 </div>
 
 <p style="font-size: 0.8rem; color: var(--muted); margin-top: 16px; text-align: center;">Никакого спама. Можно отписаться в любой момент. Email никому не передаём.</p>
+</div>
+</section>
+
+<!-- FAQ -->
+<section class="faq" id="faq">
+<div class="faq-content">
+<span class="section-label" style="color: var(--accent); display: block; text-align: center;">Частые вопросы</span>
+<h2>Что спрашивают чаще всего</h2>
+<p class="subtitle">Вопросы, которые не дают вам спать по ночам. Честные ответы.</p>
+
+<div class="faq-item">
+<div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+SafeMind — это реальные люди, а не боты?
+<span class="faq-toggle">+</span>
+</div>
+<div class="faq-answer">
+Да. Каждый ответ, каждая сессия, каждый совет — от живого человека. Мы используем ИИ-инструменты для организации информации, но мышление, эмпатия и поддержка — 100% человеческие. Если вы хотите поговорить с ботом, их полно в других местах.
+</div>
+</div>
+
+<div class="faq-item">
+<div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+Это терапия? Нужен ли мне диагноз?
+<span class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+Нет, диагноз не нужен. SafeMind — это поддержка в карьере с психологическим уклоном: мы помогаем справиться с тревогой от ИИ, развить навыки и защитить работу. Если нужна клиническая терапия — доктор Елена тоже это делает. Но большинству людей просто нужна ясность, план и тот, кто понимает.
+</div>
+</div>
+
+<div class="faq-item">
+<div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+А если меня уже сократили из-за ИИ?
+<span class="faq-toggle">+</span>
+</div>
+<div class="faq-answer">
+Тогда вы в нужном месте. У нас есть протоколы восстановления после сокращения: переосмысление опыта, поиск переносимых навыков, стратегия поиска работы, где ваш "опыт с ИИ" — актив, а не минус. Вы не начинаете с нуля.
+</div>
+</div>
+
+<div class="faq-item">
+<div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+ИИ реально отберёт мою работу, или я просто паникую?
+<span class="faq-toggle">+</span>
+</div>
+<div class="faq-answer">
+Зависит от роли. Некоторые профессии действительно под угрозой. Другие безопаснее, чем пишут в заголовках. Мы анализируем вашу конкретную ситуацию — индустрию, задачи, компанию — и даём честную оценку. Не хайп, не ложное успокоение. Только факты и план.
+</div>
+</div>
+
+<div class="faq-item">
+<div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+Как быстро я увижу результат?
+<span class="faq-toggle">+</span>
+</div>
+<div class="faq-answer">
+Большинство начинает чувствовать контроль уже на первой неделе. 7-дневный гид даёт быстрые победы. За 30 дней — новые навыки, уверенность и чёткое позиционирование на работе. Страх не исчезает мгновенно, но перестаёт управлять вами.
+</div>
+</div>
+
+<div class="faq-item">
+<div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+Бесплатный гид — это просто замануха, или реально полезно?
+<span class="faq-toggle">+</span>
+</div>
+<div class="faq-answer">
+Он реально полезен. В бесплатной версии — 7 дней конкретных действий, инструменты под роль и быстрые победы. Платный план глубже — 30-дневные дорожные карты, шаблоны, скрипты и личная поддержка. Но одна бесплатная версия уже сэкономит вам часы и уменьшит тревогу.
+</div>
+</div>
+
+<div class="faq-item">
+<div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+Чем SafeMind отличается от карьерного коучинга?
+<span class="faq-toggle">+</span>
+</div>
+<div class="faq-answer">
+Традиционные карьерные коучи не понимают ИИ. Курсы по ИИ не понимают ваш страх. Мы делаем и то, и другое. Мы соединяем стратегию на рабочем месте с психологической поддержкой — потому что главный барьер для адаптации к ИИ не технический, а эмоциональный.
+</div>
+</div>
+
+<div class="faq-item">
+<div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+Может ли компания оплатить SafeMind для сотрудников?
+<span class="faq-toggle">+</span>
+</div>
+<div class="faq-answer">
+Да. У нас есть корпоративные пакеты для команд, проходящих трансформацию из-за ИИ. Компании, которые инвестируют в резильентность сотрудников, видят более высокую удерживаемость, быстрее внедряют новые инструменты и лучше моральный климат. Пишите нам на hello@safemind.org для корпоративных условий.
+</div>
+</div>
+</div>
+</section>
+
+<!-- Cases -->
+<section class="cases" id="cases">
+<div class="cases-content">
+<span class="section-label" style="color: var(--accent); display: block; text-align: center;">Реальные истории</span>
+<h2>До и после SafeMind</h2>
+<p class="subtitle">Анонимные истории людей, которые столкнулись с тревогой от ИИ и вышли из неё сильнее.</p>
+
+<div class="cases-grid">
+<div class="case-card">
+<span class="role-tag">Маркетолог-аналитик</span>
+<h3>«Мои отчёты занимали 3 дня. Теперь — 3 часа.»</h3>
+<div class="case-before">
+<strong>До</strong>
+<p>Анна, 42 года, тратила 3 дня на ежемесячные рыночные отчёты. Руководитель намекнул, что «ИИ справится быстрее». Она не спала, в панике искала новую работу и думала о смене профессии, которую не хотела.</p>
+</div>
+<div class="case-after">
+<strong>После</strong>
+<p>Неделя 1: Анна научилась использовать ChatGPT для анализа данных и Perplexity для рыночных исследований. Неделя 3: Она автоматизировала структуру отчёта. Неделя 4: Представила боссу новый «ИИ-ассистированный воркфлоу» и стала командным «ИИ-лидом».</p>
+</div>
+<div class="case-result">Результат: сокращение времени на 85%. Начат разговор о повышении.</div>
+</div>
+
+<div class="case-card">
+<span class="role-tag">HR-специалист</span>
+<h3>«Я просматривал 200 резюме вручную. Теперь ИИ делает первый проход.»</h3>
+<div class="case-before">
+<strong>До</strong>
+<p>Михаил, 38 лет, обрабатывал 200+ резюме на вакансию вручную. Компания запустила ИИ-пилот для рекрутинга. Он чувствовал, что его работа вот-вот исчезнет, и начал испытывать панические атаки.</p>
+</div>
+<div class="case-after">
+<strong>После</strong>
+<p>Неделя 1: Михаил научился использовать ИИ для первичного скрининга резюме. Неделя 2: Спроектировал процесс «человек + ИИ» для собеседований, который невозможно полностью автоматизировать. Неделя 3: Руководитель поручил ему обучить команду новому процессу.</p>
+</div>
+<div class="case-result">Результат: от «вот-вот заменят» до «лид по интеграции ИИ».</div>
+</div>
+
+<div class="case-card">
+<span class="role-tag">Финансовый менеджер</span>
+<h3>«Закрытие месяца был кошмаром. Теперь — это утро.»</h3>
+<div class="case-before">
+<strong>До</strong>
+<p>Елена, 45 лет, работала по выходным во время месячного закрытия. Компания внедрила новую ERP с ИИ-функциями. Она не понимала их и боялась, что молодые коллеги её заменят.</p>
+</div>
+<div class="case-after">
+<strong>После</strong>
+<p>Неделя 1: Елена освоила ИИ для сверки и поиска расхождений. Неделя 2: Построила автоматические шаблоны для повторяющихся отчётов. Неделя 3: Обучила двух младших сотрудников новому процессу и освободила 2 дня в неделю для аналитики.</p>
+</div>
+<div class="case-result">Результат: больше никаких выходных. Стал «экспертом по автоматизации» в финансах.</div>
+</div>
+</div>
 </div>
 </section>
 

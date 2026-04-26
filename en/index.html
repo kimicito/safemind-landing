@@ -940,6 +940,35 @@ margin-bottom: 16px;
 .leadmagnet-form .form-row { grid-template-columns: 1fr; }
 }
 
+/* FAQ */
+.faq { padding: 100px 20px; background: var(--bg); }
+.faq-content { max-width: 800px; margin: 0 auto; }
+.faq-content h2 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; margin-bottom: 16px; text-align: center; }
+.faq-content .subtitle { color: var(--muted); font-size: 1.1rem; margin-bottom: 48px; text-align: center; }
+.faq-item { background: var(--card); border-radius: 16px; margin-bottom: 12px; border: 1px solid rgba(0,0,0,0.05); overflow: hidden; }
+.faq-question { padding: 20px 24px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-weight: 600; font-size: 1rem; }
+.faq-question:hover { color: var(--accent); }
+.faq-answer { padding: 0 24px; max-height: 0; overflow: hidden; transition: all 0.3s ease; color: var(--muted); font-size: 0.95rem; line-height: 1.6; }
+.faq-item.open .faq-answer { padding: 0 24px 20px; max-height: 300px; }
+.faq-toggle { font-size: 1.2rem; transition: transform 0.3s; }
+.faq-item.open .faq-toggle { transform: rotate(45deg); }
+
+/* Cases */
+.cases { padding: 100px 20px; background: linear-gradient(135deg, #faf8f5 0%, #f5f1ec 100%); }
+.cases-content { max-width: 1000px; margin: 0 auto; }
+.cases-content h2 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; margin-bottom: 16px; text-align: center; }
+.cases-content .subtitle { color: var(--muted); font-size: 1.1rem; margin-bottom: 48px; text-align: center; }
+.cases-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+.case-card { background: var(--card); border-radius: 20px; padding: 32px; box-shadow: 0 4px 24px rgba(0,0,0,0.06); border: 1px solid rgba(0,0,0,0.05); }
+.case-card .role-tag { display: inline-block; background: rgba(200,75,49,0.1); color: var(--accent); padding: 4px 12px; border-radius: 50px; font-size: 0.75rem; font-weight: 700; margin-bottom: 16px; }
+.case-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 16px; }
+.case-before, .case-after { margin-bottom: 12px; }
+.case-before strong, .case-after strong { display: block; margin-bottom: 4px; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; }
+.case-before strong { color: var(--accent); }
+.case-after strong { color: #27ae60; }
+.case-before p, .case-after p { font-size: 0.9rem; color: var(--muted); line-height: 1.5; margin: 0; }
+.case-result { margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--light); font-size: 0.85rem; color: var(--accent); font-weight: 600; }
+
 /* Footer */
 footer {
 padding: 48px 20px;
@@ -1472,6 +1501,148 @@ Sometimes the fear becomes too heavy to carry alone. If AI stress is affecting y
 </div>
 
 <p style="font-size: 0.8rem; color: var(--muted); margin-top: 16px; text-align: center;">No spam. Unsubscribe anytime. We never share your email.</p>
+</div>
+</section>
+
+<!-- FAQ -->
+<section class="faq" id="faq">
+<div class="faq-content">
+<span class="section-label" style="color: var(--accent); display: block; text-align: center;">Common Questions</span>
+<h2>What People Ask</h2>
+<p class="subtitle">The questions that keep you up at night. Answered honestly.</p>
+
+<div class="faq-item">
+<div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+Is SafeMind actually run by humans, not bots?
+<span class="faq-toggle">+</span>
+</div>
+<div class="faq-answer">
+Yes. Every response, every session, every piece of advice comes from a real person. We use AI tools to organize information, but the thinking, empathy, and guidance is 100% human. If you want to talk to a bot, there are plenty of those elsewhere.
+</div>
+</div>
+
+<div class="faq-item">
+<div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+Is this therapy? Do I need a diagnosis?
+<span class="faq-toggle">+</span>
+</div>
+<div class="faq-answer">
+No diagnosis needed. SafeMind is career support with a psychological lens — we help you navigate AI anxiety, build skills, and protect your job. If you need clinical therapy, Dr. Elena offers that too. But most people just need clarity, a plan, and someone who gets it.
+</div>
+</div>
+
+<div class="faq-item">
+<div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+What if I've already been laid off because of AI?
+<span class="faq-toggle">+</span>
+</div>
+<div class="faq-answer">
+Then you're in the right place. We have specific protocols for post-layoff recovery: reframing your experience, identifying transferable skills, building a job search strategy that positions your "AI encounter" as an asset, not a liability. You're not starting from zero.
+</div>
+</div>
+
+<div class="faq-item">
+<div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+Will AI really take my job, or am I overreacting?
+<span class="faq-toggle">+</span>
+</div>
+<div class="faq-answer">
+It depends on your role. Some jobs are genuinely at risk. Others are safer than the headlines suggest. We analyze your specific situation — your industry, your tasks, your company — and give you an honest assessment. No hype, no false reassurance. Just facts and a plan.
+</div>
+</div>
+
+<div class="faq-item">
+<div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+How soon will I see results?
+<span class="faq-toggle">+</span>
+</div>
+<div class="faq-answer">
+Most people feel more in control within the first week. The 7-day guide gives immediate quick wins. Within 30 days, you'll have new skills, new confidence, and a clear positioning at work. The fear doesn't vanish overnight — but it stops controlling you.
+</div>
+</div>
+
+<div class="faq-item">
+<div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+Is the free guide just a teaser, or actually useful?
+<span class="faq-toggle">+</span>
+</div>
+<div class="faq-answer">
+It's genuinely useful. The free guide gives you 7 days of concrete actions, role-specific tools, and immediate wins. The paid plan goes deeper — 30-day roadmaps, templates, scripts, and personal support. But the free version alone will save you hours and reduce your anxiety.
+</div>
+</div>
+
+<div class="faq-item">
+<div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+What makes SafeMind different from career coaching?
+<span class="faq-toggle">+</span>
+</div>
+<div class="faq-answer">
+Traditional career coaches don't understand AI. AI courses don't understand your fear. We do both. We combine workplace strategy with psychological support — because the biggest barrier to adapting to AI isn't technical, it's emotional.
+</div>
+</div>
+
+<div class="faq-item">
+<div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+Can my company pay for SafeMind for employees?
+<span class="faq-toggle">+</span>
+</div>
+<div class="faq-answer">
+Yes. We offer corporate packages for teams going through AI transitions. Companies that invest in their people's AI resilience see higher retention, faster adoption, and better morale. Email us at hello@safemind.org for corporate rates.
+</div>
+</div>
+</div>
+</section>
+
+<!-- Cases -->
+<section class="cases" id="cases">
+<div class="cases-content">
+<span class="section-label" style="color: var(--accent); display: block; text-align: center;">Real Stories</span>
+<h2>Before & After SafeMind</h2>
+<p class="subtitle">Anonymous stories from people who faced AI anxiety and came out stronger.</p>
+
+<div class="cases-grid">
+<div class="case-card">
+<span class="role-tag">Marketing Analyst</span>
+<h3>"My reports took 3 days. Now they take 3 hours."</h3>
+<div class="case-before">
+<strong>Before</strong>
+<p>Anna, 42, spent 3 days on monthly market reports. Her manager hinted that "AI could do this faster." She couldn't sleep, started job-hunting in panic, and considered a career change she didn't want.</p>
+</div>
+<div class="case-after">
+<strong>After</strong>
+<p>Week 1: Anna learned to use ChatGPT for data analysis and Perplexity for market research. Week 3: She automated the report structure. Week 4: She presented a new "AI-assisted workflow" to her boss and became the team's "AI lead."</p>
+</div>
+<div class="case-result">Result: 85% time reduction. Promotion discussion initiated.</div>
+</div>
+
+<div class="case-card">
+<span class="role-tag">HR Specialist</span>
+<h3>"I screened 200 resumes manually. Now AI does the first pass."</h3>
+<div class="case-before">
+<strong>Before</strong>
+<p>Mikhail, 38, processed 200+ resumes per opening by hand. His company announced an AI pilot for recruiting. He felt his entire job was about to disappear and started having panic attacks.</p>
+</div>
+<div class="case-after">
+<strong>After</strong>
+<p>Week 1: Mikhail learned to use AI for initial resume screening. Week 2: He designed a "human+AI" interview process that no algorithm could replicate. Week 3: His manager asked him to train the team on the new workflow.</p>
+</div>
+<div class="case-result">Result: From "about to be replaced" to "AI integration lead."</div>
+</div>
+
+<div class="case-card">
+<span class="role-tag">Finance Manager</span>
+<h3>"Month-end was a nightmare. Now it's a morning."</h3>
+<div class="case-before">
+<strong>Before</strong>
+<p>Elena, 45, worked weekends during month-end close. Her company adopted new ERP with AI features. She didn't understand them and feared younger colleagues would replace her.</p>
+</div>
+<div class="case-after">
+<strong>After</strong>
+<p>Week 1: Elena learned to use AI for reconciliation and discrepancy detection. Week 2: She built automated templates for recurring reports. Week 3: She trained two junior staff on the new process and freed up 2 days per week for analysis.</p>
+</div>
+<div class="case-result">Result: No more weekends. Became the "automation expert" in finance.</div>
+</div>
+</div>
 </div>
 </section>
 
