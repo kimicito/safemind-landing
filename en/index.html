@@ -923,6 +923,78 @@ color: var(--accent);
 text-decoration: none;
 }
 
+/* Modal */
+.modal-overlay {
+position: fixed;
+inset: 0;
+background: rgba(0,0,0,0.5);
+backdrop-filter: blur(8px);
+z-index: 1000;
+display: none;
+align-items: center;
+justify-content: center;
+padding: 20px;
+}
+.modal-overlay.active { display: flex; }
+.modal {
+background: var(--card);
+border-radius: 24px;
+padding: 40px;
+max-width: 420px;
+width: 100%;
+text-align: center;
+box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+position: relative;
+}
+.modal-close {
+position: absolute;
+top: 16px;
+right: 20px;
+background: none;
+border: none;
+font-size: 1.5rem;
+cursor: pointer;
+color: var(--muted);
+}
+.modal-close:hover { color: var(--fg); }
+.modal h3 {
+font-size: 1.4rem;
+font-weight: 800;
+margin-bottom: 8px;
+}
+.modal p {
+color: var(--muted);
+margin-bottom: 24px;
+font-size: 0.95rem;
+}
+.modal input[type="email"] {
+width: 100%;
+padding: 14px 18px;
+border: 2px solid var(--light);
+border-radius: 12px;
+font-size: 1rem;
+font-family: inherit;
+margin-bottom: 16px;
+outline: none;
+transition: border-color 0.3s;
+}
+.modal input[type="email"]:focus {
+border-color: var(--accent);
+}
+.modal .btn-primary {
+width: 100%;
+justify-content: center;
+}
+.modal-success {
+display: none;
+}
+.modal-success.active {
+display: block;
+}
+.modal-form.hidden {
+display: none;
+}
+
 /* Animations */
 @keyframes fadeInUp {
 from { opacity: 0; transform: translateY(30px); }
@@ -1316,7 +1388,7 @@ Join Free →
 <li>Progress tracking</li>
 <li>Skill workshops</li>
 </ul>
-<a href="https://t.me/SafeMindBot" class="btn-primary" style="width: 100%; justify-content: center;">
+<a href="#" class="btn-primary" style="width: 100%; justify-content: center;" onclick="showComingSoon(event)">
 Start Growing →
 </a>
 </div>
@@ -1333,7 +1405,7 @@ Start Growing →
 <li>Custom coping protocols</li>
 <li>Family session access</li>
 </ul>
-<a href="https://t.me/SafeMindBot" class="btn-secondary" style="width: 100%; justify-content: center;">
+<a href="#" class="btn-secondary" style="width: 100%; justify-content: center;" onclick="showComingSoon(event)">
 Start Thriving →
 </a>
 </div>
@@ -1367,7 +1439,46 @@ No AI chatbots. No algorithms. Just humans helping humans keep their jobs.
 </p>
 </footer>
 
+<!-- Coming Soon Modal -->
+<div class="modal-overlay" id="comingSoonModal" onclick="closeComingSoon(event)">
+<div class="modal" onclick="event.stopPropagation()">
+<button class="modal-close" onclick="closeComingSoon()">&times;</button>
+<div class="modal-form" id="modalForm">
+<h3>🚀 Coming Soon</h3>
+<p>Paid plans launching soon. Leave your email to be first in line.</p>
+<input type="email" placeholder="your@email.com" id="notifyEmail">
+<button class="btn-primary" onclick="submitNotify()">Notify Me →</button>
+</div>
+<div class="modal-success" id="modalSuccess">
+<h3>✅ You're on the list!</h3>
+<p>We'll email you the moment paid plans go live.</p>
+<button class="btn-secondary" style="margin-top: 16px;" onclick="closeComingSoon()">Close</button>
+</div>
+</div>
+</div>
+
 <script>
+function showComingSoon(e) {
+if(e) e.preventDefault();
+document.getElementById('comingSoonModal').classList.add('active');
+document.getElementById('modalForm').classList.remove('hidden');
+document.getElementById('modalSuccess').classList.remove('active');
+document.getElementById('notifyEmail').value = '';
+}
+function closeComingSoon(e) {
+if(e && e.target !== e.currentTarget && e.target.className !== 'modal-close' && e.target.tagName !== 'BUTTON') return;
+document.getElementById('comingSoonModal').classList.remove('active');
+}
+function submitNotify() {
+const email = document.getElementById('notifyEmail').value;
+if(!email || !email.includes('@')) {
+alert('Please enter a valid email');
+return;
+}
+document.getElementById('modalForm').classList.add('hidden');
+document.getElementById('modalSuccess').classList.add('active');
+}
+
 // Fade in animation on scroll
 const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
 const observer = new IntersectionObserver((entries) => {
