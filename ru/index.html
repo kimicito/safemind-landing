@@ -1451,14 +1451,14 @@ SafeMind - не чат-бот. Не алгоритм. Не "приложение
 <input type="email" placeholder="your@email.com" id="lmEmail" required>
 <select id="lmRole" required>
 <option value="">Выберите роль...</option>
-<option value="manager">Руководитель / Менеджер</option>
-<option value="marketing">Маркетолог / PR</option>
-<option value="developer">Разработчик / IT</option>
-<option value="finance">Финансы / Бухгалтерия</option>
-<option value="hr">HR / Рекрутинг</option>
-<option value="design">Дизайнер / Креатив</option>
-<option value="legal">Юрист</option>
-<option value="other">Другое</option>
+<option value="marketing">Маркетолог (отчеты, презентации, анализ рынков)</option>
+<option value="hr">HR (подбор, анализ резюме, обучение)</option>
+<option value="teacher">Преподаватель (подготовка уроков, проверка работ)</option>
+<option value="legal">Юрист (консультации, договора, претензии)</option>
+<option value="finance">Финансовый менеджер (отчеты, сверки, тренды)</option>
+<option value="transport">Транспортный менеджер (документация, логистика)</option>
+<option value="procurement">Закупщик (цены, договора, обзоры рынков)</option>
+<option value="economist">Экономист (финансовый анализ, оптимизация)</option>
 </select>
 </div>
 <button type="submit" class="btn-primary" style="width: 100%; justify-content: center;">
@@ -1596,14 +1596,14 @@ localStorage.setItem('safemind_leads', JSON.stringify(leads));
 
 // Map role to PDF
 const roleToPdf = {
-'manager': 'safemind_survival_guide_ru_manager.pdf',
 'marketing': 'safemind_survival_guide_ru_marketing.pdf',
-'developer': 'safemind_survival_guide_ru_developer.pdf',
-'finance': 'safemind_survival_guide_ru_generic.pdf',
-'hr': 'safemind_survival_guide_ru_generic.pdf',
-'design': 'safemind_survival_guide_ru_generic.pdf',
-'legal': 'safemind_survival_guide_ru_generic.pdf',
-'other': 'safemind_survival_guide_ru_generic.pdf'
+'hr': 'safemind_survival_guide_ru_hr.pdf',
+'teacher': 'safemind_survival_guide_ru_teacher.pdf',
+'legal': 'safemind_survival_guide_ru_legal.pdf',
+'finance': 'safemind_survival_guide_ru_finance.pdf',
+'transport': 'safemind_survival_guide_ru_transport.pdf',
+'procurement': 'safemind_survival_guide_ru_procurement.pdf',
+'economist': 'safemind_survival_guide_ru_economist.pdf'
 };
 const pdfFile = roleToPdf[role] || roleToPdf['other'];
 

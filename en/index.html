@@ -1452,14 +1452,14 @@ Sometimes the fear becomes too heavy to carry alone. If AI stress is affecting y
 <input type="email" placeholder="your@email.com" id="lmEmail" required>
 <select id="lmRole" required>
 <option value="">Select your role...</option>
-<option value="manager">Manager / Executive</option>
-<option value="marketing">Marketing / PR</option>
-<option value="developer">Developer / IT</option>
-<option value="finance">Finance / Accounting</option>
-<option value="hr">HR / Recruiting</option>
-<option value="design">Designer / Creative</option>
-<option value="legal">Legal</option>
-<option value="other">Other</option>
+<option value="marketing">Marketer (reports, presentations, market analysis)</option>
+<option value="hr">HR (recruiting, resume screening, training)</option>
+<option value="teacher">Teacher / Trainer (lesson prep, grading, assignments)</option>
+<option value="legal">Lawyer (contracts, claims, employee consulting)</option>
+<option value="finance">Finance Manager (reports, reconciliation, trends)</option>
+<option value="transport">Transport Manager (documentation, logistics)</option>
+<option value="procurement">Procurement (pricing, contracts, market research)</option>
+<option value="economist">Economist (financial analysis, optimization)</option>
 </select>
 </div>
 <button type="submit" class="btn-primary" style="width: 100%; justify-content: center;">
@@ -1597,14 +1597,14 @@ localStorage.setItem('safemind_leads', JSON.stringify(leads));
 
 // Map role to PDF
 const roleToPdf = {
-'manager': 'safemind_survival_guide_en_manager.pdf',
 'marketing': 'safemind_survival_guide_en_marketing.pdf',
-'developer': 'safemind_survival_guide_en_developer.pdf',
-'finance': 'safemind_survival_guide_en_generic.pdf',
-'hr': 'safemind_survival_guide_en_generic.pdf',
-'design': 'safemind_survival_guide_en_generic.pdf',
-'legal': 'safemind_survival_guide_en_generic.pdf',
-'other': 'safemind_survival_guide_en_generic.pdf'
+'hr': 'safemind_survival_guide_en_hr.pdf',
+'teacher': 'safemind_survival_guide_en_teacher.pdf',
+'legal': 'safemind_survival_guide_en_legal.pdf',
+'finance': 'safemind_survival_guide_en_finance.pdf',
+'transport': 'safemind_survival_guide_en_transport.pdf',
+'procurement': 'safemind_survival_guide_en_procurement.pdf',
+'economist': 'safemind_survival_guide_en_economist.pdf'
 };
 const pdfFile = roleToPdf[role] || roleToPdf['other'];
 
