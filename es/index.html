@@ -1753,19 +1753,36 @@ Sin chatbots de IA. Sin algoritmos. Solo humanos ayudando a humanos a mantener s
 </div>
 
 <script>
+// API config
+const API_BASE = "https://safemind-backend.onrender.com";
+
 function handleLeadMagnet(e) {
 e.preventDefault();
 const email = document.getElementById('lmEmail').value;
 const role = document.getElementById('lmRole').value;
+const lang = 'es';
+
 if(!email || !email.includes('@') || !role) {
 alert('Por favor ingresa un email válido y selecciona tu rol');
 return;
 }
-// Save lead
-const leads = JSON.parse(localStorage.getItem('safemind_leads') || '[]');
 
-leads.push({email, role, lang: 'es', date: new Date().toISOString()});
-localStorage.setItem('safemind_leads', JSON.stringify(leads));
+// Show loading
+const btn = e.target.querySelector('button[type="submit"]');
+const originalText = btn.innerHTML;
+btn.innerHTML = '⏳ Enviando...';
+btn.disabled = true;
+
+// Send to backend
+fetch(`${API_BASE}/subscribe`, {
+method: 'POST',
+headers: {'Content-Type': 'application/json'},
+body: JSON.stringify({email, role, lang})
+})
+.then(r => r.json())
+.then(data => {
+btn.innerHTML = originalText;
+btn.disabled = false;
 
 // Map role to PDF
 const roleToPdf = {
@@ -1780,29 +1797,36 @@ const roleToPdf = {
 };
 const pdfFile = roleToPdf[role] || roleToPdf['marketing'];
 
-// Show success with download
+// Show success
 const successDiv = document.getElementById('lmSuccess');
 successDiv.innerHTML = `
 <div style="text-align: center; padding: 24px;">
 <div style="font-size: 3rem; margin-bottom: 12px;">✅</div>
 <h3 style="margin-bottom: 8px;">¡Revisa tu email!</h3>
-<p style="color: var(--muted); margin-bottom: 20px;">Tu Guía de Supervivencia IA personalizada está en camino. Si no la ves en 2 minutos, revisa tu carpeta de spam.</p>
+<p style="color: var(--muted); margin-bottom: 20px;">Tu guía personalizada está en camino. Si no la ves en 2 minutos, revisa tu carpeta de spam.</p>
 <a href="pdfs/${pdfFile}" download class="btn-primary" style="display: inline-flex; margin-bottom: 16px;">
-📥 Descargar PDF Ahora
+📥 Descargar PDF ahora
 </a>
 <div style="background: linear-gradient(135deg, var(--gradient3), var(--gradient4)); border-radius: 12px; padding: 16px; margin-top: 8px;">
 <p style="font-size: 0.85rem; color: #fff; margin: 0;">
 <strong>¿Quieres el plan completo de 30 días?</strong><br>
-Mapas detallados, plantillas, scripts y check-ins semanales — disponible en SafeMind Pro.
+Mapas detallados, plantillas, scripts y check-ins semanales — en SafeMind Pro.
 </p>
 <a href="#pricing" class="btn-primary" style="margin-top: 12px; background: #fff; color: var(--accent);" onclick="closeComingSoon()">
-Ver Planes →
+Ver planes →
 </a>
 </div>
 </div>
 `;
 successDiv.style.display = 'block';
 document.querySelector('.leadmagnet-form').style.display = 'none';
+})
+.catch(err => {
+btn.innerHTML = originalText;
+btn.disabled = false;
+console.error('Subscribe error:', err);
+alert('Algo salió mal. Por favor intenta de nuevo o escríbenos: hello@safemind.org');
+});
 }
 
 function showComingSoon(e) {

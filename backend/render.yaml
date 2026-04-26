@@ -1,0 +1,40 @@
+services:
+  - type: web
+    name: safemind-backend
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: safemind-db
+          property: connectionString
+      - key: RESEND_API_KEY
+        sync: false
+      - key: FROM_EMAIL
+        value: hello@safemind.org
+      - key: ADMIN_TOKEN
+        generateValue: true
+      - key: FRONTEND_URL
+        value: https://safemind.org
+    healthCheckPath: /health
+
+  - type: cron
+    name: safemind-drip
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: python -c "from main import run_daily_drip; run_daily_drip()"
+    schedule: "0 10 * * *"
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: safemind-db
+          property: connectionString
+      - key: RESEND_API_KEY
+        sync: false
+
+databases:
+  - name: safemind-db
+    databaseName: safemind
+    user: safemind
+    plan: free

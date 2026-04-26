@@ -1753,18 +1753,36 @@ No AI chatbots. No algorithms. Just humans helping humans keep their jobs.
 </div>
 
 <script>
+// API config
+const API_BASE = "https://safemind-backend.onrender.com";
+
 function handleLeadMagnet(e) {
 e.preventDefault();
 const email = document.getElementById('lmEmail').value;
 const role = document.getElementById('lmRole').value;
+const lang = 'en';
+
 if(!email || !email.includes('@') || !role) {
 alert('Please enter a valid email and select your role');
 return;
 }
-// Save lead
-const leads = JSON.parse(localStorage.getItem('safemind_leads') || '[]');
-leads.push({email, role, date: new Date().toISOString()});
-localStorage.setItem('safemind_leads', JSON.stringify(leads));
+
+// Show loading
+const btn = e.target.querySelector('button[type="submit"]');
+const originalText = btn.innerHTML;
+btn.innerHTML = '⏳ Sending...';
+btn.disabled = true;
+
+// Send to backend
+fetch(`${API_BASE}/subscribe`, {
+method: 'POST',
+headers: {'Content-Type': 'application/json'},
+body: JSON.stringify({email, role, lang})
+})
+.then(r => r.json())
+.then(data => {
+btn.innerHTML = originalText;
+btn.disabled = false;
 
 // Map role to PDF
 const roleToPdf = {
@@ -1777,9 +1795,9 @@ const roleToPdf = {
 'procurement': 'safemind_survival_guide_en_procurement.pdf',
 'economist': 'safemind_survival_guide_en_economist.pdf'
 };
-const pdfFile = roleToPdf[role] || roleToPdf['other'];
+const pdfFile = roleToPdf[role] || roleToPdf['marketing'];
 
-// Show success with download
+// Show success
 const successDiv = document.getElementById('lmSuccess');
 successDiv.innerHTML = `
 <div style="text-align: center; padding: 24px;">
@@ -1802,6 +1820,13 @@ See Plans →
 `;
 successDiv.style.display = 'block';
 document.querySelector('.leadmagnet-form').style.display = 'none';
+})
+.catch(err => {
+btn.innerHTML = originalText;
+btn.disabled = false;
+console.error('Subscribe error:', err);
+alert('Something went wrong. Please try again or email us at hello@safemind.org');
+});
 }
 
 function showComingSoon(e) {
