@@ -24,9 +24,9 @@ load_dotenv()
 # ─── Config ──────────────────────────────────────────────────────────────
 DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://user:pass@localhost/safemind")
 RESEND_API_KEY = os.getenv("RESEND_API_KEY", "")
-FROM_EMAIL = os.getenv("FROM_EMAIL", "hello@safemind.org")
+FROM_EMAIL = os.getenv("FROM_EMAIL", "hello@safemind.pro")
 ADMIN_TOKEN = os.getenv("ADMIN_TOKEN", "dev-token-change-me")
-FRONTEND_URL = os.getenv("FRONTEND_URL", "https://safemind.org")
+FRONTEND_URL = os.getenv("FRONTEND_URL", "https://safemind.pro")
 
 resend.api_key = RESEND_API_KEY
 

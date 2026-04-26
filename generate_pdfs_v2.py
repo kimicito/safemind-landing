@@ -357,7 +357,7 @@ def create_pdf(lang, role, data):
     
     story.append(Paragraph(data["teaser"], teaser_style))
     
-    cta = "Get the full plan at safemind.org" if lang == "en" else "Полный план — на safemind.org"
+    cta = "Get the full plan at safemind.pro" if lang == "en" else "Полный план — на safemind.pro"
     story.append(Paragraph(f"<b>{cta}</b>", ParagraphStyle(
         'CTA', parent=normal_style, alignment=TA_CENTER, 
         textColor=colors.HexColor('#C84B31'), fontSize=10, spaceBefore=12)))

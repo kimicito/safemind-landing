@@ -76,7 +76,7 @@ document.querySelector('.leadmagnet-form').style.display = 'none';
 btn.innerHTML = originalText;
 btn.disabled = false;
 console.error('Subscribe error:', err);
-alert('Something went wrong. Please try again or email us at hello@safemind.org');
+alert('Something went wrong. Please try again or email us at hello@safemind.pro');
 });
 }'''
 
@@ -153,7 +153,7 @@ document.querySelector('.leadmagnet-form').style.display = 'none';
 btn.innerHTML = originalText;
 btn.disabled = false;
 console.error('Subscribe error:', err);
-alert('Что-то пошло не так. Попробуйте снова или напишите нам: hello@safemind.org');
+alert('Что-то пошло не так. Попробуйте снова или напишите нам: hello@safemind.pro');
 });
 }'''
 
@@ -230,7 +230,7 @@ document.querySelector('.leadmagnet-form').style.display = 'none';
 btn.innerHTML = originalText;
 btn.disabled = false;
 console.error('Subscribe error:', err);
-alert('Algo salió mal. Por favor intenta de nuevo o escríbenos: hello@safemind.org');
+alert('Algo salió mal. Por favor intenta de nuevo o escríbenos: hello@safemind.pro');
 });
 }'''
 

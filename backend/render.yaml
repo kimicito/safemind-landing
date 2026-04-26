@@ -12,11 +12,11 @@ services:
       - key: RESEND_API_KEY
         sync: false
       - key: FROM_EMAIL
-        value: hello@safemind.org
+        value: hello@safemind.pro
       - key: ADMIN_TOKEN
         generateValue: true
       - key: FRONTEND_URL
-        value: https://safemind.org
+        value: https://safemind.pro
     healthCheckPath: /health
 
   - type: cron

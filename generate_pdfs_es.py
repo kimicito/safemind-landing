@@ -460,7 +460,7 @@ def create_pdf(role_key, role_data):
     # Footer
     c.setFillColor((0.7, 0.7, 0.7))
     c.setFont("DejaVu", 8)
-    c.drawString(2*cm, 1.5*cm, "SafeMind — Mantente Humano en la Era de la IA  |  safemind.org  |  @SafeMindBot")
+    c.drawString(2*cm, 1.5*cm, "SafeMind — Mantente Humano en la Era de la IA  |  safemind.pro  |  @SafeMindBot")
     
     c.save()
     print(f"Created: {filename}")
