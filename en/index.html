@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SafeMind — Stay Human in the AI Era</title>
+    <title>SafeMind - Stay Human in the AI Era</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../assets/style.css">
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🛡️%3C/text%3E%3C/svg%3E">
@@ -861,6 +861,77 @@
             animation: fadeInUp 0.8s ease forwards;
         }
         
+        .workplace-ai {
+            padding: 100px 20px;
+            background: linear-gradient(135deg, #faf8f5 0%, #f5f1ec 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .workplace-ai::before {
+            content: '';
+            position: absolute;
+            top: -30%;
+            left: -20%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(200,75,49,0.06) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .workplace-content {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+        .workplace-content h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+        .workplace-content .subtitle {
+            color: var(--muted);
+            font-size: 1.1rem;
+            margin-bottom: 48px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .workplace-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            text-align: left;
+            margin-bottom: 32px;
+        }
+        .workplace-card {
+            background: var(--card);
+            border-radius: 20px;
+            padding: 32px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+            border: 1px solid rgba(0,0,0,0.05);
+            transition: all 0.3s;
+        }
+        .workplace-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.1);
+        }
+        .workplace-icon {
+            font-size: 2rem;
+            margin-bottom: 16px;
+            display: block;
+        }
+        .workplace-card h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+        .workplace-card p {
+            font-size: 0.9rem;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+        
         /* Mobile */
         @media (max-width: 640px) {
             .nav-links { display: none; }
@@ -884,6 +955,7 @@
         <a href="#manifesto">Our Stand</a>
         <a href="#psychologist">Support</a>
         <a href="#how">How It Works</a>
+        <a href="#workplace">Work Help</a>
         <a href="#community">Community</a>
         <a href="#pricing">Pricing</a>
         <a href="https://t.me/SafeMindBot" class="nav-cta">Join SafeMind →</a>
@@ -896,14 +968,14 @@
     <div class="hero-content">
         <div class="hero-badge">
             <span class="pulse"></span>
-            We're Live — Real People, Real Support
+            We're Live - Real People, Real Support
         </div>
         <h1>
             43% Fear AI Will<br>
             Make Them <span class="highlight">Obsolete</span>
         </h1>
         <p class="hero-subtitle">
-            You're not alone. And you're not replaceable. SafeMind is a community of real humans helping each other navigate the AI revolution without losing our minds — or our jobs.
+            You're not alone. And you're not replaceable. SafeMind is a community of real humans helping each other navigate the AI revolution without losing our minds - or our jobs.
         </p>
         <div class="hero-stats">
             <div class="hero-stat">
@@ -943,7 +1015,7 @@
             And It's Getting Worse.
         </h2>
         <p class="fear-desc">
-            This isn't sci-fi paranoia. It's the daily reality millions wake up to. The fear isn't just about robots taking factories — it's about algorithms replacing your creativity, your judgment, your human touch.
+            This isn't sci-fi paranoia. It's the daily reality millions wake up to. The fear isn't just about robots taking factories - it's about algorithms replacing your creativity, your judgment, your human touch.
         </p>
         
         <div class="fear-grid">
@@ -975,7 +1047,7 @@
         
         <div class="fear-quote">
             "The real societal fear shouldn't be that AI will get better. It's that we'll give up on ourselves and just become satisfied with what AI generators can provide."
-            <cite>— Sean Kelly, Harvard Professor of Philosophy</cite>
+            <cite>- Sean Kelly, Harvard Professor of Philosophy</cite>
         </div>
     </div>
 </section>
@@ -989,14 +1061,14 @@
             We Are Human. And We Stay Human.
         </h2>
         <p class="manifesto-subtitle">
-            SafeMind isn't a chatbot. Not an algorithm. Not a "mental health app" run by code pretending to care. We are real people — psychologists, coaches, peers — who believe humans matter more than efficiency.
+            SafeMind isn't a chatbot. Not an algorithm. Not a "mental health app" run by code pretending to care. We are real people - psychologists, coaches, peers - who believe humans matter more than efficiency.
         </p>
         
         <div class="not-ai-grid">
             <div class="not-ai-card">
                 <div class="number">01</div>
                 <h3>🧠 Real Psychologists, Not Bots</h3>
-                <p>When you're spiraling at 2 AM, you don't need another "I'm sorry to hear that" from a language model. You need a trained professional who can read between the lines, feel your context, and guide you through — not around — your fear.</p>
+                <p>When you're spiraling at 2 AM, you don't need another "I'm sorry to hear that" from a language model. You need a trained professional who can read between the lines, feel your context, and guide you through - not around - your fear.</p>
             </div>
             <div class="not-ai-card">
                 <div class="number">02</div>
@@ -1006,12 +1078,12 @@
             <div class="not-ai-card">
                 <div class="number">03</div>
                 <h3>💪 Skills, Not Hacks</h3>
-                <p>We don't teach you "5 prompts to outsmart AI." We build your psychological flexibility, communication mastery, and creative resilience — the uniquely human skills no algorithm can replicate.</p>
+                <p>We don't teach you "5 prompts to outsmart AI." We build your psychological flexibility, communication mastery, and creative resilience - the uniquely human skills no algorithm can replicate.</p>
             </div>
             <div class="not-ai-card">
                 <div class="number">04</div>
                 <h3>🎯 Purpose, Not Productivity</h3>
-                <p>AI optimizes. Humans meaning-make. We help you find work that matters, identity that lasts, and contribution that can't be automated — because it comes from your soul, not your syntax.</p>
+                <p>AI optimizes. Humans meaning-make. We help you find work that matters, identity that lasts, and contribution that can't be automated - because it comes from your soul, not your syntax.</p>
             </div>
         </div>
     </div>
@@ -1069,7 +1141,7 @@
                     <div class="psychologist-feature-icon">📊</div>
                     <div>
                         <h4>Progress Tracking</h4>
-                        <p>Weekly anxiety assessments, sleep quality metrics, and coping skill benchmarks — measured by humans, for humans.</p>
+                        <p>Weekly anxiety assessments, sleep quality metrics, and coping skill benchmarks - measured by humans, for humans.</p>
                     </div>
                 </div>
             </div>
@@ -1106,12 +1178,12 @@
             <div class="step">
                 <div class="step-number">2</div>
                 <h3>📝 Share Your Story</h3>
-                <p>Tell us what you're facing — job loss fear, skill anxiety, identity crisis. We listen. We understand. We've been there.</p>
+                <p>Tell us what you're facing - job loss fear, skill anxiety, identity crisis. We listen. We understand. We've been there.</p>
             </div>
             <div class="step">
                 <div class="step-number">3</div>
                 <h3>🎯 Get Matched</h3>
-                <p>Based on your situation, we connect you with the right support — Dr. Elena for therapy, peer circles for solidarity, or skill workshops for growth.</p>
+                <p>Based on your situation, we connect you with the right support - Dr. Elena for therapy, peer circles for solidarity, or skill workshops for growth.</p>
             </div>
             <div class="step">
                 <div class="step-number">4</div>
@@ -1119,6 +1191,54 @@
                 <p>Build the psychological tools and human skills that AI can't touch. Find work that matters. Sleep better. Live fuller.</p>
             </div>
         </div>
+    </div>
+</section>
+
+<!-- Workplace AI Support -->
+<section class="workplace-ai" id="workplace">
+    <div class="workplace-content">
+        <span class="section-label" style="color: var(--accent);">Practical Help</span>
+        <h2>Don't Understand AI? We Got You.</h2>
+        <p class="subtitle">
+            You don't need to become a tech expert. You just need to know which AI tools help your job - and which ones threaten it. We break it down for your exact situation.
+        </p>
+        
+        <div class="workplace-grid">
+            <div class="workplace-card">
+                <span class="workplace-icon">🔍</span>
+                <h3>AI Tool Audit</h3>
+                <p>We analyze your role and tell you exactly which AI tools are relevant to YOUR work - and which ones your company might already be testing without telling you.</p>
+            </div>
+            <div class="workplace-card">
+                <span class="workplace-icon">🎯</span>
+                <h3>Personal Situation Review</h3>
+                <p>Describe your job, your company, your fears. We map out exactly where AI could hit your role - and where you're actually safer than you think.</p>
+            </div>
+            <div class="workplace-card">
+                <span class="workplace-icon">🛡️</span>
+                <h3>Workplace Tactics</h3>
+                <p>Concrete strategies to make yourself irreplaceable at work: which tasks to automate first, which to protect, what to say in meetings, how to position yourself as the "AI person" on your team.</p>
+            </div>
+            <div class="workplace-card">
+                <span class="workplace-icon">📰</span>
+                <h3>Weekly AI Digest</h3>
+                <p>No tech news overwhelm. Just one concise weekly briefing on what changed in YOUR industry this week - and what it means for your job security.</p>
+            </div>
+            <div class="workplace-card">
+                <span class="workplace-icon">🚨</span>
+                <h3>Emergency Plan</h3>
+                <p>If your company just announced AI layoffs, if your role is being automated, if you're already in the danger zone - we build a 30-day action plan to get you out.</p>
+            </div>
+            <div class="workplace-card">
+                <span class="workplace-icon">💬</span>
+                <h3>Ask Anything</h3>
+                <p>"Should I learn ChatGPT or Claude?" "Is my company's AI pilot a threat?" "What skills should I build?" No stupid questions. Real human answers tailored to you.</p>
+            </div>
+        </div>
+        
+        <a href="https://t.me/SafeMindBot" class="btn-primary" style="margin-top: 32px;">
+            💼 Get My AI Work Plan
+        </a>
     </div>
 </section>
 
@@ -1133,7 +1253,7 @@
             <div class="community-feature">
                 <span class="community-feature-icon">👥</span>
                 <h3>Peer Circles</h3>
-                <p>Small groups (8-12 people) sharing the same industry or fear. Weekly video calls. No judgment, no competition — just solidarity.</p>
+                <p>Small groups (8-12 people) sharing the same industry or fear. Weekly video calls. No judgment, no competition - just solidarity.</p>
             </div>
             <div class="community-feature">
                 <span class="community-feature-icon">🎯</span>
@@ -1143,12 +1263,12 @@
             <div class="community-feature">
                 <span class="community-feature-icon">📚</span>
                 <h3>Skill Workshops</h3>
-                <p>Live sessions on emotional intelligence, creative thinking, ethical reasoning — the irreplaceably human capabilities.</p>
+                <p>Live sessions on emotional intelligence, creative thinking, ethical reasoning - the irreplaceably human capabilities.</p>
             </div>
             <div class="community-feature">
                 <span class="community-feature-icon">🎉</span>
                 <h3>Win Wall</h3>
-                <p>Every human victory gets celebrated — new job, better sleep, a creative project, or just getting through the day. Your wins matter.</p>
+                <p>Every human victory gets celebrated - new job, better sleep, a creative project, or just getting through the day. Your wins matter.</p>
             </div>
         </div>
         
@@ -1225,10 +1345,10 @@
     <div class="final-cta-content">
         <h2>The AI Era Is Here.<br>So Are We.</h2>
         <p>
-            You don't have to face this alone. You don't have to outrun algorithms. You just have to remember what makes you irreplaceably human — and we'll help you do exactly that.
+            You don't have to face this alone. You don't have to outrun algorithms. You just have to remember what makes you irreplaceably human - and we'll help you do exactly that.
         </p>
         <a href="https://t.me/SafeMindBot" class="btn-primary">
-            🛡️ Join SafeMind Now — It's Free
+            🛡️ Join SafeMind Now - It's Free
         </a>
         <p style="margin-top: 24px; font-size: 0.85rem; color: rgba(255,255,255,0.5);">
             No AI chatbots. No algorithms. Just humans helping humans.
@@ -1239,7 +1359,7 @@
 <!-- Footer -->
 <footer>
     <p>
-        🛡️ SafeMind — Stay Human in the AI Era<br>
+        🛡️ SafeMind - Stay Human in the AI Era<br>
         <a href="https://t.me/SafeMindBot">Join on Telegram</a> · 
         <a href="mailto:hello@safemind.org">hello@safemind.org</a><br>
         <span style="opacity: 0.6;">Real people. Real support. Zero algorithms pretending to care.</span>
