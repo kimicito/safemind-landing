@@ -1,6 +1,9 @@
+#!/usr/bin/env python3
 """
 SafeMind Backend — Lead Capture + Drip Email Campaign
-Stack: FastAPI + SQLAlchemy + PostgreSQL + Resend
+Stack: FastAPI + SQLAlchemy + PostgreSQL + Unisender (Russia)
+
+Supports both Resend (international) and Unisender (Russia) via env var.
 """
 
 import os
@@ -15,26 +18,31 @@ from pydantic import BaseModel, EmailStr
 from sqlalchemy import create_engine, Column, Integer, String, DateTime, func
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, Session
-import resend
-from apscheduler.schedulers.background import BackgroundScheduler
 from dotenv import load_dotenv
+
+# Email providers
+EMAIL_PROVIDER = os.getenv("EMAIL_PROVIDER", "unisender").lower()  # 'resend' or 'unisender'
+
+if EMAIL_PROVIDER == "resend":
+    import resend
+    resend.api_key = os.getenv("RESEND_API_KEY", "")
+elif EMAIL_PROVIDER == "unisender":
+    import requests
+    UNISENDER_API_KEY = os.getenv("UNISENDER_API_KEY", "")
 
 load_dotenv()
 
-# ─── Config ──────────────────────────────────────────────────────────────
-DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://user:pass@localhost/safemind")
-RESEND_API_KEY = os.getenv("RESEND_API_KEY", "")
+# ─── Config ───────────────────────────────────────────────────
+DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://safemind:safemind_secure_pass_2026@localhost:5432/safemind")
 FROM_EMAIL = os.getenv("FROM_EMAIL", "hello@safemind.pro")
-ADMIN_TOKEN = os.getenv("ADMIN_TOKEN", "dev-token-change-me")
+ADMIN_TOKEN = os.getenv("ADMIN_TOKEN", "change_this_password")
 FRONTEND_URL = os.getenv("FRONTEND_URL", "https://safemind.pro")
 
-resend.api_key = RESEND_API_KEY
-
-# ─── Logging ─────────────────────────────────────────────────────────────
+# ─── Logging ──────────────────────────────────────────────────
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# ─── Database ────────────────────────────────────────────────────────────
+# ─── Database ─────────────────────────────────────────────────
 engine = create_engine(DATABASE_URL, pool_pre_ping=True)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
@@ -45,22 +53,22 @@ class Lead(Base):
     id = Column(Integer, primary_key=True, index=True)
     email = Column(String, unique=True, index=True, nullable=False)
     role = Column(String, nullable=False)
-    lang = Column(String, default="en")
+    lang = Column(String, default="ru")
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     last_email_sent = Column(DateTime(timezone=True), nullable=True)
     email_count = Column(Integer, default=0)
-    status = Column(String, default="subscribed")  # subscribed, unsubscribed, bounced
-    welcome_sent = Column(Integer, default=0)  # 0 = no, 1 = yes
+    status = Column(String, default="subscribed")
+    welcome_sent = Column(Integer, default=0)
     drip_day3_sent = Column(Integer, default=0)
     drip_day7_sent = Column(Integer, default=0)
 
 Base.metadata.create_all(bind=engine)
 
-# ─── Pydantic Models ─────────────────────────────────────────────────────
+# ─── Pydantic Models ──────────────────────────────────────────
 class SubscribeRequest(BaseModel):
     email: EmailStr
     role: str
-    lang: str = "en"
+    lang: str = "ru"
 
 class LeadResponse(BaseModel):
     id: int
@@ -78,7 +86,8 @@ class LeadResponse(BaseModel):
     class Config:
         from_attributes = True
 
-# ─── FastAPI App ─────────────────────────────────────────────────────────
+# ─── FastAPI App ──────────────────────────────────────────────
+from apscheduler.schedulers.background import BackgroundScheduler
 scheduler = BackgroundScheduler()
 
 @asynccontextmanager
@@ -92,13 +101,13 @@ app = FastAPI(title="SafeMind Backend", lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Restrict in production
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# ─── Dependencies ────────────────────────────────────────────────────────
+# ─── Dependencies ─────────────────────────────────────────────
 def get_db():
     db = SessionLocal()
     try:
@@ -111,7 +120,7 @@ def verify_admin(token: str = Header(..., alias="X-Admin-Token")):
         raise HTTPException(status_code=403, detail="Invalid admin token")
     return True
 
-# ─── Email Templates ─────────────────────────────────────────────────────
+# ─── PDF URLs ─────────────────────────────────────────────────
 PDF_URLS = {
     "en": {
         "marketing": f"{FRONTEND_URL}/pdfs/safemind_survival_guide_en_marketing.pdf",
@@ -145,6 +154,7 @@ PDF_URLS = {
     }
 }
 
+# ─── Email Templates (all 3 languages) ────────────────────────
 EMAIL_TEMPLATES = {
     "en": {
         "welcome": {
@@ -225,7 +235,7 @@ EMAIL_TEMPLATES = {
 </div>
 <p>В течение недели я пришлю вам:</p>
 <ul>
-<li>День 3: Реальный кейс человека, который преврал тревогу от ИИ в повышение</li>
+<li>День 3: Реальный кейс человека, который превратил тревогу от ИИ в повышение</li>
 <li>День 7: Полный 30-дневный план (и как его получить)</li>
 </ul>
 <p>Вопросы? Просто ответьте на это письмо — его читает живой человек.</p>
@@ -346,13 +356,40 @@ EMAIL_TEMPLATES = {
     }
 }
 
-# ─── Email Service ───────────────────────────────────────────────────────
-def send_email(to: str, subject: str, html_body: str) -> bool:
-    """Send email via Resend"""
-    if not RESEND_API_KEY:
-        logger.warning("RESEND_API_KEY not set, skipping email send")
+# ─── Email Service ────────────────────────────────────────────
+def send_email_unisender(to: str, subject: str, html_body: str) -> bool:
+    """Send email via Unisender API (Russia)"""
+    if not UNISENDER_API_KEY:
+        logger.warning("UNISENDER_API_KEY not set, skipping email send")
         return False
     
+    try:
+        url = "https://api.unisender.com/ru/api/sendEmail"
+        params = {
+            "format": "json",
+            "api_key": UNISENDER_API_KEY,
+            "email": to,
+            "sender_name": "SafeMind",
+            "sender_email": FROM_EMAIL,
+            "subject": subject,
+            "body": html_body,
+            "list_id": "",  # Optional: specify mailing list
+        }
+        response = requests.get(url, params=params, timeout=30)
+        result = response.json()
+        
+        if "error" in result:
+            logger.error(f"Unisender error: {result['error']}")
+            return False
+        
+        logger.info(f"Email sent to {to} via Unisender")
+        return True
+    except Exception as e:
+        logger.error(f"Failed to send email to {to} via Unisender: {e}")
+        return False
+
+def send_email_resend(to: str, subject: str, html_body: str) -> bool:
+    """Send email via Resend"""
     try:
         params = {
             "from": f"SafeMind <{FROM_EMAIL}>",
@@ -361,54 +398,52 @@ def send_email(to: str, subject: str, html_body: str) -> bool:
             "html": html_body,
         }
         response = resend.Emails.send(params)
-        logger.info(f"Email sent to {to}: {response}")
+        logger.info(f"Email sent to {to} via Resend: {response}")
         return True
     except Exception as e:
-        logger.error(f"Failed to send email to {to}: {e}")
+        logger.error(f"Failed to send email to {to} via Resend: {e}")
+        return False
+
+def send_email(to: str, subject: str, html_body: str) -> bool:
+    """Send email using configured provider"""
+    if EMAIL_PROVIDER == "unisender":
+        return send_email_unisender(to, subject, html_body)
+    elif EMAIL_PROVIDER == "resend":
+        return send_email_resend(to, subject, html_body)
+    else:
+        logger.warning(f"Unknown email provider: {EMAIL_PROVIDER}")
         return False
 
 def get_pdf_url(role: str, lang: str) -> str:
-    """Get PDF URL for role and language"""
     role_map = {
         "marketing": "marketing", "hr": "hr", "teacher": "teacher", "legal": "legal",
         "finance": "finance", "transport": "transport", "procurement": "procurement",
         "economist": "economist"
     }
     mapped_role = role_map.get(role, "marketing")
-    urls = PDF_URLS.get(lang, PDF_URLS["en"])
+    urls = PDF_URLS.get(lang, PDF_URLS["ru"])
     return urls.get(mapped_role, urls["marketing"])
 
 def send_welcome_email(lead: Lead):
-    """Send welcome email with PDF"""
-    lang = lead.lang if lead.lang in EMAIL_TEMPLATES else "en"
+    lang = lead.lang if lead.lang in EMAIL_TEMPLATES else "ru"
     template = EMAIL_TEMPLATES[lang]["welcome"]
     pdf_url = get_pdf_url(lead.role, lang)
-    
     body = template["body"].format(pdf_url=pdf_url, frontend_url=FRONTEND_URL)
-    
-    success = send_email(lead.email, template["subject"], body)
-    return success
+    return send_email(lead.email, template["subject"], body)
 
 def send_drip_email(lead: Lead, drip_type: str):
-    """Send drip email (day3 or day7)"""
-    lang = lead.lang if lead.lang in EMAIL_TEMPLATES else "en"
+    lang = lead.lang if lead.lang in EMAIL_TEMPLATES else "ru"
     template = EMAIL_TEMPLATES[lang][drip_type]
-    
     body = template["body"].format(frontend_url=FRONTEND_URL)
-    
-    success = send_email(lead.email, template["subject"], body)
-    return success
+    return send_email(lead.email, template["subject"], body)
 
-# ─── API Endpoints ───────────────────────────────────────────────────────
+# ─── API Endpoints ────────────────────────────────────────────
 @app.post("/subscribe", status_code=200)
 def subscribe(
     req: SubscribeRequest,
     background_tasks: BackgroundTasks,
     db: Session = Depends(get_db)
 ):
-    """Subscribe a new lead and trigger welcome email"""
-    
-    # Check if already exists
     existing = db.query(Lead).filter(Lead.email == req.email).first()
     if existing:
         if existing.status == "unsubscribed":
@@ -417,31 +452,21 @@ def subscribe(
             return {"message": "Resubscribed successfully", "lead_id": existing.id}
         return {"message": "Already subscribed", "lead_id": existing.id}
     
-    # Create new lead
-    lead = Lead(
-        email=req.email,
-        role=req.role,
-        lang=req.lang,
-        status="subscribed"
-    )
+    lead = Lead(email=req.email, role=req.role, lang=req.lang, status="subscribed")
     db.add(lead)
     db.commit()
     db.refresh(lead)
     
-    # Send welcome email in background
     background_tasks.add_task(send_welcome_and_update, lead.id)
-    
     logger.info(f"New lead subscribed: {req.email} ({req.role}, {req.lang})")
     return {"message": "Subscribed successfully", "lead_id": lead.id}
 
 def send_welcome_and_update(lead_id: int):
-    """Send welcome email and update lead record"""
     db = SessionLocal()
     try:
         lead = db.query(Lead).filter(Lead.id == lead_id).first()
         if not lead:
             return
-        
         success = send_welcome_email(lead)
         if success:
             lead.welcome_sent = 1
@@ -461,14 +486,11 @@ def get_leads(
     limit: int = 100,
     offset: int = 0
 ):
-    """Get all leads (admin only)"""
     query = db.query(Lead)
-    
     if status:
         query = query.filter(Lead.status == status)
     if lang:
         query = query.filter(Lead.lang == lang)
-    
     leads = query.order_by(Lead.created_at.desc()).offset(offset).limit(limit).all()
     return leads
 
@@ -477,11 +499,9 @@ def get_lead_count(
     _: bool = Depends(verify_admin),
     db: Session = Depends(get_db)
 ):
-    """Get lead statistics"""
     total = db.query(Lead).count()
     by_lang = db.query(Lead.lang, func.count(Lead.id)).group_by(Lead.lang).all()
     by_role = db.query(Lead.role, func.count(Lead.id)).group_by(Lead.role).all()
-    
     return {
         "total": total,
         "by_language": {lang: count for lang, count in by_lang},
@@ -491,17 +511,14 @@ def get_lead_count(
 @app.post("/trigger-drip")
 def trigger_drip(
     lead_id: Optional[int] = None,
-    drip_type: str = "drip3",  # drip3 or drip7
+    drip_type: str = "drip3",
     _: bool = Depends(verify_admin),
     db: Session = Depends(get_db)
 ):
-    """Manually trigger drip email for a lead or all pending leads"""
-    
     if lead_id:
         lead = db.query(Lead).filter(Lead.id == lead_id).first()
         if not lead:
             raise HTTPException(status_code=404, detail="Lead not found")
-        
         success = send_drip_email(lead, drip_type)
         if success:
             if drip_type == "drip3":
@@ -511,27 +528,21 @@ def trigger_drip(
             lead.last_email_sent = func.now()
             lead.email_count += 1
             db.commit()
-        
         return {"message": f"Drip {drip_type} sent to {lead.email}", "success": success}
     
-    # Send to all pending leads
     query = db.query(Lead).filter(Lead.status == "subscribed")
-    
     if drip_type == "drip3":
         query = query.filter(Lead.welcome_sent == 1, Lead.drip_day3_sent == 0)
-        # Only leads who subscribed 3+ days ago
         three_days_ago = datetime.utcnow() - timedelta(days=3)
         query = query.filter(Lead.created_at <= three_days_ago)
     elif drip_type == "drip7":
         query = query.filter(Lead.drip_day3_sent == 1, Lead.drip_day7_sent == 0)
-        # Only leads who got drip3 4+ days ago (so 7+ days total)
         seven_days_ago = datetime.utcnow() - timedelta(days=7)
         query = query.filter(Lead.created_at <= seven_days_ago)
     
     leads = query.all()
     sent = 0
     failed = 0
-    
     for lead in leads:
         success = send_drip_email(lead, drip_type)
         if success:
@@ -544,28 +555,24 @@ def trigger_drip(
             sent += 1
         else:
             failed += 1
-    
     db.commit()
     return {"message": f"Drip {drip_type} campaign complete", "sent": sent, "failed": failed}
 
 @app.get("/health")
 def health_check():
-    """Health check endpoint"""
     return {
         "status": "ok",
         "timestamp": datetime.utcnow().isoformat(),
-        "resend_configured": bool(RESEND_API_KEY)
+        "email_provider": EMAIL_PROVIDER,
+        "email_configured": bool(UNISENDER_API_KEY if EMAIL_PROVIDER == "unisender" else resend.api_key if EMAIL_PROVIDER == "resend" else False)
     }
 
-# ─── Scheduled Drip Jobs ─────────────────────────────────────────────────
+# ─── Scheduled Drip Jobs ─────────────────────────────────────
 def run_daily_drip():
-    """Run daily drip campaign check"""
     logger.info("Running daily drip check...")
     db = SessionLocal()
     try:
         now = datetime.utcnow()
-        
-        # Day 3 drip
         three_days_ago = now - timedelta(days=3)
         day3_leads = db.query(Lead).filter(
             Lead.status == "subscribed",
@@ -573,7 +580,6 @@ def run_daily_drip():
             Lead.drip_day3_sent == 0,
             Lead.created_at <= three_days_ago
         ).all()
-        
         for lead in day3_leads:
             success = send_drip_email(lead, "drip3")
             if success:
@@ -582,7 +588,6 @@ def run_daily_drip():
                 lead.email_count += 1
                 logger.info(f"Day 3 drip sent to {lead.email}")
         
-        # Day 7 drip
         seven_days_ago = now - timedelta(days=7)
         day7_leads = db.query(Lead).filter(
             Lead.status == "subscribed",
@@ -590,7 +595,6 @@ def run_daily_drip():
             Lead.drip_day7_sent == 0,
             Lead.created_at <= seven_days_ago
         ).all()
-        
         for lead in day7_leads:
             success = send_drip_email(lead, "drip7")
             if success:
@@ -606,10 +610,9 @@ def run_daily_drip():
     finally:
         db.close()
 
-# Schedule daily drip check at 10:00 UTC
 scheduler.add_job(run_daily_drip, "cron", hour=10, minute=0, id="daily_drip")
 
-# ─── Run ─────────────────────────────────────────────────────────────────
+# ─── Run ─────────────────────────────────────────────────────
 if __name__ == "__main__":
     import uvicorn
     port = int(os.getenv("PORT", "8000"))
