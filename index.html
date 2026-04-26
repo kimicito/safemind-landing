@@ -3,51 +3,124 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SafeMind — Choose your language</title>
+<title>SafeMind — Stay Human in the AI Era</title>
 <link rel="stylesheet" href="assets/style.css">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
 .language-page {
-  min-height: 100vh; display: flex; flex-direction: column;
-  align-items: center; justify-content: center; text-align: center;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
   background: var(--bg);
 }
-.language-page h1 { font-size: 2.5rem; margin-bottom: 12px; }
-.language-page p { color: var(--text-light); margin-bottom: 40px; }
-.lang-options { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; }
-.lang-btn {
-  display: block; background: var(--bg-card); border: 2px solid var(--border);
-  padding: 30px 40px; border-radius: var(--radius); text-decoration: none;
-  color: var(--text); transition: all 0.2s; min-width: 160px;
+.language-page h1 {
+  font-size: 2.5rem;
+  margin-bottom: 12px;
 }
-.lang-btn:hover { border-color: var(--primary); transform: translateY(-2px); box-shadow: var(--shadow); }
-.lang-btn strong { display: block; font-size: 1.3rem; margin-bottom: 6px; }
-.lang-btn span { font-size: 0.9rem; color: var(--text-light); }
+.language-page p {
+  color: var(--muted);
+  margin-bottom: 40px;
+  font-size: 1.1rem;
+  max-width: 500px;
+}
+.lang-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.lang-btn {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 32px;
+  background: var(--card);
+  border: 2px solid var(--light);
+  border-radius: 16px;
+  text-decoration: none;
+  color: var(--fg);
+  font-weight: 600;
+  font-size: 1.1rem;
+  transition: all 0.3s;
+  min-width: 280px;
+}
+.lang-btn:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+}
+.lang-btn .flag {
+  font-size: 1.8rem;
+}
+.lang-btn .arrow {
+  margin-left: auto;
+  color: var(--accent);
+  font-size: 1.2rem;
+}
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(200,75,49,0.1);
+  color: var(--accent);
+  padding: 8px 20px;
+  border-radius: 50px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  margin-bottom: 24px;
+  border: 1px solid rgba(200,75,49,0.2);
+}
+.badge .pulse {
+  width: 8px;
+  height: 8px;
+  background: var(--accent);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.2); }
+}
+.footer-text {
+  margin-top: 48px;
+  font-size: 0.85rem;
+  color: var(--muted);
+  max-width: 400px;
+}
 </style>
 </head>
 <body>
-
 <div class="language-page">
-  <div class="logo" style="font-size:2rem;font-weight:800;color:var(--primary);margin-bottom:20px;">SafeMind</div>
-  <h1>Choose your language</h1>
-  <p>Stay calm in the AI era. Select your preferred language below.</p>
-  <div class="lang-options">
-    <a href="en/index.html" class="lang-btn">
-      <strong>English</strong>
-      <span>Global</span>
+  <div class="badge">
+    <span class="pulse"></span>
+    Real Humans. Real Support.
+  </div>
+  <h1>🛡️ SafeMind</h1>
+  <p>Stay Human in the AI Era.<br>We're not an AI chatbot — we're real people helping you navigate the AI revolution without losing yourself.</p>
+
+  <div class="lang-buttons">
+    <a class="lang-btn" href="en/">
+      <span class="flag">🇬🇧</span>
+      <span>English</span>
+      <span class="arrow">→</span>
     </a>
-    <a href="ru/index.html" class="lang-btn">
-      <strong>Русский</strong>
+    <a class="lang-btn" href="ru/">
+      <span class="flag">🇷🇺</span>
+      <span>Русский</span>
+      <span class="arrow">→</span>
     </a>
-    <a href="es/index.html" class="lang-btn">
-      <strong>Español</strong>
-      <span>Latinoamérica y España</span>
+    <a class="lang-btn" href="es/">
+      <span class="flag">🇪🇸</span>
+      <span>Español</span>
+      <span class="arrow">→</span>
     </a>
   </div>
-  <p style="margin-top:60px;font-size:0.85rem;color:var(--text-light);">
-    © 2026 SafeMind
+
+  <p class="footer-text">
+    🛡️ SafeMind — Real people. Real support. Zero algorithms pretending to care.
   </p>
 </div>
-
 </body>
 </html>

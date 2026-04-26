@@ -177,8 +177,8 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         ]
     ]
     await update.message.reply_text(
-        "🧠 *SafeMind Bot*\n"
-        "Stay calm in the AI era.\n\n"
+        "🛡️ *SafeMind Bot*\n"
+        "Stay Human in the AI Era.\n\n"
         "Choose your language / Выберите язык / Elige tu idioma:",
         parse_mode="Markdown",
         reply_markup=InlineKeyboardMarkup(keyboard),
@@ -223,9 +223,9 @@ async def lang_selected(update: Update, context: ContextTypes.DEFAULT_TYPE):
     context.user_data["lang"] = lang
 
     greetings = {
-        "en": "✅ *English selected*\n\nWelcome to SafeMind. I'm here to help you understand your AI anxiety and build a plan.\n\nWhat would you like to do?",
-        "ru": "✅ *Выбран русский язык*\n\nДобро пожаловать в SafeMind. Я помогу понять вашу тревогу от ИИ и составить план.\n\nЧто хотите сделать?",
-        "es": "✅ *Español seleccionado*\n\nBienvenido a SafeMind. Estoy aquí para ayudarte a entender tu ansiedad por IA y construir un plan.\n\n¿Qué te gustaría hacer?",
+        "en": "✅ *English selected*\n\n🛡️ Welcome to SafeMind.\n\nWe're NOT an AI chatbot. We're real humans helping you navigate the AI revolution without losing yourself.\n\nWhat would you like to do?",
+        "ru": "✅ *Выбран русский язык*\n\n🛡️ Добро пожаловать в SafeMind.\n\nМы НЕ ИИ-чатбот. Мы реальные люди, которые помогают вам пройти через революцию ИИ, не потеряв себя.\n\nЧто хотите сделать?",
+        "es": "✅ *Español seleccionado*\n\n🛡️ Bienvenido a SafeMind.\n\nNO somos un chatbot de IA. Somos personas reales que te ayudan a navegar la revolución de la IA sin perderte.\n\n¿Qué te gustaría hacer?",
     }
     buttons = {
         "en": [

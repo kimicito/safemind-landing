@@ -1,145 +1,1180 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SafeMind — Спокойствие в эпоху ИИ</title>
-<meta name="description" content="Диагностика тревоги от ИИ, человеческая поддержка, персональный AI-бот. Останьтесь незаменимым.">
-<link rel="stylesheet" href="../assets/style.css">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SafeMind — Оставайся Человеком в Эру ИИ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/style.css">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🛡️%3C/text%3E%3C/svg%3E">
+    <style>
+        :root {
+            --bg: #F5F1EC;
+            --fg: #1a1a1a;
+            --accent: #C84B31;
+            --accent2: #D4A574;
+            --dark: #2C3E50;
+            --card: #fff;
+            --muted: #666;
+            --light: #e8e2da;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--fg);
+            line-height: 1.6;
+        }
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            opacity: 0.03;
+            pointer-events: none;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+            z-index: 9999;
+        }
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            padding: 16px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(245, 241, 236, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 800;
+            font-size: 1.1rem;
+            color: var(--fg);
+            text-decoration: none;
+        }
+        .nav-logo span { font-size: 1.4rem; }
+        .nav-links {
+            display: flex;
+            gap: 24px;
+            align-items: center;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--muted);
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        .nav-links a:hover { color: var(--accent); }
+        .nav-cta {
+            background: var(--fg);
+            color: #fff !important;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+        }
+        .nav-cta:hover { background: var(--accent); }
+        
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 120px 20px 80px;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background: 
+                radial-gradient(ellipse 80% 60% at 20% 40%, rgba(200,75,49,0.12) 0%, transparent 50%),
+                radial-gradient(ellipse 60% 50% at 80% 60%, rgba(212,165,116,0.15) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        .hero-content { position: relative; z-index: 2; max-width: 800px; }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(200,75,49,0.1);
+            color: var(--accent);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 32px;
+            border: 1px solid rgba(200,75,49,0.2);
+        }
+        .hero-badge .pulse {
+            width: 8px; height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.2); }
+        }
+        .hero h1 {
+            font-size: clamp(2.2rem, 5vw, 4rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            letter-spacing: -0.03em;
+        }
+        .hero h1 .highlight {
+            background: linear-gradient(135deg, var(--accent), #E85D4E);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero-subtitle {
+            font-size: clamp(1.1rem, 2.5vw, 1.3rem);
+            color: var(--muted);
+            max-width: 600px;
+            margin: 0 auto 40px;
+            line-height: 1.5;
+        }
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        .hero-stat { text-align: center; }
+        .hero-stat-number {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--accent);
+            display: block;
+        }
+        .hero-stat-label {
+            font-size: 0.75rem;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .cta-group {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent), #E85D4E);
+            color: #fff;
+            padding: 16px 36px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 20px rgba(200,75,49,0.3);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(200,75,49,0.4);
+        }
+        .btn-secondary {
+            background: transparent;
+            color: var(--fg);
+            padding: 16px 36px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            border: 2px solid var(--light);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+        .btn-secondary:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            color: var(--muted);
+            font-size: 0.75rem;
+            animation: bounce 2s infinite;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(8px); }
+        }
+        
+        .fear-section {
+            padding: 100px 20px;
+            background: var(--dark);
+            color: #fff;
+            position: relative;
+            overflow: hidden;
+        }
+        .fear-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: 
+                radial-gradient(ellipse 60% 40% at 30% 70%, rgba(200,75,49,0.15) 0%, transparent 50%),
+                radial-gradient(ellipse 50% 50% at 70% 30%, rgba(212,165,116,0.1) 0%, transparent 50%);
+        }
+        .fear-content {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+        .section-label {
+            display: inline-block;
+            color: var(--accent2);
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 16px;
+        }
+        .fear-section h2 {
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-weight: 800;
+            margin-bottom: 24px;
+            line-height: 1.15;
+        }
+        .fear-section h2 .red { color: var(--accent); }
+        .fear-desc {
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 48px;
+            max-width: 700px;
+        }
+        .fear-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 48px;
+        }
+        .fear-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 28px;
+            transition: all 0.3s;
+        }
+        .fear-card:hover {
+            background: rgba(255,255,255,0.08);
+            border-color: rgba(200,75,49,0.3);
+            transform: translateY(-4px);
+        }
+        .fear-card-icon {
+            font-size: 2rem;
+            margin-bottom: 16px;
+            display: block;
+        }
+        .fear-card h3 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        .fear-card p {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.6);
+            line-height: 1.5;
+        }
+        .fear-card .stat {
+            color: var(--accent);
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-top: 8px;
+        }
+        .fear-quote {
+            border-left: 3px solid var(--accent);
+            padding-left: 24px;
+            font-style: italic;
+            font-size: 1.05rem;
+            color: rgba(255,255,255,0.8);
+            max-width: 600px;
+        }
+        .fear-quote cite {
+            display: block;
+            margin-top: 12px;
+            font-style: normal;
+            font-size: 0.85rem;
+            color: var(--accent2);
+        }
+        
+        .manifesto {
+            padding: 100px 20px;
+            text-align: center;
+            background: var(--bg);
+            position: relative;
+        }
+        .manifesto-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+        .manifesto h2 {
+            font-size: clamp(1.8rem, 5vw, 3rem);
+            font-weight: 900;
+            margin-bottom: 24px;
+            line-height: 1.15;
+        }
+        .manifesto h2 .not-ai {
+            background: linear-gradient(135deg, var(--accent), #E85D4E);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .manifesto-subtitle {
+            font-size: 1.15rem;
+            color: var(--muted);
+            margin-bottom: 48px;
+        }
+        .not-ai-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            text-align: left;
+            margin-top: 48px;
+        }
+        .not-ai-card {
+            background: var(--card);
+            border-radius: 20px;
+            padding: 32px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+            border: 1px solid rgba(0,0,0,0.05);
+            transition: all 0.3s;
+        }
+        .not-ai-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.1);
+        }
+        .not-ai-card .number {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--accent);
+            opacity: 0.3;
+            line-height: 1;
+            margin-bottom: 16px;
+        }
+        .not-ai-card h3 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+        .not-ai-card p {
+            font-size: 0.9rem;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+        
+        .psychologist {
+            padding: 100px 20px;
+            background: linear-gradient(135deg, #faf8f5 0%, #f5f1ec 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .psychologist::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(200,75,49,0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .psychologist-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+        @media (max-width: 768px) {
+            .psychologist-content { grid-template-columns: 1fr; gap: 40px; }
+        }
+        .psychologist-visual {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .psychologist-card {
+            background: var(--card);
+            border-radius: 24px;
+            padding: 32px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+            text-align: center;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+        .psychologist-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent2), #8B6F4E);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            margin: 0 auto 16px;
+        }
+        .psychologist-card h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        .psychologist-card .title {
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 0.85rem;
+            margin-bottom: 16px;
+        }
+        .psychologist-card .bio {
+            font-size: 0.85rem;
+            color: var(--muted);
+            line-height: 1.5;
+        }
+        .psychologist-card .credentials {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            margin-top: 16px;
+        }
+        .credential-tag {
+            background: rgba(200,75,49,0.1);
+            color: var(--accent);
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .psychologist-info h2 {
+            font-size: clamp(1.6rem, 3vw, 2.2rem);
+            font-weight: 800;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        .psychologist-info .lead {
+            font-size: 1.05rem;
+            color: var(--muted);
+            margin-bottom: 32px;
+        }
+        .psychologist-features {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+        .psychologist-feature {
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+        }
+        .psychologist-feature-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, rgba(200,75,49,0.1), rgba(212,165,116,0.1));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            flex-shrink: 0;
+        }
+        .psychologist-feature h4 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        .psychologist-feature p {
+            font-size: 0.85rem;
+            color: var(--muted);
+        }
+        .therapy-types {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 32px;
+        }
+        .therapy-type {
+            background: var(--card);
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border: 1px solid rgba(0,0,0,0.05);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .how-it-works {
+            padding: 100px 20px;
+            background: var(--bg);
+            position: relative;
+        }
+        .how-content {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .how-content h2 {
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+        .how-content .subtitle {
+            color: var(--muted);
+            font-size: 1.1rem;
+            margin-bottom: 60px;
+        }
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 32px;
+            text-align: left;
+        }
+        .step {
+            position: relative;
+            padding: 32px;
+            background: var(--card);
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+        .step-number {
+            position: absolute;
+            top: -16px;
+            left: 24px;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--accent), #E85D4E);
+            color: #fff;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 12px rgba(200,75,49,0.3);
+        }
+        .step h3 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin: 16px 0 12px;
+        }
+        .step p {
+            font-size: 0.9rem;
+            color: var(--muted);
+            line-height: 1.5;
+        }
+        
+        .community {
+            padding: 100px 20px;
+            background: linear-gradient(135deg, var(--dark) 0%, #1a2530 100%);
+            color: #fff;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .community::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse 60% 50% at 50% 50%, rgba(200,75,49,0.1) 0%, transparent 60%);
+        }
+        .community-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+        .community h2 {
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+        .community > div > p {
+            font-size: 1.05rem;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 48px;
+        }
+        .community-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 24px;
+            margin-bottom: 48px;
+        }
+        .community-feature {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 28px;
+            transition: all 0.3s;
+        }
+        .community-feature:hover {
+            background: rgba(255,255,255,0.08);
+            transform: translateY(-4px);
+        }
+        .community-feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 16px;
+            display: block;
+        }
+        .community-feature h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        .community-feature p {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.6);
+        }
+        
+        .pricing {
+            padding: 100px 20px;
+            background: var(--bg);
+        }
+        .pricing-content {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .pricing h2 {
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+        .pricing > div > p {
+            color: var(--muted);
+            font-size: 1.1rem;
+            margin-bottom: 48px;
+        }
+        .pricing-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            text-align: left;
+        }
+        .pricing-card {
+            background: var(--card);
+            border-radius: 20px;
+            padding: 36px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+            border: 1px solid rgba(0,0,0,0.05);
+            position: relative;
+            transition: all 0.3s;
+        }
+        .pricing-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.1);
+        }
+        .pricing-card.featured {
+            border: 2px solid var(--accent);
+            box-shadow: 0 8px 32px rgba(200,75,49,0.15);
+        }
+        .pricing-badge {
+            position: absolute;
+            top: -12px;
+            right: 24px;
+            background: linear-gradient(135deg, var(--accent), #E85D4E);
+            color: #fff;
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+        .pricing-card h3 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        .pricing-card .price {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--fg);
+            margin-bottom: 4px;
+        }
+        .pricing-card .price span {
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--muted);
+        }
+        .pricing-card .desc {
+            font-size: 0.85rem;
+            color: var(--muted);
+            margin-bottom: 24px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid var(--light);
+        }
+        .pricing-features {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 32px;
+        }
+        .pricing-features li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+        }
+        .pricing-features li::before {
+            content: '✓';
+            color: var(--accent);
+            font-weight: 700;
+        }
+        
+        .final-cta {
+            padding: 100px 20px;
+            background: linear-gradient(135deg, var(--dark) 0%, #1a2530 100%);
+            color: #fff;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .final-cta::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: 
+                radial-gradient(ellipse 50% 50% at 30% 50%, rgba(200,75,49,0.15) 0%, transparent 50%),
+                radial-gradient(ellipse 40% 40% at 70% 60%, rgba(212,165,116,0.1) 0%, transparent 50%);
+        }
+        .final-cta-content {
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+        .final-cta h2 {
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+        .final-cta p {
+            font-size: 1.05rem;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 32px;
+        }
+        .final-cta .btn-primary {
+            font-size: 1.1rem;
+            padding: 18px 40px;
+        }
+        
+        footer {
+            padding: 48px 20px;
+            text-align: center;
+            background: var(--bg);
+            border-top: 1px solid var(--light);
+        }
+        footer p {
+            font-size: 0.85rem;
+            color: var(--muted);
+        }
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+        
+        @media (max-width: 640px) {
+            .nav-links { display: none; }
+            .hero-stats { gap: 24px; }
+            .fear-grid, .not-ai-grid { grid-template-columns: 1fr; }
+            .therapy-types { grid-template-columns: 1fr; }
+            .pricing-cards { grid-template-columns: 1fr; }
+        }
+    </style>
 </head>
 <body>
 
-<nav class="nav container">
-  <a href="index.html" class="logo">SafeMind</a>
-  <div class="lang-switch">
-    <a href="../en/index.html">EN</a>
-    <a href="../ru/index.html" class="active">RU</a>
-    <a href="../es/index.html">ES</a>
-  </div>
+<nav>
+    <a href="#" class="nav-logo">
+        <span>🛡️</span>
+        SafeMind
+    </a>
+    <div class="nav-links">
+        <a href="#fear">Проблема</a>
+        <a href="#manifesto">Наша позиция</a>
+        <a href="#psychologist">Поддержка</a>
+        <a href="#how">Как это работает</a>
+        <a href="#community">Сообщество</a>
+        <a href="#pricing">Тарифы</a>
+        <a href="https://t.me/SafeMindBot" class="nav-cta">Присоединиться →</a>
+    </div>
 </nav>
 
-<section class="hero container">
-  <h1>ИИ заберёт вашу работу?<br>Давайте разберёмся вместе.</h1>
-  <p class="sub">Бесплатная 10-минутная диагностика риска замены ИИ, персональный план действий и человек-партнёр, который поможет оставаться впереди.</p>
-  <button class="cta-main" onclick="showStub()">Проверить мой риск — Бесплатно</button>
-  <div class="trust-bar">Уже используют 100+ специалистов из Google, McKinsey и творческих профессий.</div>
+<section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+        <div class="hero-badge">
+            <span class="pulse"></span>
+            Мы онлайн — Реальные люди, реальная поддержка
+        </div>
+        <h1>
+            43% боятся, что ИИ<br>
+            сделает их <span class="highlight">ненужными</span>
+        </h1>
+        <p class="hero-subtitle">
+            Вы не одни. И вы не заменяемы. SafeMind — сообщество реальных людей, которые помогают друг другу пройти через революцию ИИ, не потеряв рассудок и работу.
+        </p>
+        <div class="hero-stats">
+            <div class="hero-stat">
+                <span class="hero-stat-number">84%</span>
+                <span class="hero-stat-label">Видят ИИ как угрозу</span>
+            </div>
+            <div class="hero-stat">
+                <span class="hero-stat-number">55%</span>
+                <span class="hero-stat-label">Верят, что работы исчезнут</span>
+            </div>
+            <div class="hero-stat">
+                <span class="hero-stat-number">129%</span>
+                <span class="hero-stat-label">Больше страха у молодёжи</span>
+            </div>
+        </div>
+        <div class="cta-group">
+            <a href="https://t.me/SafeMindBot" class="btn-primary">
+                🚀 Присоединиться к SafeMind
+            </a>
+            <a href="#fear" class="btn-secondary">
+                📖 Узнать правду
+            </a>
+        </div>
+    </div>
+    <div class="scroll-indicator">
+        <span>↓</span>
+        <span>Листай, чтобы понять масштаб</span>
+    </div>
 </section>
 
-<section class="section container">
-  <h2 class="section-title">Как это работает</h2>
-  <div class="steps">
-    <div class="step">
-      <div class="step-num">1</div>
-      <h3>Диагностика</h3>
-      <p>10-минутная оценка вашей уязвимости перед ИИ, пробелов в навыках и устойчивости карьеры.</p>
+<section class="fear-section" id="fear">
+    <div class="fear-content">
+        <span class="section-label">Проверка реальности</span>
+        <h2>
+            Тревога из-за ИИ — <span class="red">реальна</span>.<br>
+            И она усиливается.
+        </h2>
+        <p class="fear-desc">
+            Это не паранойя из фантастики. Это ежедневная реальность миллионов. Страх не о роботах на заводах — он об алгоритмах, которые заменяют ваше творчество, ваше суждение, ваше человеческое тепло.
+        </p>
+        <div class="fear-grid">
+            <div class="fear-card">
+                <span class="fear-card-icon">😰</span>
+                <h3>Апокалиптический нарратив</h3>
+                <p>Заголовки кричат: 50% работ исчезнет к 2027. Вакансии для новичков уже тают. Посыл ясен: «Ты слишком дорог. ИИ — дешевле.»</p>
+                <div class="stat">300 млн работ под угрозой</div>
+            </div>
+            <div class="fear-card">
+                <span class="fear-card-icon">🤯</span>
+                <h3>Синдром самозванца × 1000</h3>
+                <p>Когда ИИ пишет код лучше, создаёт круче арт, анализирует быстрее — трудно не спросить: «А что я вообще стою?» Молодые работники чувствуют это в 2.3 раза сильнее.</p>
+                <div class="stat">52% молодёжи 18-24 в панике</div>
+            </div>
+            <div class="fear-card">
+                <span class="fear-card-icon">😴</span>
+                <h3>Порочный круг стресса</h3>
+                <p>Постоянный мониторинг изменений. Переработка, чтобы доказать ценность. Страх учить новое. Стрессовая реакция не выключается никогда.</p>
+                <div class="stat">Хроническая тревога растёт на 40%</div>
+            </div>
+            <div class="fear-card">
+                <span class="fear-card-icon">👁️</span>
+                <h3>Эрозия приватности</h3>
+                <p>84% людей видят в ИИ риск для приватности, безопасности и автономии. Ваши данные обучают модель, которая может вас заменить. Ирония жестока.</p>
+                <div class="stat">84% считают ИИ опасным</div>
+            </div>
+        </div>
+        <div class="fear-quote">
+            «Настоящий страх общества не в том, что ИИ станет лучше. А в том, что мы сдадимся и примем то, что выдают алгоритмы.»
+            <cite>— Шон Келли, профессор философии Гарварда</cite>
+        </div>
     </div>
-    <div class="step">
-      <div class="step-num">2</div>
-      <h3>План</h3>
-      <p>Персональная дорожная карта: как стать незаменимым за 90 дней.</p>
-    </div>
-    <div class="step">
-      <div class="step-num">3</div>
-      <h3>Рост</h3>
-      <p>Еженедельные чек-ины, дайджест новостей ИИ и персональный бот, если нужен.</p>
-    </div>
-  </div>
 </section>
 
-<section class="section container">
-  <h2 class="section-title">Выберите уровень</h2>
-  <div class="pricing-grid">
-    <div class="card">
-      <h3>Диагностика тревоги ИИ</h3>
-      <div class="price">$0</div>
-      <ul>
-        <li>10-мин оценка риска</li>
-        <li>Персональный план действий</li>
-        <li>Email с ключевыми инсайтами</li>
-        <li>Доступ к сообществу SafeMind</li>
-      </ul>
-      <button class="cta" onclick="showStub()">Начать бесплатно</button>
+<section class="manifesto" id="manifesto">
+    <div class="manifesto-content">
+        <span class="section-label" style="color: var(--accent);">Наша позиция</span>
+        <h2>
+            Мы — <span class="not-ai">не ИИ</span>.<br>
+            Мы — люди. И остаёмся людьми.
+        </h2>
+        <p class="manifesto-subtitle">
+            SafeMind — не чат-бот. Не алгоритм. Не «приложение для здоровья», управляемое кодом, притворяющимся, что ему не всё равно. Мы — реальные люди: психологи, коучи, единомышленники.
+        </p>
+        <div class="not-ai-grid">
+            <div class="not-ai-card">
+                <div class="number">01</div>
+                <h3>🧠 Настоящие психологи, не боты</h3>
+                <p>Когда вы крутитесь в 2 часа ночи, вам не нужен очередной «Мне жаль это слышать» от языковой модели. Нужен профессионал, который читает между строк, чувствует контекст и ведёт через страх — не вокруг него.</p>
+            </div>
+            <div class="not-ai-card">
+                <div class="number">02</div>
+                <h3>🤝 Круги единомышленников, не алгоритмы</h3>
+                <p>ИИ не понимает, каково это — быть заменённым. Но человек, переживший такое сокращение? Он понимает. Наши группы модерируются людьми, чувствуются людьми, лечатся людьми.</p>
+            </div>
+            <div class="not-ai-card">
+                <div class="number">03</div>
+                <h3>💪 Навыки, не лайфхаки</h3>
+                <p>Мы не учим «5 промптов, чтобы обхитрить ИИ». Мы строим психологическую гибкость, мастерство коммуникации, творческую устойчивость — уникально человеческие навыки, которые алгоритм не скопирует.</p>
+            </div>
+            <div class="not-ai-card">
+                <div class="number">04</div>
+                <h3>🎯 Смысл, не продуктивность</h3>
+                <p>ИИ оптимизирует. Люди создают смысл. Мы помогаем найти работу, которая важна, идентичность, которая держится, и вклад, который нельзя автоматизировать — потому что он идёт от души, не от синтаксиса.</p>
+            </div>
+        </div>
     </div>
-    <div class="card featured" data-badge="Популярный">
-      <h3>Консьерж Human AI</h3>
-      <div class="price">$99<span>/мес</span></div>
-      <ul>
-        <li>Всё из Free, плюс:</li>
-        <li>Еженедельный дайджест новостей ИИ</li>
-        <li>Прямые ответы на вопросы</li>
-        <li>1× стратегическая сессия в неделю</li>
-        <li>Приоритетный доступ к сообществу</li>
-      </ul>
-      <button class="cta" onclick="showStub()">Встать в лист ожидания</button>
-    </div>
-    <div class="card">
-      <h3>Персональный AI-бот</h3>
-      <div class="price">$299<span>единоразово</span></div>
-      <ul>
-        <li>Персональный ассистент на ваших данных</li>
-        <li>Работает в Telegram / Slack</li>
-        <li>Подстроен под вашу индустрию</li>
-        <li>+$19/мес хостинг</li>
-      </ul>
-      <button class="cta" onclick="showStub()">Заказать бота</button>
-    </div>
-  </div>
 </section>
 
-<section class="section container">
-  <h2 class="section-title">Вопросы? У нас есть ответы.</h2>
-  <div class="faq">
-    <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">
-        Диагностика действительно бесплатная? <span class="faq-icon">▼</span>
-      </div>
-      <div class="faq-a">Да. Никакой карты, никаких обязательств. Мы верим, что доверие начинается с пользы.</div>
+<section class="psychologist" id="psychologist">
+    <div class="psychologist-content">
+        <div class="psychologist-visual">
+            <div class="psychologist-card">
+                <div class="psychologist-avatar">👩‍⚕️</div>
+                <h3>Др. Елена Васкес</h3>
+                <div class="title">Клинический психолог и специалист по тревоге от ИИ</div>
+                <p class="bio">
+                    12 лет практики. Обучение в Стэнфорде. Специализация: технологический стресс, горе от потери работы, реконструкция идентичности в цифровую эру. Она предвидела волну ИИ-тревоги раньше, чем у того появилось название.
+                </p>
+                <div class="credentials">
+                    <span class="credential-tag">PhD Психология</span>
+                    <span class="credential-tag">CBT Сертификат</span>
+                    <span class="credential-tag">EMDR Терапия</span>
+                    <span class="credential-tag">12 лет опыта</span>
+                </div>
+            </div>
+        </div>
+        <div class="psychologist-info">
+            <span class="section-label" style="color: var(--accent);">Профессиональная поддержка</span>
+            <h2>Настоящий психолог, который понимает тревогу от ИИ</h2>
+            <p class="lead">
+                Др. Елена не просто «знает про ИИ». Она лечит людей, чьи карьеры, идентичность и сон разрушены им. Её подход объединяет доказательную терапию с практической устойчивостью карьеры.
+            </p>
+            <div class="psychologist-features">
+                <div class="psychologist-feature">
+                    <div class="psychologist-feature-icon">🎯</div>
+                    <div>
+                        <h4>Специализированный протокол</h4>
+                        <p>8-недельная программа, сочетающая КПТ, осознанность и карьерный коучинг — специально для стресса, вызванного ИИ.</p>
+                    </div>
+                </div>
+                <div class="psychologist-feature">
+                    <div class="psychologist-feature-icon">🕐</div>
+                    <div>
+                        <h4>Кризисная линия 24/7</h4>
+                        <p>Настоящие люди на связи, не боты. Когда паника накрывает в 3 часа ночи — вас выслушит и выведут из спирали профессионал.</p>
+                    </div>
+                </div>
+                <div class="psychologist-feature">
+                    <div class="psychologist-feature-icon">👥</div>
+                    <div>
+                        <h4>Групповая терапия</h4>
+                        <p>Еженедельные модерируемые группы, где люди делятся страхами, трудностями поиска работы и победами адаптации. Вы не одни.</p>
+                    </div>
+                </div>
+                <div class="psychologist-feature">
+                    <div class="psychologist-feature-icon">📊</div>
+                    <div>
+                        <h4>Отслеживание прогресса</h4>
+                        <p>Еженедельная оценка тревоги, качества сна, овладения навыками — измерено людьми, для людей.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="therapy-types">
+                <div class="therapy-type">🧠 КПТ техники</div>
+                <div class="therapy-type">🌬️ Дыхательные практики</div>
+                <div class="therapy-type">📝 Протоколы journaling</div>
+                <div class="therapy-type">🎯 Терапия экспозиции</div>
+                <div class="therapy-type">💼 Карьерный консалтинг</div>
+                <div class="therapy-type">🤝 Peer support</div>
+            </div>
+            <a href="https://t.me/SafeMindBot" class="btn-primary">
+                📅 Записаться к др. Елене
+            </a>
+        </div>
     </div>
-    <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">
-        Кто будет моим партнёром? <span class="faq-icon">▼</span>
-      </div>
-      <div class="faq-a">Реальный человек, который ежедневно следит за трендами ИИ и умеет переводить их в контекст вашей карьеры.</div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">
-        Можно отменить в любой момент? <span class="faq-icon">▼</span>
-      </div>
-      <div class="faq-a">Конечно. Месячная подписка — отмена в любой момент. Без вопросов и угрызений совести.</div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">
-        Какие языки поддерживаются? <span class="faq-icon">▼</span>
-      </div>
-      <div class="faq-a">Английский, русский и испанский. Остальные — по запросу.</div>
-    </div>
-  </div>
 </section>
 
-<footer class="footer container">
-  © 2026 SafeMind. Создано для людей, работает с заботой.<br>
-  <a href="mailto:hello@safemind.co">hello@safemind.co</a>
+<section class="how-it-works" id="how">
+    <div class="how-content">
+        <span class="section-label" style="color: var(--accent);">Ваш путь</span>
+        <h2>Как работает SafeMind</h2>
+        <p class="subtitle">Никаких алгоритмов, решающих вашу судьбу. Только люди, помогающие людям.</p>
+        <div class="steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <h3>📱 Войти в сообщество</h3>
+                <p>Через Telegram. Не нужно качать приложения, создавать аккаунты. Просто реальные люди в реальном чате, готовые принять вас.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <h3>📝 Рассказать свою историю</h3>
+                <p>Расскажите, с чем столкнулись — страх потери работы, тревога за навыки, кризис идентичности. Мы слушаем. Понимаем. Мы через это проходили.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <h3>🎯 Получить подборку</h3>
+                <p>Исходя из вашей ситуации, мы подключаем нужную поддержку — др. Елену для терапии, круги единомышленников для солидарности, мастер-классы для роста.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">4</div>
+                <h3>💪 Стать устойчивее</h3>
+                <p>Наращивайте психологические инструменты и человеческие навыки, которые ИИ не тронет. Найдите работу со смыслом. Спите лучше. Живите полнее.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="community" id="community">
+    <div class="community-content">
+        <span class="section-label">Круг SafeMind</span>
+        <h2>Реальные люди. Реальные страхи. Реальная поддержка.</h2>
+        <p>Наше сообщество — не форум. Это спасательный круг. Модерируется профессионалами, питается эмпатией.</p>
+        <div class="community-features">
+            <div class="community-feature">
+                <span class="community-feature-icon">👥</span>
+                <h3>Круги единомышленников</h3>
+                <p>Малые группы (8-12 человек) по индустрии или страху. Еженедельные видеозвонки. Без осуждения, без конкуренции — только солидарность.</p>
+            </div>
+            <div class="community-feature">
+                <span class="community-feature-icon">🎯</span>
+                <h3>Еженедельные челленджи</h3>
+                <p>«Сделай то, что не умеет ИИ». «Поговори с человеком». «Создай что-то несовершенное». Маленькие победы, восстанавливающие уверенность.</p>
+            </div>
+            <div class="community-feature">
+                <span class="community-feature-icon">📚</span>
+                <h3>Мастер-классы по навыкам</h3>
+                <p>Живые сессии об эмоциональном интеллекте, творческом мышлении, этическом суждении — незаменимо человеческие способности.</p>
+            </div>
+            <div class="community-feature">
+                <span class="community-feature-icon">🎉</span>
+                <h3>Стена побед</h3>
+                <p>Каждая человеческая победа празднуется — новая работа, лучший сон, творческий проект, или просто прожитый день. Ваши победы имеют значение.</p>
+            </div>
+        </div>
+        <a href="https://t.me/SafeMindBot" class="btn-primary" style="font-size: 1.1rem; padding: 18px 40px;">
+            👋 Вступить в сообщество
+        </a>
+    </div>
+</section>
+
+<section class="pricing" id="pricing">
+    <div class="pricing-content">
+        <span class="section-label" style="color: var(--accent);">Доступно каждому</span>
+        <h2>Выберите свой путь</h2>
+        <p>Профессиональная помощь не должна быть роскошью. Мы держим цены человечными.</p>
+        <div class="pricing-cards">
+            <div class="pricing-card">
+                <h3>🌱 Старт</h3>
+                <div class="price">Бесплатно <span>навсегда</span></div>
+                <p class="desc">Вступите в сообщество. Доступ к поддержке сверстников. Начните путь.</p>
+                <ul class="pricing-features">
+                    <li>Доступ в сообщество</li>
+                    <li>Круги единомышленников</li>
+                    <li>Еженедельные челленджи</li>
+                    <li>Библиотека ресурсов</li>
+                    <li>Стена побед</li>
+                </ul>
+                <a href="https://t.me/SafeMindBot" class="btn-secondary" style="width: 100%; justify-content: center;">
+                    Бесплатно →
+                </a>
+            </div>
+            <div class="pricing-card featured">
+                <div class="pricing-badge">Популярный</div>
+                <h3>🧠 Рост</h3>
+                <div class="price">29$ <span>/ месяц</span></div>
+                <p class="desc">Профессиональная поддержка + сообщество. Для тех, кто готов исцеляться и расти.</p>
+                <ul class="pricing-features">
+                    <li>Всё из Старта</li>
+                    <li>1:1 с др. Еленой (ежемесячно)</li>
+                    <li>Групповая терапия</li>
+                    <li>Кризисная линия</li>
+                    <li>Отслеживание прогресса</li>
+                    <li>Мастер-классы</li>
+                </ul>
+                <a href="https://t.me/SafeMindBot" class="btn-primary" style="width: 100%; justify-content: center;">
+                    Начать рост →
+                </a>
+            </div>
+            <div class="pricing-card">
+                <h3>🚀 Расцвет</h3>
+                <div class="price">79$ <span>/ месяц</span></div>
+                <p class="desc">Интенсивная поддержка для смены карьеры или острой ИИ-тревоги.</p>
+                <ul class="pricing-features">
+                    <li>Всё из Роста</li>
+                    <li>1:1 сессии еженедельно</li>
+                    <li>Приоритетная кризисная помощь</li>
+                    <li>Карьерный коучинг включён</li>
+                    <li>Персональные протоколы</li>
+                    <li>Семейные сессии</li>
+                </ul>
+                <a href="https://t.me/SafeMindBot" class="btn-secondary" style="width: 100%; justify-content: center;">
+                    Начать расцвет →
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="final-cta">
+    <div class="final-cta-content">
+        <h2>Эра ИИ наступила.<br>И мы тоже здесь.</h2>
+        <p>
+            Вам не нужно проходить это в одиночку. Не нужно обгонять алгоритмы. Нужно только вспомнить, что делает вас незаменимо человечным — и мы поможем именно в этом.
+        </p>
+        <a href="https://t.me/SafeMindBot" class="btn-primary">
+            🛡️ Присоединиться к SafeMind — бесплатно
+        </a>
+        <p style="margin-top: 24px; font-size: 0.85rem; color: rgba(255,255,255,0.5);">
+            Никаких ИИ-чатботов. Никаких алгоритмов. Только люди, помогающие людям.
+        </p>
+    </div>
+</section>
+
+<footer>
+    <p>
+        🛡️ SafeMind — Оставайся Человеком в Эру ИИ<br>
+        <a href="https://t.me/SafeMindBot">Telegram</a> · 
+        <a href="mailto:hello@safemind.org">hello@safemind.org</a><br>
+        <span style="opacity: 0.6;">Реальные люди. Реальная поддержка. Ноль алгоритмов, притворяющихся, что им не всё равно.</span>
+    </p>
 </footer>
 
-<!-- Modal Stub -->
-<div class="modal-overlay" id="stubModal">
-  <div class="modal">
-    <h3>🚀 Скоро запуск</h3>
-    <p>Запуск в мае 2026.<br>Оставьте email для раннего доступа.</p>
-    <input type="email" placeholder="your@email.com" style="width:100%;padding:12px;margin-bottom:16px;border:1px solid var(--border);border-radius:var(--radius);font-size:1rem;">
-    <br>
-    <button class="close-btn" onclick="hideStub()">Уведомить меня</button>
-  </div>
-</div>
-
 <script>
-function showStub() { document.getElementById('stubModal').classList.add('show'); }
-function hideStub() { document.getElementById('stubModal').classList.remove('show'); }
-function toggleFaq(el) { el.parentElement.classList.toggle('open'); }
-document.getElementById('stubModal').addEventListener('click', function(e){
-  if(e.target === this) hideStub();
-});
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+    });
+    // Hide scroll indicator
+    window.addEventListener('scroll', () => {
+        const indicator = document.querySelector('.scroll-indicator');
+        if (indicator && window.scrollY > 100) {
+            indicator.style.opacity = '0';
+        }
+    });
 </script>
 
 </body>
