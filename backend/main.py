@@ -373,7 +373,7 @@ def send_email_unisender(to: str, subject: str, html_body: str) -> bool:
             "sender_email": FROM_EMAIL,
             "subject": subject,
             "body": html_body,
-            "list_id": "",  # Optional: specify mailing list
+            "list_id": "149",  # SafeMind Leads list
         }
         response = requests.get(url, params=params, timeout=30)
         result = response.json()
