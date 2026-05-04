@@ -1488,7 +1488,9 @@ SafeMind - не чат-бот. Не алгоритм. Не "приложение
 <option value="transport">Транспортный менеджер (документация, логистика)</option>
 <option value="procurement">Закупщик (цены, договора, обзоры рынков)</option>
 <option value="economist">Экономист (финансовый анализ, оптимизация)</option>
+<option value="other">Другая профессия...</option>
 </select>
+<input type="text" id="lmOtherRole" placeholder="Укажите вашу профессию" style="display:none; margin-top:8px; padding:12px; border-radius:8px; border:1px solid var(--light); width:100%;">
 </div>
 <button type="submit" class="btn-primary" style="width: 100%; justify-content: center;">
 📥 Скачать моё руководство →
@@ -1757,12 +1759,22 @@ function handleLeadMagnet(e) {
 e.preventDefault();
 const email = document.getElementById('lmEmail').value;
 const role = document.getElementById('lmRole').value;
+const otherRoleInput = document.getElementById('lmOtherRole');
+const otherRole = otherRoleInput ? otherRoleInput.value.trim() : '';
 const lang = 'ru';
 
 if(!email || !email.includes('@') || !role) {
 alert('Пожалуйста, введите email и выберите роль');
 return;
 }
+
+if(role === 'other' && !otherRole) {
+alert('Пожалуйста, укажите вашу профессию');
+otherRoleInput.focus();
+return;
+}
+
+const finalRole = role === 'other' ? `other:${otherRole}` : role;
 
 // Show loading
 const btn = e.target.querySelector('button[type="submit"]');
@@ -1774,7 +1786,7 @@ btn.disabled = true;
 fetch(`${API_BASE}/subscribe`, {
 method: 'POST',
 headers: {'Content-Type': 'application/json'},
-body: JSON.stringify({email, role, lang})
+body: JSON.stringify({email, role: finalRole, lang})
 })
 .then(r => r.json())
 .then(data => {
@@ -1824,6 +1836,18 @@ btn.disabled = false;
 console.error('Subscribe error:', err);
 alert('Что-то пошло не так. Попробуйте снова или напишите нам: hello@safemind.pro');
 });
+}
+
+// Handle "Other" role selection
+const lmRoleSelect = document.getElementById('lmRole');
+if(lmRoleSelect) {
+  lmRoleSelect.addEventListener('change', function() {
+    const otherInput = document.getElementById('lmOtherRole');
+    if(otherInput) {
+      otherInput.style.display = this.value === 'other' ? 'block' : 'none';
+      if(this.value !== 'other') otherInput.value = '';
+    }
+  });
 }
 
 function showComingSoon(e) {

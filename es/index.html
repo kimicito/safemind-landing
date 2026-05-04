@@ -1489,7 +1489,9 @@ A veces el miedo se vuelve demasiado pesado para cargarlo solo. Si el estrés po
 <option value="transport">Transporte (documentación, logística)</option>
 <option value="procurement">Compras (precios, contratos, investigación)</option>
 <option value="economist">Economista (análisis financiero, optimización)</option>
+<option value="other">Otra profesión...</option>
 </select>
+<input type="text" id="lmOtherRole" placeholder="Especifica tu profesión" style="display:none; margin-top:8px; padding:12px; border-radius:8px; border:1px solid var(--light); width:100%;">
 </div>
 <button type="submit" class="btn-primary" style="width: 100%; justify-content: center;">
 📥 Descargar Mi Guía Gratis →
@@ -1760,12 +1762,22 @@ function handleLeadMagnet(e) {
 e.preventDefault();
 const email = document.getElementById('lmEmail').value;
 const role = document.getElementById('lmRole').value;
+const otherRoleInput = document.getElementById('lmOtherRole');
+const otherRole = otherRoleInput ? otherRoleInput.value.trim() : '';
 const lang = 'es';
 
 if(!email || !email.includes('@') || !role) {
 alert('Por favor ingresa un email válido y selecciona tu rol');
 return;
 }
+
+if(role === 'other' && !otherRole) {
+alert('Por favor especifica tu profesión');
+otherRoleInput.focus();
+return;
+}
+
+const finalRole = role === 'other' ? `other:${otherRole}` : role;
 
 // Show loading
 const btn = e.target.querySelector('button[type="submit"]');
@@ -1777,7 +1789,7 @@ btn.disabled = true;
 fetch(`${API_BASE}/subscribe`, {
 method: 'POST',
 headers: {'Content-Type': 'application/json'},
-body: JSON.stringify({email, role, lang})
+body: JSON.stringify({email, role: finalRole, lang})
 })
 .then(r => r.json())
 .then(data => {
@@ -1827,6 +1839,18 @@ btn.disabled = false;
 console.error('Subscribe error:', err);
 alert('Algo salió mal. Por favor intenta de nuevo o escríbenos: hello@safemind.pro');
 });
+}
+
+// Handle "Other" role selection
+const lmRoleSelect = document.getElementById('lmRole');
+if(lmRoleSelect) {
+  lmRoleSelect.addEventListener('change', function() {
+    const otherInput = document.getElementById('lmOtherRole');
+    if(otherInput) {
+      otherInput.style.display = this.value === 'other' ? 'block' : 'none';
+      if(this.value !== 'other') otherInput.value = '';
+    }
+  });
 }
 
 function showComingSoon(e) {
