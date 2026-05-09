@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Диагностика ИИ — SafeMind</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #F5F1EC;
+  --fg: #1a1a1a;
+  --accent: #C84B31;
+  --card: #fff;
+  --muted: #666;
+  --light: #e8e2da;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+  line-height: 1.6;
+}
+.container { max-width: 700px; margin: 0 auto; padding: 40px 20px; }
+header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+header h1 {
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  font-weight: 800;
+  margin-bottom: 12px;
+}
+header p {
+  color: var(--muted);
+  font-size: 1.1rem;
+}
+.progress-bar {
+  height: 6px;
+  background: var(--light);
+  border-radius: 50px;
+  margin-bottom: 32px;
+  overflow: hidden;
+}
+.progress-bar .fill {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 50px;
+  transition: width 0.3s;
+}
+.question-card {
+  background: var(--card);
+  border-radius: 20px;
+  padding: 32px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+}
+.question-card h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 2px solid var(--light);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.option:hover {
+  border-color: var(--accent);
+  background: rgba(200,75,49,0.03);
+}
+.option.selected {
+  border-color: var(--accent);
+  background: rgba(200,75,49,0.08);
+}
+.option input {
+  width: 20px;
+  height: 20px;
+  accent-color: var(--accent);
+}
+.option label {
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+.nav-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 24px;
+}
+.btn {
+  padding: 12px 28px;
+  border-radius: 50px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.2s;
+}
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+}
+.btn-primary:hover { background: #b03d28; }
+.btn-secondary {
+  background: var(--light);
+  color: var(--fg);
+}
+.btn-secondary:hover { background: #ddd6cc; }
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Results */
+.results {
+  display: none;
+}
+.results.active {
+  display: block;
+}
+.score-circle {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), #E85D4E);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  margin: 0 auto 32px;
+}
+.score-circle .score {
+  font-size: 3rem;
+  font-weight: 800;
+}
+.score-circle .label {
+  font-size: 0.85rem;
+  opacity: 0.9;
+}
+.result-text {
+  text-align: center;
+  margin-bottom: 32px;
+}
+.result-text h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+.result-text p {
+  color: var(--muted);
+  font-size: 1rem;
+}
+.recommendations {
+  background: var(--card);
+  border-radius: 20px;
+  padding: 24px;
+  margin-bottom: 20px;
+}
+.recommendations h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+.rec-item {
+  display: flex;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--light);
+}
+.rec-item:last-child { border-bottom: none; }
+.rec-item .emoji {
+  font-size: 1.3rem;
+  flex-shrink: 0;
+}
+.rec-item .text {
+  font-size: 0.9rem;
+}
+.rec-item .text strong {
+  display: block;
+  margin-bottom: 2px;
+}
+.cta-box {
+  background: linear-gradient(135deg, var(--accent), #E85D4E);
+  border-radius: 16px;
+  padding: 24px;
+  text-align: center;
+  color: #fff;
+  margin-top: 24px;
+}
+.cta-box a {
+  display: inline-block;
+  background: #fff;
+  color: var(--accent);
+  padding: 12px 28px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 700;
+  margin-top: 12px;
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1>🧠 Диагностика «Где ты с ИИ?»</h1>
+    <p>10 вопросов → твой уровень + персональный план</p>
+  </header>
+
+  <div class="progress-bar">
+    <div class="fill" id="progressFill" style="width: 0%"></div>
+  </div>
+
+  <!-- Quiz -->
+  <div id="quiz">
+    <div class="question-card" id="questionCard">
+      <!-- JS fills this -->
+    </div>
+    <div class="nav-buttons">
+      <button class="btn btn-secondary" id="prevBtn" onclick="prevQuestion()" disabled>← Назад</button>
+      <button class="btn btn-primary" id="nextBtn" onclick="nextQuestion()" disabled>Далее →</button>
+    </div>
+  </div>
+
+  <!-- Results -->
+  <div class="results" id="results">
+    <div class="score-circle">
+      <div class="score" id="scoreNum">0</div>
+      <div class="label">из 100</div>
+    </div>
+    <div class="result-text">
+      <h2 id="resultTitle">Твой результат</h2>
+      <p id="resultDesc">Описание</p>
+    </div>
+    <div class="recommendations">
+      <h3>📋 Персональный план</h3>
+      <div id="recList"></div>
+    </div>
+    <div class="cta-box">
+      <h3>🚀 Начни 10-недельный челлендж</h3>
+      <p>Каждая неделя = новый уровень матрицы. Проверено 1000+ профессионалов.</p>
+      <a href="challenge.html">Присоединиться к челленджу →</a>
+    </div>
+    <div class="cta-box" style="background: linear-gradient(135deg, #6366F1, #8B5CF6); margin-top: 16px;">
+      <h3>💬 Нужна поддержка?</h3>
+      <p>Если чувствуешь тревогу от ИИ — поговори с нашим психологом. Анонимно, бесплатно.</p>
+      <a href="support.html" style="color: #6366F1;">Получить поддержку →</a>
+    </div>
+  </div>
+</div>
+
+<script>
+const questions = [
+  {
+    id: 1,
+    text: "Как часто ты используешь ИИ в работе?",
+    options: [
+      { text: "Никогда / почти никогда", score: 0 },
+      { text: "Раз в месяц, пробовал", score: 10 },
+      { text: "Раз в неделю для простых задач", score: 25 },
+      { text: "3-5 раз в неделю", score: 50 },
+      { text: "Ежедневно, часть процессов", score: 75 },
+      { text: "ИИ — мой основной инструмент", score: 100 }
+    ]
+  },
+  {
+    id: 2,
+    text: "Насколько уверенно ты пишешь промпты?",
+    options: [
+      { text: "Не знаю, что такое промпт", score: 0 },
+      { text: "Простые вопросы", score: 15 },
+      { text: "Средние по сложности", score: 35 },
+      { text: "Системные промпты с ролями", score: 60 },
+      { text: "A/B тестирую и оптимизирую", score: 85 },
+      { text: "Создаю шаблоны для команды", score: 100 }
+    ]
+  },
+  {
+    id: 3,
+    text: "Используешь ли ты ИИ для творчества (арт, музыка, видео)?",
+    options: [
+      { text: "Нет, не пробовал", score: 0 },
+      { text: "Пробовал Midjourney/DALL-E", score: 20 },
+      { text: "Создаю арт для постов", score: 40 },
+      { text: "Делаю видео с AI", score: 60 },
+      { text: "Полноценные проекты (музыка + видео + арт)", score: 85 },
+      { text: "Профессиональный AI-контент", score: 100 }
+    ]
+  },
+  {
+    id: 4,
+    text: "Как ты ищешь информацию?",
+    options: [
+      { text: "Только Google", score: 0 },
+      { text: "Иногда Perplexity/ChatGPT", score: 20 },
+      { text: "ИИ для быстрых ответов", score: 40 },
+      { text: "Глубокие исследования с ИИ", score: 65 },
+      { text: "Агенты-мониторы для тем", score: 85 },
+      { text: "Собственные базы знаний + ИИ", score: 100 }
+    ]
+  },
+  {
+    id: 5,
+    text: "Автоматизируешь ли ты задачи?",
+    options: [
+      { text: "Нет, всё руками", score: 0 },
+      { text: "Простые макросы", score: 15 },
+      { text: "Zapier/Make для базовых цепочек", score: 35 },
+      { text: "Несколько автоматизаций", score: 60 },
+      { text: "Агенты работают 24/7", score: 85 },
+      { text: "Оркестрация множества агентов", score: 100 }
+    ]
+  },
+  {
+    id: 6,
+    text: "Сколько инструментов ИИ ты используешь?",
+    options: [
+      { text: "1 (ChatGPT)", score: 5 },
+      { text: "2-3", score: 25 },
+      { text: "4-6", score: 50 },
+      { text: "7-10", score: 70 },
+      { text: "10-15", score: 85 },
+      { text: "15+ и постоянно тестирую новые", score: 100 }
+    ]
+  },
+  {
+    id: 7,
+    text: "Применяешь ли ты ИИ к своей профессии специфически?",
+    options: [
+      { text: "Нет, общие задачи", score: 0 },
+      { text: "Простые задачи (email, отчёты)", score: 20 },
+      { text: "Профильные задачи", score: 45 },
+      { text: "Оптимизация процессов", score: 70 },
+      { text: "Кастомные решения", score: 90 },
+      { text: "ИИ встроен в core-бизнес", score: 100 }
+    ]
+  },
+  {
+    id: 8,
+    text: "Как ты относишься к замене ИИ?",
+    options: [
+      { text: "Боюсь, что меня заменят", score: 10 },
+      { text: "Тревожно, но интересно", score: 30 },
+      { text: "Нейтрально", score: 50 },
+      { text: "Вижу возможности", score: 70 },
+      { text: "Уже адаптируюсь", score: 85 },
+      { text: "ИИ — мой партнёр", score: 100 }
+    ]
+  },
+  {
+    id: 9,
+    text: "Обучаешь ли ты других работе с ИИ?",
+    options: [
+      { text: "Нет", score: 0 },
+      { text: "Показал коллеге пару раз", score: 20 },
+      { text: "Помогаю команде", score: 40 },
+      { text: "Веду внутренние сессии", score: 65 },
+      { text: "Публичные выступления", score: 85 },
+      { text: "Курсы, книги, лидер мнений", score: 100 }
+    ]
+  },
+  {
+    id: 10,
+    text: "Как часто ты узнаёшь о новых ИИ-инструментах?",
+    options: [
+      { text: "Редко / случайно", score: 0 },
+      { text: "Через новости", score: 20 },
+      { text: "Подписки на рассылки", score: 40 },
+      { text: "Активно слежу", score: 65 },
+      { text: "Тестирую бета-версии", score: 85 },
+      { text: "Сам влияю на индустрию", score: 100 }
+    ]
+  }
+];
+
+let currentQ = 0;
+let answers = [];
+
+function renderQuestion() {
+  const q = questions[currentQ];
+  const card = document.getElementById('questionCard');
+  card.innerHTML = `
+    <h3>${currentQ + 1}. ${q.text}</h3>
+    <div class="options">
+      ${q.options.map((opt, i) => `
+        <div class="option ${answers[currentQ] === i ? 'selected' : ''}" onclick="selectOption(${i})">
+          <input type="radio" name="q${q.id}" id="opt${i}" ${answers[currentQ] === i ? 'checked' : ''}>
+          <label for="opt${i}">${opt.text}</label>
+        </div>
+      `).join('')}
+    </div>
+  `;
+
+  document.getElementById('progressFill').style.width = `${((currentQ + 1) / questions.length) * 100}%`;
+  document.getElementById('prevBtn').disabled = currentQ === 0;
+  document.getElementById('nextBtn').disabled = answers[currentQ] === undefined;
+  document.getElementById('nextBtn').textContent = currentQ === questions.length - 1 ? 'Узнать результат →' : 'Далее →';
+}
+
+function selectOption(idx) {
+  answers[currentQ] = idx;
+  renderQuestion();
+}
+
+function nextQuestion() {
+  if (currentQ === questions.length - 1) {
+    showResults();
+  } else {
+    currentQ++;
+    renderQuestion();
+  }
+}
+
+function prevQuestion() {
+  if (currentQ > 0) {
+    currentQ--;
+    renderQuestion();
+  }
+}
+
+function showResults() {
+  document.getElementById('quiz').style.display = 'none';
+  document.getElementById('results').classList.add('active');
+
+  let totalScore = 0;
+  answers.forEach((a, i) => {
+    totalScore += questions[i].options[a].score;
+  });
+  const avgScore = Math.round(totalScore / questions.length);
+
+  document.getElementById('scoreNum').textContent = avgScore;
+
+  let title, desc, recs;
+  if (avgScore < 25) {
+    title = "🔰 Новичок";
+    desc = "Ты только начинаешь путь с ИИ. Это нормально — 90% профессионалов начинали здесь. У тебя огромный потенциал роста.";
+    recs = [
+      { emoji: "📚", title: "Неделя 1-2: Письмо + Поиск", text: "Начни с ChatGPT/Claude. Практикуй ежедневное письмо и простые исследования." },
+      { emoji: "🎯", title: "Цель: 5000 слов за неделю", text: "Используй ИИ для email, заметок, постов. Наращивай объём." },
+      { emoji: "🛡️", title: "Пройди бесплатный гайд", text: `Получи PDF по своей профессии: <a href="index.html#leadmagnet">Скачать →</a>` }
+    ];
+  } else if (avgScore < 50) {
+    title = "🌱 Начинающий";
+    desc = "Ты уже пробуешь ИИ, но не системно. Пора выстроить процесс и углубиться в 2-3 направления.";
+    recs = [
+      { emoji: "🎨", title: "Неделя 3-4: Изображения + Видео", text: "Освой Midjourney, Canva AI. Создай первый AI-контент." },
+      { emoji: "⚙️", title: "Неделя 5: Промптинг", text: "Напиши 10 системных промптов. Протестируй в 3 моделях." },
+      { emoji: "🚀", title: "Присоединись к челленджу", text: "10 недель структурированного роста. Не нужно думать — просто делай." }
+    ];
+  } else if (avgScore < 75) {
+    title = "🚀 Продвинутый";
+    desc = "Ты уверенно используешь ИИ. Теперь нужно масштабировать: автоматизация, агенты, обучение команды.";
+    recs = [
+      { emoji: "🤖", title: "Неделя 6-7: Агенты + Автоматизация", text: "Настрой Zapier/Make. Создай первого агента-монитор." },
+      { emoji: "👥", title: "Неделя 8: Обучение команды", text: "Создай шаблоны промптов для коллег. Стань ИИ-евангелистом." },
+      { emoji: "💎", title: "SafeMind Pro", text: "Персональный план + закрытый канал + проверка заданий." }
+    ];
+  } else {
+    title = "⭐ Эксперт";
+    desc = "Ты на уровне ИИ-лидера. Пора влиять на индустрию: курсы, публичные выступления, корпоративные внедрения.";
+    recs = [
+      { emoji: "🏢", title: "Корпоративный пакет", text: "Внедри ИИ в компанию. 20 лицензий + вебинар + поддержка." },
+      { emoji: "📢", title: "Экспертное лидерство", text: "Веди блог, выступай, создавай курсы. Ты — голос индустрии." },
+      { emoji: "🤝", title: "Партнёрство с SafeMind", text: "Стань партнёром: создавай контент, веди сообщество." }
+    ];
+  }
+
+  document.getElementById('resultTitle').textContent = title;
+  document.getElementById('resultDesc').textContent = desc;
+  document.getElementById('recList').innerHTML = recs.map(r => `
+    <div class="rec-item">
+      <span class="emoji">${r.emoji}</span>
+      <div class="text">
+        <strong>${r.title}</strong>
+        ${r.text}
+      </div>
+    </div>
+  `).join('');
+}
+
+renderQuestion();
+</script>
+</body>
+</html>

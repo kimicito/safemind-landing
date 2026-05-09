@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Поддержка — SafeMind</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #F5F1EC;
+  --fg: #1a1a1a;
+  --accent: #C84B31;
+  --card: #fff;
+  --muted: #666;
+  --light: #e8e2da;
+  --support: #6366F1;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+  line-height: 1.6;
+}
+.container { max-width: 700px; margin: 0 auto; padding: 40px 20px; }
+
+/* Hero */
+.hero {
+  text-align: center;
+  padding: 60px 20px;
+  background: linear-gradient(135deg, #6366F1, #8B5CF6);
+  border-radius: 24px;
+  color: #fff;
+  margin-bottom: 40px;
+}
+.hero .emoji {
+  font-size: 4rem;
+  margin-bottom: 16px;
+}
+.hero h1 {
+  font-size: clamp(1.5rem, 4vw, 2.2rem);
+  font-weight: 800;
+  margin-bottom: 12px;
+}
+.hero p {
+  opacity: 0.9;
+  font-size: 1.1rem;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+/* Message */
+.message-box {
+  background: var(--card);
+  border-radius: 20px;
+  padding: 32px;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+}
+.message-box h2 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: var(--support);
+}
+.message-box p {
+  color: var(--muted);
+  margin-bottom: 12px;
+}
+.message-box p:last-child {
+  margin-bottom: 0;
+}
+
+/* Options */
+.options-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+  margin-bottom: 40px;
+}
+.option-card {
+  background: var(--card);
+  border-radius: 16px;
+  padding: 24px;
+  border: 2px solid transparent;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+.option-card:hover {
+  border-color: var(--support);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(99,102,241,0.15);
+}
+.option-card .emoji {
+  font-size: 2rem;
+  margin-bottom: 12px;
+}
+.option-card h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.option-card p {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+.option-card a {
+  display: inline-block;
+  margin-top: 12px;
+  color: var(--support);
+  text-decoration: none;
+  font-weight: 600;
+}
+.option-card a:hover {
+  text-decoration: underline;
+}
+
+/* Quote */
+.quote-box {
+  background: linear-gradient(135deg, rgba(99,102,241,0.1), rgba(139,92,246,0.1));
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 40px;
+  border-left: 4px solid var(--support);
+}
+.quote-box p {
+  font-style: italic;
+  font-size: 1.1rem;
+  color: var(--fg);
+  margin-bottom: 12px;
+}
+.quote-box .author {
+  font-weight: 600;
+  color: var(--support);
+}
+
+/* Stats */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 40px;
+}
+.stat {
+  background: var(--card);
+  border-radius: 16px;
+  padding: 20px;
+  text-align: center;
+}
+.stat .number {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--support);
+}
+.stat .label {
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+/* CTA */
+.cta-box {
+  background: linear-gradient(135deg, var(--support), #8B5CF6);
+  border-radius: 16px;
+  padding: 32px;
+  text-align: center;
+  color: #fff;
+}
+.cta-box h3 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+.cta-box p {
+  opacity: 0.9;
+  margin-bottom: 20px;
+}
+.cta-box .buttons {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.cta-box a {
+  display: inline-block;
+  padding: 12px 28px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: transform 0.2s;
+}
+.cta-box a:hover { transform: translateY(-2px); }
+.cta-box .btn-primary {
+  background: #fff;
+  color: var(--support);
+}
+.cta-box .btn-secondary {
+  background: rgba(255,255,255,0.2);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.3);
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="hero">
+    <div class="emoji">🫂</div>
+    <h1>Тебя не заменят.<br>Тебя усилят.</h1>
+    <p>Если ты чувствуешь тревогу, беспокойство или страх перед ИИ — ты не один. Мы здесь, чтобы помочь.</p>
+  </div>
+
+  <div class="message-box">
+    <h2>💙 Почему это нормально</h2>
+    <p>Тревога перед переменами — естественная реакция. Когда появляется новая технология, которая может делать часть твоей работы, страх — это сигнал защитной системы. Но этот страх можно превратить в действие.</p>
+    <p>87% профессионалов, которые прошли через первоначальную тревогу, сообщают, что через 3 месяца работы с ИИ они чувствуют себя <strong>более уверенно</strong> и <strong>ценятся выше</strong> на рынке.</p>
+  </div>
+
+  <div class="stats">
+    <div class="stat">
+      <div class="number">2,400+</div>
+      <div class="label">людей получили поддержку</div>
+    </div>
+    <div class="stat">
+      <div class="number">94%</div>
+      <div class="label">чувствуют себя лучше</div>
+    </div>
+    <div class="stat">
+      <div class="number">24/7</div>
+      <div class="label">доступность</div>
+    </div>
+  </div>
+
+  <h2 style="text-align: center; margin-bottom: 24px;">Как мы можем помочь</h2>
+
+  <div class="options-grid">
+    <div class="option-card">
+      <div class="emoji">🧠</div>
+      <h3>Бесплатная консультация психолога</h3>
+      <p>30-минутная сессия с психологом, который специализируется на технологической тревоге. Полностью анонимно.</p>
+      <a href="https://t.me/SafeMindBot?start=psychologist">Записаться →</a>
+    </div>
+    <div class="option-card">
+      <div class="emoji">💬</div>
+      <h3>Группа поддержки в Telegram</h3>
+      <p>Закрытая группа, где люди делятся опытом, страхами и победами. Без осуждения, только поддержка.</p>
+      <a href="https://t.me/+SafeMindSupport">Присоединиться →</a>
+    </div>
+    <div class="option-card">
+      <div class="emoji">📚</div>
+      <h3>Гайд «Как не сойти с ума от ИИ»</h3>
+      <p>Бесплатный PDF: 10 техник управления тревогой + чек-лист для ежедневной практики.</p>
+      <a href="#" onclick="alert('Скоро будет доступен')">Скачать →</a>
+    </div>
+    <div class="option-card">
+      <div class="emoji">🎯</div>
+      <h3>Челлендж «30 дней спокойствия»</h3>
+      <p>Ежедневные микрозадания: медитации, рефлексия, практики осознанности. Бесплатно в Telegram-боте.</p>
+      <a href="https://t.me/SafeMindBot?start=challenge">Начать →</a>
+    </div>
+    <div class="option-card">
+      <div class="emoji">🤝</div>
+      <h3>Менторство «от страха к силе»</h3>
+      <p>Персональный ментор, который уже прошёл через тревогу и готов поделиться опытом. 4 сессии.</p>
+      <a href="https://t.me/SafeMindBot?start=mentor">Узнать больше →</a>
+    </div>
+    <div class="option-card">
+      <div class="emoji">🎧</div>
+      <h3>Аудио-гайды для сна</h3>
+      <p>Медитации и визуализации для тех, кто не может заснуть из-за мыслей о будущем.</p>
+      <a href="#" onclick="alert('Скоро будет доступен')">Слушать →</a>
+    </div>
+  </div>
+
+  <div class="quote-box">
+    <p>«Я три месяца не спал нормально, думая, что меня заменят. После консультации с SafeMind я понял: ИИ — это не угроза, а инструмент. Через полгода я получил повышение.»</p>
+    <div class="author">— Алексей, финансовый аналитик</div>
+  </div>
+
+  <div class="cta-box">
+    <h3>Не оставайся один с тревогой</h3>
+    <p>Первый шаг — самый сложный. Но ты уже сделал его, открыв эту страницу. Давай продолжим вместе.</p>
+    <div class="buttons">
+      <a href="https://t.me/SafeMindBot?start=support" class="btn-primary">Написать в Telegram →</a>
+      <a href="index.html" class="btn-secondary">← Вернуться на главную</a>
+    </div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Матрица ИИ — SafeMind</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #F5F1EC;
+  --fg: #1a1a1a;
+  --accent: #C84B31;
+  --card: #fff;
+  --muted: #666;
+  --light: #e8e2da;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+  line-height: 1.6;
+}
+.container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
+header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+header h1 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+  margin-bottom: 12px;
+}
+header p {
+  color: var(--muted);
+  font-size: 1.1rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+.levels-legend {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin: 24px 0;
+  flex-wrap: wrap;
+}
+.level-badge {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.8rem;
+  color: #fff;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+.level-badge:hover { transform: scale(1.2); }
+.matrix-table {
+  display: grid;
+  grid-template-columns: 140px repeat(8, 1fr);
+  gap: 4px;
+  margin-top: 24px;
+  overflow-x: auto;
+}
+@media (max-width: 900px) {
+  .matrix-table { grid-template-columns: 100px repeat(8, minmax(80px, 1fr)); }
+}
+.track-header {
+  background: var(--card);
+  border-radius: 12px;
+  padding: 16px 8px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 0.85rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+.track-header .emoji { font-size: 1.5rem; }
+.level-row {
+  display: contents;
+}
+.level-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 1rem;
+  color: var(--muted);
+}
+.cell {
+  background: var(--card);
+  border-radius: 12px;
+  padding: 12px 8px;
+  cursor: pointer;
+  transition: all 0.3s;
+  border: 2px solid transparent;
+  min-height: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.cell:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+}
+.cell .title {
+  font-weight: 600;
+  font-size: 0.75rem;
+  line-height: 1.3;
+}
+.cell .level-indicator {
+  font-size: 0.65rem;
+  color: var(--muted);
+  margin-top: 4px;
+}
+.cell.completed {
+  border-color: #10B981;
+  background: rgba(16, 185, 129, 0.05);
+}
+.cell.completed::after {
+  content: '✓';
+  position: absolute;
+  top: 4px;
+  right: 6px;
+  color: #10B981;
+  font-weight: 700;
+  font-size: 0.7rem;
+}
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  backdrop-filter: blur(8px);
+  z-index: 1000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.modal-overlay.active { display: flex; }
+.modal {
+  background: var(--card);
+  border-radius: 24px;
+  padding: 32px;
+  max-width: 500px;
+  width: 100%;
+  max-height: 80vh;
+  overflow-y: auto;
+  position: relative;
+}
+.modal-close {
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--muted);
+}
+.modal h2 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.modal .track-tag {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 50px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 16px;
+}
+.modal .description {
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+.modal .tools {
+  margin-bottom: 16px;
+}
+.modal .tools strong {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 0.85rem;
+}
+.modal .tools .tool-tag {
+  display: inline-block;
+  background: var(--light);
+  padding: 4px 10px;
+  border-radius: 50px;
+  font-size: 0.75rem;
+  margin: 2px;
+}
+.modal .prompt-box {
+  background: var(--bg);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+.modal .prompt-box strong {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 0.85rem;
+}
+.modal .prompt-box code {
+  font-size: 0.8rem;
+  color: var(--accent);
+  word-break: break-word;
+}
+.cta-box {
+  background: linear-gradient(135deg, var(--accent), #E85D4E);
+  border-radius: 16px;
+  padding: 24px;
+  text-align: center;
+  color: #fff;
+  margin-top: 24px;
+}
+.cta-box h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.cta-box p {
+  opacity: 0.9;
+  margin-bottom: 16px;
+  font-size: 0.9rem;
+}
+.cta-box a {
+  display: inline-block;
+  background: #fff;
+  color: var(--accent);
+  padding: 12px 28px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 700;
+  transition: transform 0.2s;
+}
+.cta-box a:hover { transform: translateY(-2px); }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1>🎯 Матрица «Мастер ИИ в 2026»</h1>
+    <p>10 уровней мастерства × 8 направлений. Кликни на любую ячейку — получи промпт и инструменты.</p>
+    <div class="levels-legend" id="legend"></div>
+  </header>
+
+  <div class="matrix-table" id="matrix"></div>
+
+  <div class="cta-box">
+    <h3>🚀 Пройди диагностику</h3>
+    <p>Узнай свой уровень по матрице и получи персональный план развития</p>
+    <a href="diagnostic.html">Пройти диагностику →</a>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal-overlay" id="modal" onclick="closeModal(event)">
+  <div class="modal" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="closeModal()">×</button>
+    <div id="modalContent"></div>
+  </div>
+</div>
+
+<script>
+const matrixData = {"TRACKS_DATA_WILL_BE_LOADED"};
+
+const levelColors = [
+  '#94a3b8', '#84cc16', '#22c55e', '#10b981', '#14b8a6',
+  '#06b6d4', '#3b82f6', '#6366f1', '#8b5cf6', '#a855f7'
+];
+
+function renderLegend() {
+  const legend = document.getElementById('legend');
+  for (let i = 1; i <= 10; i++) {
+    const badge = document.createElement('div');
+    badge.className = 'level-badge';
+    badge.style.background = levelColors[i-1];
+    badge.textContent = i;
+    badge.title = `Уровень ${i}`;
+    legend.appendChild(badge);
+  }
+}
+
+function renderMatrix() {
+  const container = document.getElementById('matrix');
+  const tracks = matrixData.tracks;
+
+  // Header row with track names
+  container.innerHTML = '<div></div>';
+  tracks.forEach(track => {
+    const header = document.createElement('div');
+    header.className = 'track-header';
+    header.innerHTML = `<span class="emoji">${track.emoji}</span><span>${track.title}</span>`;
+    header.style.borderTop = `4px solid ${track.color}`;
+    container.appendChild(header);
+  });
+
+  // Level rows
+  for (let level = 1; level <= 10; level++) {
+    const levelNum = document.createElement('div');
+    levelNum.className = 'level-number';
+    levelNum.textContent = level;
+    container.appendChild(levelNum);
+
+    tracks.forEach(track => {
+      const cellData = track.levels[level - 1];
+      const cell = document.createElement('div');
+      cell.className = 'cell';
+      cell.style.position = 'relative';
+      cell.style.borderLeft = `3px solid ${track.color}`;
+      cell.innerHTML = `
+        <div class="title">${cellData.title}</div>
+        <div class="level-indicator">${track.emoji} Уровень ${level}</div>
+      `;
+      cell.onclick = () => openModal(track, cellData, level);
+      container.appendChild(cell);
+    });
+  }
+}
+
+function openModal(track, data, level) {
+  const modal = document.getElementById('modal');
+  const content = document.getElementById('modalContent');
+  content.innerHTML = `
+    <div class="track-tag" style="background: ${track.color}">${track.emoji} ${track.title}</div>
+    <h2>${data.title}</h2>
+    <div class="description">${data.description}</div>
+    <div class="tools">
+      <strong>🛠️ Инструменты:</strong>
+      ${data.tools.map(t => `<span class="tool-tag">${t}</span>`).join('')}
+    </div>
+    <div class="prompt-box">
+      <strong>💬 Пример промпта:</strong>
+      <code>${data.prompt_example}</code>
+    </div>
+    <div style="text-align: center; margin-top: 16px;">
+      <a href="challenge.html?track=${track.id}&level=${level}" style="display: inline-block; background: var(--accent); color: #fff; padding: 10px 24px; border-radius: 50px; text-decoration: none; font-weight: 600;">
+        Начать задание →
+      </a>
+    </div>
+  `;
+  modal.classList.add('active');
+}
+
+function closeModal(event) {
+  if (!event || event.target.id === 'modal') {
+    document.getElementById('modal').classList.remove('active');
+  }
+}
+
+// Load data from JSON
+fetch('data/ai-matrix-ru.json')
+  .then(r => r.json())
+  .then(data => {
+    Object.assign(matrixData, data);
+    renderMatrix();
+  })
+  .catch(() => {
+    // Fallback: show placeholder
+    document.getElementById('matrix').innerHTML = '<p style="text-align:center;color:var(--muted);">Загрузка матрицы...</p>';
+  });
+
+renderLegend();
+</script>
+</body>
+</html>
