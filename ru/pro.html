@@ -30,7 +30,6 @@ line-height: 1.6;
 }
 .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
 
-/* Header */
 .header {
 background: var(--card);
 padding: 16px 0;
@@ -39,43 +38,19 @@ top: 0;
 z-index: 100;
 box-shadow: 0 1px 3px rgba(0,0,0,0.05);
 }
-.header-flex {
-display: flex;
-justify-content: space-between;
-align-items: center;
-}
-.logo {
-font-size: 1.3rem;
-font-weight: 800;
-color: var(--accent);
-text-decoration: none;
-}
+.header-flex { display: flex; justify-content: space-between; align-items: center; }
+.logo { font-size: 1.3rem; font-weight: 800; color: var(--accent); text-decoration: none; }
 .logo span { color: var(--fg); }
 
-/* Hero */
 .hero {
 background: linear-gradient(135deg, var(--pro), #8B5CF6);
 color: white;
 padding: 64px 20px;
 text-align: center;
 }
-.hero h1 {
-font-size: 2.2rem;
-font-weight: 800;
-margin-bottom: 16px;
-}
-.hero p {
-opacity: 0.9;
-max-width: 600px;
-margin: 0 auto 32px;
-font-size: 1.05rem;
-}
-.badge-row {
-display: flex;
-justify-content: center;
-gap: 16px;
-flex-wrap: wrap;
-}
+.hero h1 { font-size: 2.2rem; font-weight: 800; margin-bottom: 16px; }
+.hero p { opacity: 0.9; max-width: 600px; margin: 0 auto 32px; font-size: 1.05rem; }
+.badge-row { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
 .badge {
 background: rgba(255,255,255,0.15);
 padding: 8px 16px;
@@ -84,13 +59,8 @@ font-size: 0.8rem;
 font-weight: 600;
 }
 
-/* Pricing Cards */
 .pricing-section { padding: 48px 20px; }
-.pricing-grid {
-display: grid;
-grid-template-columns: repeat(3, 1fr);
-gap: 24px;
-}
+.pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
 .plan-card {
 background: var(--card);
 border-radius: 20px;
@@ -99,17 +69,9 @@ box-shadow: 0 2px 12px rgba(0,0,0,0.05);
 transition: transform 0.2s, box-shadow 0.2s;
 position: relative;
 }
-.plan-card:hover {
-transform: translateY(-4px);
-box-shadow: 0 8px 30px rgba(0,0,0,0.1);
-}
-.plan-card.popular {
-border: 2px solid var(--pro);
-transform: scale(1.02);
-}
-.plan-card.popular:hover {
-transform: scale(1.02) translateY(-4px);
-}
+.plan-card:hover { transform: translateY(-4px); box-shadow: 0 8px 30px rgba(0,0,0,0.1); }
+.plan-card.popular { border: 2px solid var(--pro); transform: scale(1.02); }
+.plan-card.popular:hover { transform: scale(1.02) translateY(-4px); }
 .popular-badge {
 position: absolute;
 top: -12px;
@@ -122,31 +84,11 @@ border-radius: 50px;
 font-size: 0.75rem;
 font-weight: 700;
 }
-.plan-name {
-font-size: 1.3rem;
-font-weight: 700;
-margin-bottom: 4px;
-}
-.plan-desc {
-color: var(--muted);
-font-size: 0.85rem;
-margin-bottom: 16px;
-}
-.plan-price {
-font-size: 2.5rem;
-font-weight: 800;
-margin-bottom: 4px;
-}
-.plan-price span {
-font-size: 0.9rem;
-font-weight: 500;
-color: var(--muted);
-}
-.plan-period {
-color: var(--muted);
-font-size: 0.85rem;
-margin-bottom: 20px;
-}
+.plan-name { font-size: 1.3rem; font-weight: 700; margin-bottom: 4px; }
+.plan-desc { color: var(--muted); font-size: 0.85rem; margin-bottom: 16px; }
+.plan-price { font-size: 2.5rem; font-weight: 800; margin-bottom: 4px; }
+.plan-price span { font-size: 0.9rem; font-weight: 500; color: var(--muted); }
+.plan-period { color: var(--muted); font-size: 0.85rem; margin-bottom: 20px; }
 .features-list { list-style: none; margin-bottom: 24px; }
 .features-list li {
 padding: 8px 0;
@@ -156,71 +98,43 @@ display: flex;
 align-items: flex-start;
 gap: 10px;
 }
-.features-list li::before {
-content: "✓";
-color: var(--success);
-font-weight: 700;
-flex-shrink: 0;
-}
-.features-list li.no::before {
-content: "—";
-color: var(--muted);
-}
+.features-list li::before { content: "✓"; color: var(--success); font-weight: 700; flex-shrink: 0; }
+.features-list li.no::before { content: "—"; color: var(--muted); }
 .features-list li.no { opacity: 0.5; }
 .btn-plan {
-display: block;
-width: 100%;
-text-align: center;
-padding: 14px;
-border-radius: 50px;
-text-decoration: none;
-font-weight: 700;
+display: block; width: 100%; text-align: center; padding: 14px;
+border-radius: 50px; text-decoration: none; font-weight: 700;
 transition: transform 0.2s;
 }
 .btn-plan:hover { transform: scale(1.03); }
-.btn-plan.primary {
-background: var(--pro);
-color: white;
-}
-.btn-plan.secondary {
-background: var(--light);
-color: var(--fg);
-}
+.btn-plan.primary { background: var(--pro); color: white; }
+.btn-plan.secondary { background: var(--light); color: var(--fg); }
 
-/* SLA Section */
-.sla-section {
+.types-section { padding: 32px 20px; }
+.types-box {
 background: var(--card);
-padding: 48px 20px;
-margin: 32px 0;
 border-radius: 20px;
+padding: 32px;
+box-shadow: 0 2px 12px rgba(0,0,0,0.05);
 }
-.sla-section h2 {
-text-align: center;
-font-size: 1.6rem;
-margin-bottom: 32px;
-}
-.sla-grid {
-display: grid;
-grid-template-columns: repeat(2, 1fr);
-gap: 24px;
-}
-.sla-card {
-background: var(--bg);
-padding: 24px;
-border-radius: 12px;
-}
-.sla-card h4 {
-font-size: 1rem;
-margin-bottom: 12px;
-color: var(--pro);
-}
-.sla-card p, .sla-card li {
-font-size: 0.85rem;
-color: var(--muted);
-}
+.types-box h2 { text-align: center; font-size: 1.5rem; margin-bottom: 24px; }
+.types-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+.type-card { padding: 24px; border-radius: 12px; }
+.type-card.consult { background: linear-gradient(135deg, #dbeafe, #bfdbfe); }
+.type-card.task { background: linear-gradient(135deg, #dcfce7, #bbf7d0); }
+.type-card h4 { font-size: 1.1rem; margin-bottom: 8px; }
+.type-card p { font-size: 0.85rem; color: var(--muted); margin-bottom: 12px; }
+.type-card ul { padding-left: 16px; }
+.type-card li { font-size: 0.85rem; margin-bottom: 4px; }
+
+.sla-section { background: var(--card); padding: 48px 20px; margin: 32px 0; border-radius: 20px; }
+.sla-section h2 { text-align: center; font-size: 1.6rem; margin-bottom: 32px; }
+.sla-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+.sla-card { background: var(--bg); padding: 24px; border-radius: 12px; }
+.sla-card h4 { font-size: 1rem; margin-bottom: 12px; color: var(--pro); }
+.sla-card p, .sla-card li { font-size: 0.85rem; color: var(--muted); }
 .sla-card ul { padding-left: 16px; }
 
-/* Contract */
 .contract-section { padding: 48px 20px; }
 .contract-box {
 background: var(--card);
@@ -228,53 +142,23 @@ border-radius: 20px;
 padding: 40px;
 box-shadow: 0 2px 12px rgba(0,0,0,0.05);
 }
-.contract-box h2 {
-text-align: center;
-margin-bottom: 8px;
-}
-.contract-box .subtitle {
-text-align: center;
-color: var(--muted);
-margin-bottom: 32px;
-font-size: 0.9rem;
-}
-.contract-clause {
-margin-bottom: 24px;
-padding-bottom: 24px;
-border-bottom: 1px solid var(--light);
-}
+.contract-box h2 { text-align: center; margin-bottom: 8px; }
+.contract-box .subtitle { text-align: center; color: var(--muted); margin-bottom: 32px; font-size: 0.9rem; }
+.contract-clause { margin-bottom: 24px; padding-bottom: 24px; border-bottom: 1px solid var(--light); }
 .contract-clause:last-child { border-bottom: none; }
-.contract-clause h4 {
-font-size: 1rem;
-margin-bottom: 8px;
-color: var(--dark);
-}
-.contract-clause p {
-font-size: 0.85rem;
-color: var(--muted);
-line-height: 1.7;
-}
+.contract-clause h4 { font-size: 1rem; margin-bottom: 8px; color: var(--dark); }
+.contract-clause p { font-size: 0.85rem; color: var(--muted); line-height: 1.7; }
 .contract-clause ul { padding-left: 20px; margin-top: 8px; }
-.contract-clause li {
-font-size: 0.85rem;
-color: var(--muted);
-margin-bottom: 4px;
-}
+.contract-clause li { font-size: 0.85rem; color: var(--muted); margin-bottom: 4px; }
 
-/* FAQ */
 .faq-section { padding: 32px 20px; }
-.faq-item {
-background: var(--card);
-border-radius: 12px;
-padding: 20px;
-margin-bottom: 12px;
-}
+.faq-item { background: var(--card); border-radius: 12px; padding: 20px; margin-bottom: 12px; }
 .faq-item h4 { font-size: 0.95rem; margin-bottom: 8px; }
 .faq-item p { font-size: 0.85rem; color: var(--muted); }
 
 @media (max-width: 768px) {
 .pricing-grid { grid-template-columns: 1fr; }
-.sla-grid { grid-template-columns: 1fr; }
+.sla-grid, .types-grid { grid-template-columns: 1fr; }
 .plan-card.popular { transform: none; }
 .hero h1 { font-size: 1.6rem; }
 }
@@ -295,34 +179,69 @@ margin-bottom: 12px;
 <div class="badge-row">
 <span class="badge">✓ Живой эксперт</span>
 <span class="badge">✓ SLA на ответы</span>
-<span class="badge">✓ Помощь с задачами</span>
+<span class="badge">✓ Консультации + задачи</span>
 <span class="badge">✓ Без авто-продления</span>
 </div>
 </div>
 </section>
 
+<!-- What you get -->
+<section class="types-section">
+<div class="container">
+<div class="types-box">
+<h2>📋 Что входит в подписку</h2>
+<div class="types-grid">
+<div class="type-card consult">
+<h4>💬 Консультация</h4>
+<p>Быстрый ответ на вопрос — до 10 минут экспертного времени</p>
+<ul>
+<li>«Какой ИИ выбрать для X?»</li>
+<li>«Почему ChatGPT не понимает мой промпт?»</li>
+<li>«Что умеет новая функция Claude?»</li>
+<li>«Сравни ChatGPT и Gemini для моей задачи»</li>
+<li>«Как улучшить этот результат?»</li>
+</ul>
+</div>
+<div class="type-card task">
+<h4>🛠 Задача</h4>
+<p>Полный разбор — до 25 минут экспертного времени</p>
+<ul>
+<li>«Составь промпт под мой еженедельный отчёт»</li>
+<li>«Автоматизируй сбор данных из 3 источников»</li>
+<li>«Подготовь шаблон для ежедневного использования»</li>
+<li>«Разбери результат и объясни, как презентовать»</li>
+<li>«Покажи пошагово, как сделать X с этим инструментом»</li>
+</ul>
+</div>
+</div>
+<p style="text-align:center; margin-top:20px; color:var(--muted); font-size:0.85rem;">
+<strong>Уточнения по одной и той же задаче</strong> — бесплатно, если в рамках выделенного времени
+</p>
+</div>
+</div>
+</section>
+
+<!-- Pricing -->
 <section class="pricing-section">
 <div class="container">
 <div class="pricing-grid">
 
-<!-- Starter -->
 <div class="plan-card">
 <div class="plan-name">Starter</div>
 <div class="plan-desc">Для тех, кто только начинает</div>
 <div class="plan-price">$29<span>/мес</span></div>
 <div class="plan-period">Ежемесячно, отмена в любой момент</div>
 <ul class="features-list">
+<li><strong>5 консультаций</strong> в месяц</li>
 <li>Ответы в течение 24 часов (пн-пт)</li>
-<li>Текстовые консультации в чате</li>
-<li>3 персональных вопроса в месяц</li>
+<li>Текстовые ответы в чате</li>
 <li>Доступ к базе знаний Pro</li>
-<li class="no">Помощь с конкретными рабочими задачами</li>
-<li class="no">Голосовые / видео консультации</li>
+<li class="no">Задачи (разбор + промпт + инструкция)</li>
+<li class="no">Голосовые / видео форматы</li>
 </ul>
 <a href="#contract" class="btn-plan secondary">Выбрать Starter</a>
 </div>
 
-<!-- Pro -->
 <div class="plan-card popular">
 <div class="popular-badge">Популярный</div>
 <div class="plan-name">Pro</div>
@@ -330,28 +249,27 @@ margin-bottom: 12px;
 <div class="plan-price">$79<span>/мес</span></div>
 <div class="plan-period">Ежемесячно, отмена в любой момент</div>
 <ul class="features-list">
+<li><strong>10 консультаций</strong> в месяц</li>
+<li><strong>3 задачи</strong> в месяц</li>
 <li>Ответы в течение 4 часов (пн-пт)</li>
 <li>Текст + голосовые сообщения</li>
-<li>10 персональных вопросов в месяц</li>
 <li>Доступ к базе знаний Pro</li>
-<li><strong>Помощь с рабочими задачами:</strong> «Как сделать X с ИИ»</li>
 <li>1 видео-звонок в месяц (30 мин)</li>
 </ul>
 <a href="#contract" class="btn-plan primary">Выбрать Pro</a>
 </div>
 
-<!-- Enterprise -->
 <div class="plan-card">
 <div class="plan-name">Enterprise</div>
 <div class="plan-desc">Для команд и руководителей</div>
 <div class="plan-price">$199<span>/мес</span></div>
 <div class="plan-period">Ежемесячно, отмена в любой момент</div>
 <ul class="features-list">
+<li><strong>Безлимитные консультации</strong></li>
+<li><strong>Безлимитные задачи</strong> (fair use ~20/мес)</li>
 <li>Ответы в течение 1 часа (пн-пт)</li>
 <li>Любой формат: текст, голос, видео</li>
-<li>Неограниченные вопросы</li>
 <li>Доступ к базе знаний Pro</li>
-<li><strong>Полная поддержка по задачам:</strong> скрипты, промпты, стратегия</li>
 <li>4 видео-звонка в месяц (30 мин)</li>
 </ul>
 <a href="#contract" class="btn-plan secondary">Выбрать Enterprise</a>
@@ -361,10 +279,10 @@ margin-bottom: 12px;
 </div>
 </section>
 
-<!-- SLA Section -->
+<!-- SLA -->
 <section class="sla-section">
 <div class="container">
-<h2>📋 Что вы получаете по подписке (SLA)</h2>
+<h2>📋 SLA: что вы получаете</h2>
 <div class="sla-grid">
 <div class="sla-card">
 <h4>🕐 Время ответа</h4>
@@ -372,33 +290,33 @@ margin-bottom: 12px;
 <li><strong>Starter:</strong> до 24 часов, пн-пт</li>
 <li><strong>Pro:</strong> до 4 часов, пн-пт</li>
 <li><strong>Enterprise:</strong> до 1 часа, пн-пт</li>
-<li>Уточняющие вопросы — в рамках того же запроса</li>
+<li>Уточнения — в рамках того же запроса</li>
 </ul>
 </div>
 <div class="sla-card">
 <h4>💬 Формат ответов</h4>
 <ul>
 <li><strong>Starter:</strong> текст в чате</li>
-<li><strong>Pro:</strong> текст + голос + скриншоты инструкций</li>
-<li><strong>Enterprise:</strong> любой формат + видео-звонки</li>
+<li><strong>Pro:</strong> текст + голос + скриншоты</li>
+<li><strong>Enterprise:</strong> любой формат + видео</li>
 <li>Язык: русский, английский, испанский</li>
 </ul>
 </div>
 <div class="sla-card">
-<h4>🛠 Помощь с задачами</h4>
+<h4>📦 Объём услуги</h4>
 <ul>
-<li><strong>Starter:</strong> общие рекомендации по инструментам</li>
-<li><strong>Pro:</strong> разбор вашей задачи + готовый промпт + пошаговая инструкция</li>
-<li><strong>Enterprise:</strong> полное сопровождение: от анализа задачи до внедрения</li>
+<li><strong>Консультация</strong> = до 10 минут экспертного времени</li>
+<li><strong>Задача</strong> = до 25 минут экспертного времени</li>
+<li>Уточнения по той же теме — бесплатно в рамках лимита</li>
 </ul>
 </div>
 <div class="sla-card">
 <h4>🔄 Условия подписки</h4>
 <ul>
 <li>Месячная оплата, без авто-продления</li>
-<li>Отмена в любой момент — доступ до конца оплаченного месяца</li>
-<li>Первый месяц: 7 дней на возврат, если не подошло</li>
-<li>При оплате за 3 месяца — скидка 15%</li>
+<li>Отмена в любой момент — доступ до конца месяца</li>
+<li>Первый месяц: 7 дней на возврат</li>
+<li>3 месяца — скидка 15%, 6 месяцев — 25%</li>
 </ul>
 </div>
 </div>
@@ -414,11 +332,17 @@ margin-bottom: 12px;
 
 <div class="contract-clause">
 <h4>1. Предмет услуги</h4>
-<p>SafeMind Pro — это консультационная поддержка от живого эксперта (не ИИ-бота) по вопросам использования генеративного ИИ в профессиональной деятельности. Услуга включает: ответы на вопросы, помощь в подборе инструментов, разбор конкретных рабочих задач, рекомендации по промптингу.</p>
+<p>SafeMind Pro — это консультационная поддержка от живого эксперта (не ИИ-бота) по вопросам использования генеративного ИИ в профессиональной деятельности. Услуга включает два типа запросов: <strong>консультации</strong> (быстрые ответы на вопросы) и <strong>задачи</strong> (полный разбор рабочей проблемы с готовым решением).</p>
 </div>
 
 <div class="contract-clause">
-<h4>2. SLA и время ответа</h4>
+<h4>2. Типы запросов</h4>
+<p><strong>Консультация</strong> — ответ на вопрос, не требующий подготовки: выбор инструмента, сравнение, разбор промпта, объяснение функции. Время: до 10 минут.</p>
+<p style="margin-top:8px;"><strong>Задача</strong> — разбор конкретной рабочей проблемы с результатом: готовый промпт, шаблон, инструкция, стратегия. Время: до 25 минут.</p>
+</div>
+
+<div class="contract-clause">
+<h4>3. SLA и время ответа</h4>
 <ul>
 <li><strong>Starter:</strong> до 24 часов с момента запроса (рабочие дни пн-пт, 09:00-19:00 МСК)</li>
 <li><strong>Pro:</strong> до 4 часов в тех же условиях</li>
@@ -428,17 +352,18 @@ margin-bottom: 12px;
 </div>
 
 <div class="contract-clause">
-<h4>3. Формат и объём</h4>
+<h4>4. Лимиты и объём</h4>
 <ul>
 <li>Запросы оформляются через личный чат (Telegram / email)</li>
-<li>Один «вопрос» = одна задача или проблема с чётким описанием</li>
-<li>Лимиты: Starter — 3/мес, Pro — 10/мес, Enterprise — без ограничений</li>
-<li>Ответы — в формате текст, голос или видео в зависимости от тарифа</li>
+<li>Один «запрос» = одна консультация или одна задача с чётким описанием</li>
+<li>Лимиты консультаций: Starter — 5/мес, Pro — 10/мес, Enterprise — без ограничений</li>
+<li>Лимиты задач: Starter — 0, Pro — 3/мес, Enterprise — без ограничений (fair use ~20)</li>
+<li>Перенос неиспользованных запросов на следующий месяц — нет</li>
 </ul>
 </div>
 
 <div class="contract-clause">
-<h4>4. Помощь с рабочими задачами</h4>
+<h4>5. Помощь с рабочими задачами</h4>
 <p>Эксперт помогает:</p>
 <ul>
 <li>Подобрать инструмент под вашу задачу (анализ, генерация, автоматизация)</li>
@@ -446,11 +371,11 @@ margin-bottom: 12px;
 <li>Объяснить, как применить результат на работе</li>
 <li>Дать шаблон для презентации коллегам / начальству</li>
 </ul>
-<p><strong>Не входит:</strong> выполнение работы за вас, юридические консультации, техническая поддержка сторонних сервисов.</p>
+<p style="margin-top:8px;"><strong>Не входит:</strong> выполнение работы за вас, юридические консультации, техническая поддержка сторонних сервисов.</p>
 </div>
 
 <div class="contract-clause">
-<h4>5. Оплата и продление</h4>
+<h4>6. Оплата и продление</h4>
 <ul>
 <li>Оплата — помесячно, вперёд. Следующий месяц не оплачивается автоматически.</li>
 <li>Мы напоминаем о продлении за 3 дня. Вы решаете — продлевать или нет.</li>
@@ -460,12 +385,12 @@ margin-bottom: 12px;
 </div>
 
 <div class="contract-clause">
-<h4>6. Конфиденциальность</h4>
+<h4>7. Конфиденциальность</h4>
 <p>Все задачи, документы и переписки остаются конфиденциальными. Эксперт подписывает NDA по запросу (Enterprise). Данные не передаются третьим лицам и не используются для обучения моделей.</p>
 </div>
 
 <div class="contract-clause">
-<h4>7. Отмена</h4>
+<h4>8. Отмена</h4>
 <ul>
 <li>Отмена в любой момент — без штрафов, без вопросов.</li>
 <li>Доступ сохраняется до конца оплаченного периода.</li>
@@ -485,8 +410,8 @@ margin-bottom: 12px;
 <p>Нет. ChatGPT Plus — это доступ к софту. SafeMind Pro — это доступ к человеку, который поможет вам этот софт эффективно использовать. Вы можете иметь ChatGPT Plus и всё равно не знать, как применить его в своей работе. Мы закрываем этот пробел.</p>
 </div>
 <div class="faq-item">
-<h4>❓ Что значит «помощь с задачей на работе»?</h4>
-<p>Пример: «Мне надо подготовить отчёт по продажам за квартал. Раньше я тратила 2 дня. Как сделать это за 2 часа с ИИ?» — Мы даём не просто «попробуйте ChatGPT». Мы даём: какой инструмент лучше, какой промпт, как структурировать результат, как презентовать начальнику.</p>
+<h4>❓ В чём разница между консультацией и задачей?</h4>
+<p><strong>Консультация</strong> — это когда вы спрашиваете «какой ИИ лучше для X?» и получаете ответ за 5 минут. <strong>Задача</strong> — это когда вы говорите «помоги автоматизировать мой еженедельный отчёт» и получаете готовый промпт, шаблон и пошаговую инструкцию за 20 минут.</p>
 </div>
 <div class="faq-item">
 <h4>❓ Как происходит общение?</h4>
@@ -495,6 +420,10 @@ margin-bottom: 12px;
 <div class="faq-item">
 <h4>❓ Можно ли сменить тариф?</h4>
 <p>Да, в любой момент. Разница доплачивается пропорционально. При понижении — доступ сохраняется до конца текущего месяца.</p>
+</div>
+<div class="faq-item">
+<h4>❓ Что если я исчерпал лимит задач?</h4>
+<p>Можно докупить отдельно: $15 за задачу (Starter), $12 за задачу (Pro). Или перейти на тариф выше.</p>
 </div>
 </div>
 </section>
