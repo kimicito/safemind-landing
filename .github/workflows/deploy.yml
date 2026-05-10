@@ -18,7 +18,11 @@ jobs:
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_KEY }}
           script: |
-            cd /var/www/safemind
+            cd /opt/safemind
             git pull origin master
+            cd /opt/safemind/backend
+            source venv/bin/activate 2>/dev/null || python3 -m venv venv && source venv/bin/activate
+            pip install -r requirements.txt --quiet
+            sudo systemctl restart safemind
             sudo systemctl reload nginx
-            echo "✅ Deployed at $(date)"
+            echo "✅ Frontend + Backend deployed at $(date)"
