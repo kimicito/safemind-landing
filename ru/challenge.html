@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SafeMind — 7-дневный ИИ-интенсив</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🛡️%3C/text%3E%3C/svg%3E">
+<style>
+:root {
+--bg: #F5F1EC;
+--fg: #1a1a1a;
+--accent: #C84B31;
+--accent2: #D4A574;
+--dark: #2C3E50;
+--card: #fff;
+--muted: #666;
+--light: #e8e2da;
+--gradient1: #C84B31;
+--gradient2: #E85D4E;
+--gradient3: #D4A574;
+--gradient4: #8B6F4E;
+--success: #22c55e;
+--pro: #6366F1;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+font-family: 'Inter', sans-serif;
+background: var(--bg);
+color: var(--fg);
+line-height: 1.6;
+}
+.container { max-width: 800px; margin: 0 auto; padding: 0 20px; }
+
+/* Header */
+.header {
+background: var(--card);
+padding: 16px 0;
+position: sticky;
+top: 0;
+z-index: 100;
+box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+.header-flex {
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+.logo {
+font-size: 1.3rem;
+font-weight: 800;
+color: var(--accent);
+text-decoration: none;
+}
+.logo span { color: var(--fg); }
+.nav-links a {
+color: var(--muted);
+text-decoration: none;
+font-size: 0.85rem;
+margin-left: 20px;
+transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--accent); }
+
+/* Hero */
+.hero {
+background: linear-gradient(135deg, var(--gradient1), var(--gradient2));
+color: white;
+padding: 48px 20px;
+text-align: center;
+}
+.hero h1 {
+font-size: 2rem;
+font-weight: 800;
+margin-bottom: 12px;
+}
+.hero p {
+opacity: 0.9;
+max-width: 500px;
+margin: 0 auto 24px;
+font-size: 0.95rem;
+}
+.progress-bar {
+background: rgba(255,255,255,0.2);
+border-radius: 50px;
+height: 8px;
+max-width: 300px;
+margin: 0 auto 8px;
+overflow: hidden;
+}
+.progress-fill {
+background: white;
+height: 100%;
+border-radius: 50px;
+transition: width 0.5s ease;
+}
+.progress-text {
+font-size: 0.8rem;
+opacity: 0.8;
+}
+
+/* Day Cards */
+.day-section { padding: 32px 20px; }
+.day-card {
+background: var(--card);
+border-radius: 16px;
+padding: 24px;
+margin-bottom: 20px;
+box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+transition: transform 0.2s, box-shadow 0.2s;
+}
+.day-card:hover {
+transform: translateY(-2px);
+box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+.day-header {
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin-bottom: 16px;
+}
+.day-badge {
+background: var(--light);
+padding: 4px 12px;
+border-radius: 50px;
+font-size: 0.75rem;
+font-weight: 600;
+color: var(--accent);
+}
+.day-badge.done {
+background: var(--success);
+color: white;
+}
+.day-title {
+font-size: 1.15rem;
+font-weight: 700;
+margin-bottom: 8px;
+}
+.day-desc {
+color: var(--muted);
+font-size: 0.9rem;
+margin-bottom: 16px;
+}
+
+/* Tasks */
+.task-list { list-style: none; }
+.task-item {
+display: flex;
+align-items: flex-start;
+gap: 12px;
+padding: 12px 0;
+border-bottom: 1px solid var(--light);
+cursor: pointer;
+transition: opacity 0.2s;
+}
+.task-item:last-child { border-bottom: none; }
+.task-item:hover { opacity: 0.8; }
+.checkbox {
+width: 22px;
+height: 22px;
+border: 2px solid var(--light);
+border-radius: 6px;
+flex-shrink: 0;
+margin-top: 2px;
+display: flex;
+align-items: center;
+justify-content: center;
+transition: all 0.2s;
+}
+.task-item.done .checkbox {
+background: var(--success);
+border-color: var(--success);
+}
+.task-item.done .checkbox::after {
+content: "✓";
+color: white;
+font-size: 14px;
+font-weight: 700;
+}
+.task-text {
+font-size: 0.9rem;
+}
+.task-item.done .task-text {
+text-decoration: line-through;
+color: var(--muted);
+}
+
+/* CTA Blocks */
+.cta-block {
+background: linear-gradient(135deg, var(--gradient3), var(--gradient4));
+border-radius: 16px;
+padding: 24px;
+text-align: center;
+color: white;
+margin: 24px 0;
+}
+.cta-block.pro {
+background: linear-gradient(135deg, var(--pro), #8B5CF6);
+}
+.cta-block h3 {
+font-size: 1.2rem;
+margin-bottom: 8px;
+}
+.cta-block p {
+opacity: 0.9;
+font-size: 0.9rem;
+margin-bottom: 16px;
+}
+.btn-cta {
+display: inline-flex;
+align-items: center;
+gap: 8px;
+background: white;
+color: var(--accent);
+padding: 12px 28px;
+border-radius: 50px;
+text-decoration: none;
+font-weight: 700;
+font-size: 0.9rem;
+transition: transform 0.2s;
+}
+.btn-cta:hover { transform: scale(1.05); }
+.btn-cta.pro-btn {
+color: var(--pro);
+}
+
+/* Completion */
+.completion-hero {
+background: linear-gradient(135deg, var(--success), #16a34a);
+color: white;
+padding: 48px 20px;
+text-align: center;
+border-radius: 16px;
+margin: 32px 0;
+}
+.completion-hero h2 {
+font-size: 1.8rem;
+font-weight: 800;
+margin-bottom: 12px;
+}
+.path-grid {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 16px;
+margin-top: 24px;
+}
+.path-card {
+background: var(--card);
+border-radius: 12px;
+padding: 24px;
+text-align: center;
+color: var(--fg);
+}
+.path-card h4 {
+font-size: 1.1rem;
+margin-bottom: 8px;
+}
+.path-card p {
+font-size: 0.85rem;
+color: var(--muted);
+margin-bottom: 16px;
+}
+
+@media (max-width: 640px) {
+.hero h1 { font-size: 1.5rem; }
+.path-grid { grid-template-columns: 1fr; }
+.nav-links { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="header">
+<div class="container header-flex">
+<a href="index.html" class="logo">Safe<span>Mind</span></a>
+<nav class="nav-links">
+<a href="matrix.html">Матрица</a>
+<a href="diagnostic.html">Диагностика</a>
+<a href="support.html">Поддержка</a>
+</nav>
+</div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+<div class="container">
+<h1>🎯 7-дневный ИИ-интенсив</h1>
+<p>Не учим теории. За 7 дней внедряем ИИ в вашу работу — конкретно, пошагово, с результатом.</p>
+<div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+<p class="progress-text" id="progressText">0 из 7 дней выполнено</p>
+</div>
+</section>
+
+<!-- Day 1 -->
+<section class="day-section">
+<div class="container">
+<div class="day-card" data-day="1">
+<div class="day-header">
+<span class="day-badge">День 1</span>
+<span style="color:var(--muted);font-size:0.8rem">15 минут</span>
+</div>
+<h3 class="day-title">Аудит задач</h3>
+<p class="day-desc">Узнайте, какие из ваших задач ИИ уже может делать лучше и быстрее.</p>
+<ul class="task-list">
+<li class="task-item" onclick="toggleTask(this)">
+<div class="checkbox"></div>
+<span class="task-text">Выписать 5 рутинных задач на неделю</span>
+</li>
+<li class="task-item" onclick="toggleTask(this)">
+<div class="checkbox"></div>
+<span class="task-text">Оценить каждую по времени (1-10 баллов)</span>
+</li>
+<li class="task-item" onclick="toggleTask(this)">
+<div class="checkbox"></div>
+<span class="task-text">Отметить 3, которые ИИ мог бы ускорить</span>
+</li>
+</ul>
+</div>
+
+<!-- Day 2 -->
+<div class="day-card" data-day="2">
+<div class="day-header">
+<span class="day-badge">День 2</span>
+<span style="color:var(--muted);font-size:0.8rem">20 минут</span>
+</div>
+<h3 class="day-title">Первый инструмент</h3>
+<p class="day-desc">Попробуйте ChatGPT на реальной рабочей задаче — не абстрактно.</p>
+<ul class="task-list">
+<li class="task-item" onclick="toggleTask(this)">
+<div class="checkbox"></div>
+<span class="task-text">Взять 1 задачу из аудита (День 1)</span>
+</li>
+<li class="task-item" onclick="toggleTask(this)">
+<div class="checkbox"></div>
+<span class="task-text">Составить промпт (используйте гайд из PDF)</span>
+</li>
+<li class="task-item" onclick="toggleTask(this)">
+<div class="checkbox"></div>
+<span class="task-text">Сравнить результат: вы vs ИИ. Зафиксировать время</span>
+</li>
+</ul>
+</div>
+
+<!-- Day 3 — Mid-funnel CTA -->
+<div class="day-card" data-day="3">
+<div class="day-header">
+<span class="day-badge">День 3</span>
+<span style="color:var(--muted);font-size:0.8rem">Проверка</span>
+</div>
+<h3 class="day-title">Как идёт?</h3>
+<p class="day-desc">Третий день — точка выбора. Справляетесь сами или нужна поддержка?</p>
+<ul class="task-list">
+<li class="task-item" onclick="toggleTask(this)">
+<div class="checkbox"></div>
+<span class="task-text">Повторить задачу Дня 2 — но уже без гайда</span>
+</li>
+<li class="task-item" onclick="toggleTask(this)">
+<div class="checkbox"></div>
+<span class="task-text">Замерить время: стало ли быстрее?</span>
+</li>
+</ul>
+</div>
+
+<!-- Mid-funnel: Support CTA -->
+<div class="cta-block" id="ctaSupport">
+<h3>🔥 Затруднения на третий день — нормально</h3>
+<p>80% людей сталкиваются с тем, что ИИ «не понимает" их задачи. Это не ваша вина — это навык промптинга. Мы поможем за 1 сессию.</p>
+<a href="support.html" class="btn-cta">Получить поддержку эксперта →</a>
+</div>
+
+<!-- Day 4 -->
+<div class="day-card" data-day="4">
+<div class="day-header">
+<span class="day-badge">День 4</span>
+<span style="color:var(--muted);font-size:0.8rem">25 минут</span>
+</div>
+<h3 class="day-title">Автоматизация рутины</h3>
+<p class="day-desc">Создайте шаблоны и промпты, которые будете использовать каждую неделю.</p>
+<ul class="task-list">
+<li class="task-item" onclick="toggleTask(this)">
+<div class="checkbox"></div>
+<span class="task-text">Составить 3 универсальных промпта под свои задачи</span>
+</li>
+<li class="task-item" onclick="toggleTask(this)">
+<div class="checkbox"></div>
+<span class="task-text">Сохранить их в заметках (Notion / документ)</span>
+</li>
+<li class="task-item" onclick="toggleTask(this)">
+<div class="checkbox"></div>
+<span class="task-text">Протестировать на новой задаче — замерить экономию</span>
+</li>
+</ul>
+</div>
+
+<!-- Day 5 -->
+<div class="day-card" data-day="5">
+<div class="day-header">
+<span class="day-badge">День 5</span>
+<span style="color:var(--muted);font-size:0.8rem">30 минут</span>
+</div>
+<h3 class="day-title">Презентация коллегам</h3>
+<p class="day-desc">Не прятайте, что используете ИИ. Покажите — и станьте экспертом в команде.</p>
+<ul class="task-list">
+<li class="task-item" onclick="toggleTask(this)">
+<div class="checkbox"></div>
+<span class="task-text">Подготовить 1-слайд: «Как я сократил время на X за Y%»</span>
+</li>
+<li class="task-item" onclick="toggleTask(this)">
+<div class="checkbox"></div>
+<span class="task-text">Показать коллегам / начальнику</span>
+</li>
+<li class="task-item" onclick="toggleTask(this)">
+<div class="checkbox"></div>
+<span class="task-text">Зафиксировать обратную связь</span>
+</li>
+</ul>
+</div>
+
+<!-- Day 6 -->
+<div class="day-card" data-day="6">
+<div class="day-header">
+<span class="day-badge">День 6</span>
+<span style="color:var(--muted);font-size:0.8rem">20 минут</span>
+</div>
+<h3 class="day-title">Расширение арсенала</h3>
+<p class="day-desc">Попробуйте 1 новый инструмент из матрицы компетенций.</p>
+<ul class="task-list">
+<li class="task-item" onclick="toggleTask(this)">
+<div class="checkbox"></div>
+<span class="task-text">Выбрать трек из Матрицы (кроме ChatGPT)</span>
+</li>
+<li class="task-item" onclick="toggleTask(this)">
+<div class="checkbox"></div>
+<span class="task-text">Попробовать инструмент на тестовой задаче</span>
+</li>
+<li class="task-item" onclick="toggleTask(this)">
+<div class="checkbox"></div>
+<span class="task-text">Записать: подходит / не подходит / почему</span>
+</li>
+</ul>
+</div>
+
+<!-- Day 7 — Final -->
+<div class="day-card" data-day="7">
+<div class="day-header">
+<span class="day-badge">День 7</span>
+<span style="color:var(--muted);font-size:0.8rem">Финал</span>
+</div>
+<h3 class="day-title">Итог и план</h3>
+<p class="day-desc">Подведите результаты недели и выберите следующий шаг.</p>
+<ul class="task-list">
+<li class="task-item" onclick="toggleTask(this)">
+<div class="checkbox"></div>
+<span class="task-text">Посчитать суммарную экономию времени за неделю</span>
+</li>
+<li class="task-item" onclick="toggleTask(this)">
+<div class="checkbox"></div>
+<span class="task-text">Определить 3 инструмента, которые внедрите постоянно</span>
+</li>
+<li class="task-item" onclick="toggleTask(this)">
+<div class="checkbox"></div>
+<span class="task-text">Записать цель на следующие 30 дней</span>
+</li>
+</ul>
+</div>
+</div>
+</section>
+
+<!-- Completion -->
+<section class="container" id="completionBlock" style="display:none">
+<div class="completion-hero">
+<h2>🎉 Вы справились!</h2>
+<p>За 7 дней вы внедрили ИИ в работу. Теперь выбор: углубляться самому или с поддержкой.</p>
+
+<div class="path-grid">
+<div class="path-card">
+<h4>🚀 Я справился сам</h4>
+<p>Круто! ИИ — ваш инструмент, не конкурент. Хотите систематизировать знания?</p>
+<a href="index.html#pricing" class="btn-cta" style="background:var(--accent);color:white">SafeMind Pro →</a>
+</div>
+<div class="path-card">
+<h4>🤝 Нужна поддержка</h4>
+<p>Менторство, групповые сессии, персональный план — вы не одни.</p>
+<a href="support.html" class="btn-cta pro-btn">Менторство →</a>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Pro CTA (shown before completion too) -->
+<section class="container" style="padding: 32px 20px">
+<div class="cta-block pro">
+<h3>💎 Хотите больше, чем 7 дней?</h3>
+<p>SafeMind Pro — 30-дневный план под вашу роль: шаблоны, скрипты, чек-ины с экспертом, приоритет в сообществе.</p>
+<a href="index.html#pricing" class="btn-cta pro-btn">Узнать про Pro →</a>
+</div>
+</section>
+
+<!-- Footer -->
+<footer style="background:var(--dark);color:white;padding:32px 20px;text-align:center;font-size:0.8rem">
+<div class="container">
+<p>SafeMind — оставайтесь человеком в эру ИИ</p>
+<p style="margin-top:8px;opacity:0.6"><a href="index.html" style="color:var(--accent2)">На главную</a> • <a href="matrix.html" style="color:var(--accent2)">Матрица</a> • <a href="diagnostic.html" style="color:var(--accent2)">Диагностика</a></p>
+</div>
+</footer>
+
+<script>
+// Toggle task completion
+function toggleTask(el) {
+el.classList.toggle('done');
+saveProgress();
+updateProgress();
+}
+
+// Save to localStorage
+function saveProgress() {
+const days = {};
+document.querySelectorAll('.day-card').forEach(card => {
+const day = card.dataset.day;
+const total = card.querySelectorAll('.task-item').length;
+const done = card.querySelectorAll('.task-item.done').length;
+days[day] = { total, done };
+});
+localStorage.setItem('safemind_challenge', JSON.stringify(days));
+}
+
+// Load from localStorage
+function loadProgress() {
+const saved = localStorage.getItem('safemind_challenge');
+if (!saved) return;
+const days = JSON.parse(saved);
+document.querySelectorAll('.day-card').forEach(card => {
+const day = card.dataset.day;
+if (!days[day]) return;
+const items = card.querySelectorAll('.task-item');
+items.forEach((item, i) => {
+if (i < days[day].done) item.classList.add('done');
+});
+});
+updateProgress();
+}
+
+// Update progress bar
+function updateProgress() {
+let totalTasks = 0;
+let doneTasks = 0;
+let completedDays = 0;
+
+document.querySelectorAll('.day-card').forEach(card => {
+const day = card.dataset.day;
+const items = card.querySelectorAll('.task-item');
+const done = card.querySelectorAll('.task-item.done').length;
+totalTasks += items.length;
+doneTasks += done;
+if (done === items.length && items.length > 0) completedDays++;
+
+// Update badge
+const badge = card.querySelector('.day-badge');
+if (done === items.length && items.length > 0) {
+badge.classList.add('done');
+badge.textContent = '✓ ' + badge.textContent.replace('✓ ', '');
+}
+});
+
+const pct = totalTasks > 0 ? Math.round((doneTasks / totalTasks) * 100) : 0;
+document.getElementById('progressFill').style.width = pct + '%';
+document.getElementById('progressText').textContent = completedDays + ' из 7 дней выполнено (' + pct + '%)';
+
+// Show completion if all done
+if (completedDays === 7) {
+document.getElementById('completionBlock').style.display = 'block';
+window.scrollTo({ top: document.getElementById('completionBlock').offsetTop - 100, behavior: 'smooth' });
+}
+}
+
+// Init
+loadProgress();
+</script>
+
+</body>
+</html>
