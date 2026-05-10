@@ -131,6 +131,7 @@ PDF_URLS = {
         "transport": f"{FRONTEND_URL}/pdfs/safemind_survival_guide_en_transport.pdf",
         "procurement": f"{FRONTEND_URL}/pdfs/safemind_survival_guide_en_procurement.pdf",
         "economist": f"{FRONTEND_URL}/pdfs/safemind_survival_guide_en_economist.pdf",
+        "other": f"{FRONTEND_URL}/pdfs/safemind_survival_guide_en_universal.pdf",
     },
     "ru": {
         "marketing": f"{FRONTEND_URL}/pdfs/safemind_free_guide_ru_marketing.pdf",
@@ -141,6 +142,7 @@ PDF_URLS = {
         "transport": f"{FRONTEND_URL}/pdfs/safemind_free_guide_ru_transport.pdf",
         "procurement": f"{FRONTEND_URL}/pdfs/safemind_free_guide_ru_procurement.pdf",
         "economist": f"{FRONTEND_URL}/pdfs/safemind_free_guide_ru_economist.pdf",
+        "other": f"{FRONTEND_URL}/pdfs/safemind_survival_guide_ru_universal.pdf",
     },
     "es": {
         "marketing": f"{FRONTEND_URL}/pdfs/safemind_survival_guide_es_marketing.pdf",
@@ -418,11 +420,11 @@ def get_pdf_url(role: str, lang: str) -> str:
     role_map = {
         "marketing": "marketing", "hr": "hr", "teacher": "teacher", "legal": "legal",
         "finance": "finance", "transport": "transport", "procurement": "procurement",
-        "economist": "economist"
+        "economist": "economist", "other": "other"
     }
-    mapped_role = role_map.get(role, "marketing")
+    mapped_role = role_map.get(role, "other")
     urls = PDF_URLS.get(lang, PDF_URLS["ru"])
-    return urls.get(mapped_role, urls["marketing"])
+    return urls.get(mapped_role, urls.get("marketing"))
 
 def send_welcome_email(lead: Lead):
     lang = lead.lang if lead.lang in EMAIL_TEMPLATES else "ru"
