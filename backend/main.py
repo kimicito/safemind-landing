@@ -20,6 +20,9 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, Session
 from dotenv import load_dotenv
 
+# Load .env BEFORE reading environment variables
+load_dotenv()
+
 # Email providers
 EMAIL_PROVIDER = os.getenv("EMAIL_PROVIDER", "unisender").lower()  # 'resend' or 'unisender'
 
@@ -31,8 +34,6 @@ elif EMAIL_PROVIDER == "unisender":
     UNISENDER_API_KEY = os.getenv("UNISENDER_API_KEY", "")
     UNISENDER_LIST_ID = os.getenv("UNISENDER_LIST_ID", "")
     ADMIN_EMAIL = os.getenv("ADMIN_EMAIL", "project@logistoria.com")
-
-load_dotenv()
 
 # ─── Config ───────────────────────────────────────────────────
 DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://safemind:safemind_secure_pass_2026@localhost:5432/safemind")
