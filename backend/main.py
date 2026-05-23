@@ -29,6 +29,8 @@ if EMAIL_PROVIDER == "resend":
 elif EMAIL_PROVIDER == "unisender":
     import requests
     UNISENDER_API_KEY = os.getenv("UNISENDER_API_KEY", "")
+    UNISENDER_LIST_ID = os.getenv("UNISENDER_LIST_ID", "")
+    ADMIN_EMAIL = os.getenv("ADMIN_EMAIL", "project@logistoria.com")
 
 load_dotenv()
 
@@ -120,7 +122,56 @@ def verify_admin(token: str = Header(..., alias="X-Admin-Token")):
         raise HTTPException(status_code=403, detail="Invalid admin token")
     return True
 
-# ─── PDF URLs ─────────────────────────────────────────────────
+# ─── Logistoria Endpoint ─────────────────────────────────────────
+class LogistoriaLeadRequest(BaseModel):
+    email: EmailStr
+    name: str
+    role: str = "demo_request"
+    company: Optional[str] = None
+    phone: Optional[str] = None
+
+@app.post("/api/logistoria-lead", status_code=200)
+def logistoria_lead(
+    req: LogistoriaLeadRequest,
+    background_tasks: BackgroundTasks
+):
+    """Endpoint for Logistoria website leads — adds to Unisender list 152 + notifies admin"""
+    
+    # Add to Unisender list 152 (Logistoria)
+    list_added = False
+    if UNISENDER_API_KEY:
+        list_added = add_to_unisender_list(
+            email=req.email,
+            name=req.name,
+            list_id="152",
+            source="logistoria_website"
+        )
+    
+    # Send notification to admin
+    admin_notified = False
+    if UNISENDER_API_KEY and ADMIN_EMAIL:
+        subject = "Новая заявка с сайта Logistoria"
+        body = f"""<html>
+<body style="font-family: Arial, sans-serif; max-width: 600px; padding: 20px;">
+<h2>Новая заявка с сайта Logistoria</h2>
+<p><strong>Email:</strong> {req.email}</p>
+<p><strong>Имя:</strong> {req.name}</p>
+<p><strong>Компания:</strong> {req.company or "Не указана"}</p>
+<p><strong>Телефон:</strong> {req.phone or "Не указан"}</p>
+<p><strong>Тип заявки:</strong> {req.role}</p>
+<p><strong>Время:</strong> {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}</p>
+<hr>
+<p><em>Автоматически отправлено из системы Logistoria</em></p>
+</body></html>"""
+        admin_notified = send_email(ADMIN_EMAIL, subject, body)
+    
+    logger.info(f"Logistoria lead: {req.email} ({req.name}, {req.role}) — List: {list_added}, Admin: {admin_notified}")
+    return {
+        "message": "Lead captured successfully",
+        "list_added": list_added,
+        "admin_notified": admin_notified,
+        "email": req.email
+    }
 PDF_URLS = {
     "en": {
         "marketing": f"{FRONTEND_URL}/pdfs/safemind_survival_guide_en_marketing.pdf",
@@ -359,7 +410,7 @@ EMAIL_TEMPLATES = {
 }
 
 # ─── Email Service ────────────────────────────────────────────
-def send_email_unisender(to: str, subject: str, html_body: str) -> bool:
+def send_email_unisender(to: str, subject: str, html_body: str, list_id: str = "149") -> bool:
     """Send email via Unisender API (Russia)"""
     if not UNISENDER_API_KEY:
         logger.warning("UNISENDER_API_KEY not set, skipping email send")
@@ -375,7 +426,7 @@ def send_email_unisender(to: str, subject: str, html_body: str) -> bool:
             "sender_email": FROM_EMAIL,
             "subject": subject,
             "body": html_body,
-            "list_id": "149",  # SafeMind Leads list
+            "list_id": list_id,
         }
         response = requests.get(url, params=params, timeout=30)
         result = response.json()
@@ -416,7 +467,54 @@ def send_email(to: str, subject: str, html_body: str) -> bool:
         logger.warning(f"Unknown email provider: {EMAIL_PROVIDER}")
         return False
 
-def get_pdf_url(role: str, lang: str) -> str:
+def add_to_unisender_list(email: str, name: str, list_id: str, source: str = "website") -> bool:
+    """Add contact to Unisender mailing list"""
+    if not UNISENDER_API_KEY:
+        logger.warning("UNISENDER_API_KEY not set, skipping list add")
+        return False
+    
+    try:
+        url = "https://api.unisender.com/ru/api/subscribe"
+        params = {
+            "format": "json",
+            "api_key": UNISENDER_API_KEY,
+            "list_ids": list_id,
+            "fields[email]": email,
+            "fields[Name]": name,
+            "fields[source]": source,
+            "double_optin": "0",
+            "overwrite": "0"
+        }
+        response = requests.get(url, params=params, timeout=30)
+        result = response.json()
+        
+        if "error" in result:
+            logger.error(f"Unisender subscribe error: {result['error']}")
+            return False
+        
+        logger.info(f"Contact added to list {list_id}: {email}")
+        return True
+    except Exception as e:
+        logger.error(f"Failed to add contact to Unisender list: {e}")
+        return False
+
+def notify_admin(email: str, name: str, role: str, project: str) -> bool:
+    """Send notification email to admin"""
+    if not UNISENDER_API_KEY:
+        return False
+    
+    subject = f"Новая заявка с сайта {project}"
+    body = f"""<html>
+<body style="font-family: Arial, sans-serif; max-width: 600px; padding: 20px;">
+<h2>Новая заявка</h2>
+<p><strong>Проект:</strong> {project}</p>
+<p><strong>Email:</strong> {email}</p>
+<p><strong>Имя:</strong> {name}</p>
+<p><strong>Роль/Форма:</strong> {role}</p>
+<p><strong>Время:</strong> {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}</p>
+</body></html>"""
+    
+    return send_email_unisender(ADMIN_EMAIL, subject, body, list_id="152")
     role_map = {
         "marketing": "marketing", "hr": "hr", "teacher": "teacher", "legal": "legal",
         "finance": "finance", "transport": "transport", "procurement": "procurement",
@@ -458,6 +556,13 @@ def subscribe(
     db.add(lead)
     db.commit()
     db.refresh(lead)
+    
+    # Add to Unisender list 149 (SafeMind)
+    if UNISENDER_LIST_ID:
+        add_to_unisender_list(req.email, req.role, UNISENDER_LIST_ID, "safemind")
+    
+    # Notify admin
+    notify_admin(req.email, req.role, req.role, "SafeMind")
     
     background_tasks.add_task(send_welcome_and_update, lead.id)
     logger.info(f"New lead subscribed: {req.email} ({req.role}, {req.lang})")
