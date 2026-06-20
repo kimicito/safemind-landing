@@ -3,6 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Диагностика готовности к ИИ — узнайте ваш уровень и получите персональный план.">
+<meta property="og:title" content="Диагностика ИИ — SafeMind">
+<meta property="og:description" content="Узнайте ваш уровень готовности к эре ИИ и получите персональный план.">
+<meta property="og:type" content="website">
 <title>Диагностика ИИ — SafeMind</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
@@ -208,9 +212,35 @@ header p {
   font-weight: 700;
   margin-top: 12px;
 }
+.nav-fixed {
+  position: sticky;
+  top: 0;
+  background: rgba(255,255,255,0.9);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--light);
+  padding: 12px 20px;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.nav-fixed a { text-decoration: none; color: var(--accent); font-weight: 700; }
+.nav-fixed .nav-links { display: flex; gap: 16px; }
+.nav-fixed .nav-links a { font-weight: 500; color: var(--muted); font-size: 0.85rem; }
+.nav-fixed .nav-links a:hover { color: var(--accent); }
 </style>
 </head>
 <body>
+<nav class="nav-fixed">
+  <a href="index.html" style="font-size:1.1rem;">🛡️ SafeMind</a>
+  <div class="nav-links">
+    <a href="index.html">Главная</a>
+    <a href="pro.html">Pro</a>
+    <a href="diagnostic.html">Тест</a>
+    <a href="matrix.html">Матрица</a>
+    <a href="support.html">Поддержка</a>
+  </div>
+</nav>
 <div class="container">
   <header>
     <h1>🧠 Диагностика «Где ты с ИИ?»</h1>
